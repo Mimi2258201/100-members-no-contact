@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://lmqeo6epk8da"]
 
-[ext_resource type="Script" uid="uid://b0q7xum48q66b" path="res://Actual Game Folder/scripts/world.gd" id="1_ne8rj"]
+[ext_resource type="Script" path="res://Actual Game Folder/scripts/world.gd" id="1_ne8rj"]
 [ext_resource type="PackedScene" uid="uid://v7nekrafjjr1" path="res://Actual Game Folder/scenes/menu.tscn" id="2_qhasu"]
-[ext_resource type="PackedScene" uid="uid://c5srio2figxlm" path="res://Actual Game Folder/scenes/sandboxes/test-turtletennis.tscn" id="3_6bh1v"]
+[ext_resource type="PackedScene" uid="uid://c5srio2figxlm" path="res://Actual Game Folder/scenes/sandboxes/turtletennis/test-turtletennis.tscn" id="3_6bh1v"]
 [ext_resource type="PackedScene" uid="uid://e1d03bbv2uh" path="res://Actual Game Folder/scenes/components/player.tscn" id="3_qhasu"]
+[ext_resource type="Script" uid="uid://pbx5c2p7gv2v" path="res://Actual Game Folder/scripts/follow_cam.gd" id="5_uddqa"]
 
 [node name="World" type="Node2D" unique_id=373101808]
 script = ExtResource("1_ne8rj")
@@ -15,3 +16,10 @@ script = ExtResource("1_ne8rj")
 [node name="Node2D" parent="Gameplay" unique_id=1666082091 instance=ExtResource("3_6bh1v")]
 
 [node name="Player" parent="Gameplay/Node2D" unique_id=1516017166 instance=ExtResource("3_qhasu")]
+move_strength_decay = 0.5
+spin_deceleration = 0.5
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=709782618 node_paths=PackedStringArray("target")]
+script = ExtResource("5_uddqa")
+target = NodePath("../Gameplay/Node2D/Player")
+follow_magnitude = 5.0
