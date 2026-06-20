@@ -1,7 +1,14 @@
 [gd_scene format=3 uid="uid://cfdefk30w2x3n"]
 
 [ext_resource type="PackedScene" uid="uid://e1d03bbv2uh" path="res://Actual Game Folder/scenes/components/player.tscn" id="1_ix2qu"]
+[ext_resource type="PackedScene" uid="uid://8lhagpb4srx" path="res://Actual Game Folder/scenes/components/bumper.tscn" id="2_p5wng"]
 
 [node name="Gameplay" type="Node2D" unique_id=72458947]
 
 [node name="Player" parent="." unique_id=1516017166 instance=ExtResource("1_ix2qu")]
+
+[node name="Bumper" parent="." unique_id=136064467 instance=ExtResource("2_p5wng")]
+position = Vector2(815, 260)
+
+[node name="Bumper2" parent="." unique_id=1849325355 instance=ExtResource("2_p5wng")]
+position = Vector2(318, 496)

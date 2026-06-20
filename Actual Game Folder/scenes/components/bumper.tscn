@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://8lhagpb4srx"]
+
+[ext_resource type="Script" uid="uid://482rpd4xhd4o" path="res://Actual Game Folder/scripts/bumper.gd" id="1_5bfg6"]
+[ext_resource type="Texture2D" uid="uid://dfnd1vi857ywp" path="res://Miscellanious Assets Dump/Image/placeholder_bumper.svg" id="2_vwqir"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lksfj"]
+radius = 133.07666
+
+[node name="Bumper" type="Area2D" unique_id=136064467]
+script = ExtResource("1_5bfg6")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=177470594]
+scale = Vector2(0.23208192, 0.23208195)
+texture = ExtResource("2_vwqir")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1542797790]
+position = Vector2(-3.8146973e-06, -3.8146973e-06)
+scale = Vector2(0.24899998, 0.24899998)
+shape = SubResource("CircleShape2D_lksfj")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
