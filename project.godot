@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Globals="*uid://brj3ue0ettw70"
+SceneManager="*uid://bwdblnajwfnkl"
 
 [dotnet]
 

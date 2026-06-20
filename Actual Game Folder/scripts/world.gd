@@ -10,9 +10,3 @@ extends Node2D
 # - End screen
 # - Settings?
 #   - Who cares about settings anyway right? We don't have time for that.
-
-func _ready() -> void:
-	pass # Replace with function body.
-
-func _process(delta: float) -> void:
-	pass

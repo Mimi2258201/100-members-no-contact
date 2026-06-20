@@ -1,11 +1,22 @@
 [gd_scene format=3 uid="uid://v7nekrafjjr1"]
 
+[ext_resource type="Script" uid="uid://cifjv677mnvrn" path="res://Actual Game Folder/scripts/button/let_it_rip.gd" id="1_jgfn2"]
+[ext_resource type="Texture2D" uid="uid://bwucxqtoakuy6" path="res://Miscellanious Assets Dump/Image/backgrounds/background_blue_distortion_640x320.png" id="1_pvo6j"]
+
 [node name="Menu" type="Control" unique_id=1552408488]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -1.0
 offset_right = 1151.0
 offset_bottom = 648.0
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1581558929]
+layout_mode = 0
+offset_left = 1.0000002
+offset_right = 641.0
+offset_bottom = 360.0
+scale = Vector2(1.7996016, 1.7983135)
+texture = ExtResource("1_pvo6j")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1381603728]
 layout_mode = 0
@@ -22,10 +33,11 @@ text = "BEYBLADE!!"
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=1341774072]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=1017300428]
+[node name="LET IT RIP" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=876020753]
 layout_mode = 2
-text = "Let it RIP"
+text = "LET IT RIP!"
+script = ExtResource("1_jgfn2")
 
-[node name="Button2" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=876020753]
+[node name="EXIT" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=1017300428]
 layout_mode = 2
-text = "Let it rip!"
+text = "EXIT"
