@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cfdefk30w2x3n"]
 
 [ext_resource type="PackedScene" uid="uid://e1d03bbv2uh" path="res://Actual Game Folder/scenes/components/player.tscn" id="1_ix2qu"]
-[ext_resource type="PackedScene" uid="uid://dwi47bu6yrahx" path="res://Actual Game Folder/scenes/levels/level1.tscn" id="2_p5wng"]
+[ext_resource type="PackedScene" uid="uid://c5srio2figxlm" path="res://Actual Game Folder/scenes/levels/level1.tscn" id="2_p5wng"]
 [ext_resource type="Script" uid="uid://pbx5c2p7gv2v" path="res://Actual Game Folder/scripts/follow_cam.gd" id="3_lksfj"]
 
 [node name="Gameplay" type="Node2D" unique_id=72458947]
