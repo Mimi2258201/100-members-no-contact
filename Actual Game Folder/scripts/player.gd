@@ -72,7 +72,7 @@ func _on_body_entered(body: Node) -> void:
 
 	var camera := get_viewport().get_camera_2d()
 	if camera and camera.has_method("add_trauma"):
-		camera.add_trauma(0.25)
+		camera.add_trauma(0.3)
 
 	if(body is Node2D):
 		var body2D = body as Node2D

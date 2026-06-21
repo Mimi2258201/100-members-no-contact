@@ -2,8 +2,8 @@ extends Camera2D
 
 @export var target : Node2D
 @export var follow_magnitude : float = 2
-@export var shake_decay : float = 4.0
-@export var shake_max_offset : float = 8.0
+@export var shake_decay : float = 5.0
+@export var shake_max_offset : float = 14.0
 
 var trauma : float = 0.0
 
@@ -13,7 +13,7 @@ func _process(delta: float) -> void:
 
 	if trauma > 0.0:
 		trauma = max(trauma - shake_decay * delta, 0.0)
-		var amount := trauma * trauma
+		var amount := trauma
 		offset = Vector2(
 			randf_range(-1.0, 1.0) * shake_max_offset * amount,
 			randf_range(-1.0, 1.0) * shake_max_offset * amount
