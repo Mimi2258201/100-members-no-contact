@@ -4,6 +4,11 @@ extends CharacterBody2D
 @export var max_speed: float = 150.0
 @export var acceleration: float = 1200.0
 @export var friction: float = 1200.0
+#rolling
+@export var roll_speed: float = 500 
+@export var roll_duration: float = 0.3     
+var is_rolling: bool = false
+var roll_direction: Vector2 = Vector2.DOWN
 
 #animations
 var last_direction: Vector2 = Vector2.DOWN
@@ -19,6 +24,8 @@ var is_dialogue_active: bool = false
 var dialogue_pages: Array[String] = []
 var current_page: int = 0
 
+#sounds
+@onready var roll_sound: AudioStreamPlayer2D = $RollSound
 
 func _ready():
 	# Signal Connections
@@ -31,6 +38,12 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("interact"):
 			advance_dialogue()
 		return
+	
+	if is_rolling:
+		velocity = roll_direction * roll_speed
+		move_and_slide()
+		return
+		
 	if near_enemy and Input.is_action_just_pressed("interact"):
 		start_dialog(near_enemy.dialogue)
 		return
@@ -40,7 +53,11 @@ func _physics_process(delta):
 	input_direction.x = Input.get_action_strength("right") - Input.get_action_strength("left")
 	input_direction.y = Input.get_action_strength("down") - Input.get_action_strength("up")
 	input_direction = input_direction.normalized()
-
+	
+	#They see me rolling! They hating
+	if Input.is_action_just_pressed("roll") and input_direction != Vector2.ZERO:
+		start_rolling(input_direction)
+		return
 	# Move
 	if input_direction != Vector2.ZERO:
 		velocity = velocity.move_toward(input_direction * max_speed, acceleration * delta)
@@ -52,6 +69,33 @@ func _physics_process(delta):
 	
 	# Animations
 	update_animations(input_direction)
+
+func start_rolling(direction: Vector2):
+	is_rolling = true
+	roll_direction = direction
+	
+	print("Rolling (suggestion from K)")
+	if roll_sound:
+		roll_sound.play()
+	
+	if abs(roll_direction.x) > abs(roll_direction.y):
+		if roll_direction.x > 0:
+			sprite.play("roll_right")
+		else:
+			sprite.play("roll_left")
+	else:
+		if roll_direction.y > 0:
+			sprite.play("roll_down")
+		else:
+			sprite.play("roll_up")
+			
+	await get_tree().create_timer(roll_duration).timeout
+	end_rolling()
+
+func end_rolling():
+	is_rolling = false
+	# What are trying to do man? keep rolling? get out of here!!!
+	velocity = Vector2.ZERO
 
 # Character Animations Manager
 func update_animations(direction: Vector2):

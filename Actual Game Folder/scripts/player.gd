@@ -240,4 +240,3 @@ func _update_hp_label() -> void:
 
 func _update_timer_label() -> void:
 	_timer_label.text = "SURVIVE: %d" % ceil(_survive_left)
-

@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://3n8wbd5ksjsw" path="res://Actual Game Folder/scripts/exploration/player_ex.gd" id="1_l66dl"]
 [ext_resource type="Texture2D" uid="uid://bssqvkylmoitv" path="res://Actual Game Folder/sprites/characters/Racoon_32x32.png" id="2_amyne"]
 [ext_resource type="PackedScene" uid="uid://crxweoeu82b5b" path="res://Actual Game Folder/scenes/components/exploration/dialog_box.tscn" id="3_5cf5f"]
+[ext_resource type="Texture2D" uid="uid://dn4q7n5pt8ktp" path="res://Actual Game Folder/sprites/characters/rolling.png" id="3_5vtx8"]
+[ext_resource type="AudioStream" uid="uid://rfavnlat2hw2" path="res://Miscellanious Assets Dump/Audio/sfx/vine-boom.wav" id="5_6oa3t"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y4cep"]
 atlas = ExtResource("2_amyne")
@@ -67,6 +69,22 @@ region = Rect2(64, 96, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_wpfm0"]
 atlas = ExtResource("2_amyne")
 region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6oa3t"]
+atlas = ExtResource("3_5vtx8")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jh42y"]
+atlas = ExtResource("3_5vtx8")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1k1vv"]
+atlas = ExtResource("3_5vtx8")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pkh13"]
+atlas = ExtResource("3_5vtx8")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jl33b"]
 atlas = ExtResource("2_amyne")
@@ -268,6 +286,38 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_6oa3t")
+}],
+"loop": true,
+"name": &"roll_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jh42y")
+}],
+"loop": true,
+"name": &"roll_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1k1vv")
+}],
+"loop": true,
+"name": &"roll_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pkh13")
+}],
+"loop": true,
+"name": &"roll_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_jl33b")
 }, {
 "duration": 1.0,
@@ -389,9 +439,6 @@ size = Vector2(16, 21)
 [sub_resource type="CircleShape2D" id="CircleShape2D_tnv23"]
 radius = 22.355711
 
-[sub_resource type="LabelSettings" id="LabelSettings_5cf5f"]
-font_size = 8
-
 [node name="PlayerEx" type="Node2D" unique_id=300371094]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1208135547]
@@ -400,8 +447,7 @@ script = ExtResource("1_l66dl")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=1935904447]
 sprite_frames = SubResource("SpriteFrames_ro5rq")
-animation = &"walk_down"
-frame_progress = 0.97247094
+animation = &"idle_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=33557156]
 position = Vector2(0, 1.5)
@@ -424,12 +470,7 @@ scale = Vector2(0.6666667, 0.6666667)
 [node name="DialogueBox" parent="CharacterBody2D/Camera2D/DialogueBox" index="2" unique_id=1503575011]
 visible = true
 
-[node name="Label" type="Label" parent="CharacterBody2D" unique_id=641539050]
-offset_left = -84.66667
-offset_top = 12.666667
-offset_right = 99.33333
-offset_bottom = 32.666668
-text = "What if I could roll too?(suggestion from K)"
-label_settings = SubResource("LabelSettings_5cf5f")
+[node name="RollSound" type="AudioStreamPlayer2D" parent="CharacterBody2D" unique_id=1114729136]
+stream = ExtResource("5_6oa3t")
 
 [editable path="CharacterBody2D/Camera2D/DialogueBox"]

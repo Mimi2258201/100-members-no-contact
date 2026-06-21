@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://vust36y4oh0x" path="res://Actual Game Folder/scripts/button/end_battle.gd" id="4_endb"]
 [ext_resource type="Script" uid="uid://tocbl38lyft2" path="res://Actual Game Folder/scripts/exploration/enemy_spawner.gd" id="5_spawn"]
 [ext_resource type="PackedScene" uid="uid://b8h0rd3scene1" path="res://Actual Game Folder/scenes/components/exploration/horde_enemy.tscn" id="6_horde"]
+[ext_resource type="Script" uid="uid://camugoxes6n5f" path="res://Actual Game Folder/scripts/exploration/arena_obstacles.gd" id="7_obst"]
 
 [node name="Gameplay" type="Node2D" unique_id=72458947]
 
@@ -29,9 +30,9 @@ player = NodePath("../../Player")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1524686198 node_paths=PackedStringArray("target")]
 zoom = Vector2(1.6, 1.6)
 limit_left = -736
-limit_top = -192
-limit_right = 224
-limit_bottom = 224
+limit_top = -416
+limit_right = 736
+limit_bottom = 416
 script = ExtResource("3_lksfj")
 target = NodePath("../Player")
 follow_magnitude = 4.0
@@ -49,6 +50,10 @@ offset_bottom = 47.0
 grow_horizontal = 0
 text = "End Battle"
 script = ExtResource("4_endb")
+
+[node name="ArenaObstacles" type="Node" parent="."]
+script = ExtResource("7_obst")
+tilemap_path = NodePath("../Levels/Level1/TileMapLayer")
 
 [node name="EnemySpawner" type="Node2D" parent="."]
 script = ExtResource("5_spawn")
