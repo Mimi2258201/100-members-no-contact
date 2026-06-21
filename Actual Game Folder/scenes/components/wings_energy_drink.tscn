@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bffbri46urpf1"]
 
 [ext_resource type="Texture2D" uid="uid://ds5bw0r6fknon" path="res://Actual Game Folder/sprites/power_ups/wings_energy_drink_32x32.png" id="1_hscps"]
+[ext_resource type="Script" uid="uid://g33ldj77qr4g" path="res://Actual Game Folder/scripts/power-ups/wings_energy_drink.gd" id="1_jr2cw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jr2cw"]
 atlas = ExtResource("1_hscps")
@@ -66,7 +67,20 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f57rx"]
+size = Vector2(20, 33)
+
 [node name="Node2D" type="Node2D" unique_id=1829701078]
+script = ExtResource("1_jr2cw")
+energy_amount = 5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1161638840]
 sprite_frames = SubResource("SpriteFrames_al5t6")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=446691681]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1939469876]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_f57rx")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,4 +1,5 @@
 extends RigidBody2D
+class_name Player
 
 # TODO:
 # Add collision shape for the player
@@ -72,3 +73,10 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			sparks.global_position = state.get_contact_local_position(i)
 			get_parent().add_child(sparks)
 			get_tree().create_timer(0.1).timeout.connect(sparks.queue_free)
+
+# this is used to give the player a buff 
+# feel free to use it as much as you want in other scripts 
+# its pretty self explanatory
+func gain_energy(amount):
+	spin_velocity += amount
+	
