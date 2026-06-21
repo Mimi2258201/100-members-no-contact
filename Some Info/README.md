@@ -13,7 +13,7 @@ We're making a Beyblade roguelike/metroidvania deckbuilder RPG (Or Beyblade buil
 
   * https://github.com/JMkitarian
   * https://hennya.itch.io
-* Elemental themed tileset
+* Elemental themed tilesets (fire, ice, water, grass)
 
   * https://stanningthewaterman.itch.io/
 
