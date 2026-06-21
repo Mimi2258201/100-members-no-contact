@@ -72,6 +72,7 @@ size = Vector2(20, 33)
 
 [node name="Node2D" type="Node2D" unique_id=1829701078]
 script = ExtResource("1_jr2cw")
+spin_speed = 2.0
 energy_amount = 5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1161638840]
