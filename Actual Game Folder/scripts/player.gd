@@ -18,6 +18,7 @@ const SPARKS_SCENE = preload("res://Actual Game Folder/scenes/components/sparks.
 @export var default_velocity: float = 20
 @export var spin_velocity_drop_on_collision: float = 1
 @export var spin_velocity_drop_over_time: float = 1
+@export var collision_shake_trauma: float = 0.3
 
 @export_category("Resources")
 @export var launch_sfx_stream : AudioStream
@@ -72,7 +73,7 @@ func _on_body_entered(body: Node) -> void:
 
 	var camera := get_viewport().get_camera_2d()
 	if camera and camera.has_method("add_trauma"):
-		camera.add_trauma(0.3)
+		camera.add_trauma(collision_shake_trauma)
 
 	if(body is Node2D):
 		var body2D = body as Node2D
