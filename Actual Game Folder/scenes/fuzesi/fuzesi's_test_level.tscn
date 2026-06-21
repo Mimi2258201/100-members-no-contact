@@ -1,12 +1,6 @@
 [gd_scene format=3 uid="uid://dysbju1sbyufy"]
 
-[ext_resource type="Texture2D" uid="uid://vx3wyv4xot2r" path="res://Miscellanious Assets Dump/Image/fuzesi/bcy2A0.png" id="1_jfctn"]
-[ext_resource type="Texture2D" uid="uid://dtir154f1vhcl" path="res://Miscellanious Assets Dump/Image/fuzesi/bcyaA0.png" id="2_f77c7"]
-[ext_resource type="Texture2D" uid="uid://bdj681vgo4704" path="res://Miscellanious Assets Dump/Image/fuzesi/bpi2A0.png" id="3_h65ds"]
-[ext_resource type="Texture2D" uid="uid://ci00v7010tds" path="res://Miscellanious Assets Dump/Image/fuzesi/bpinA0.png" id="4_0c5an"]
-[ext_resource type="Texture2D" uid="uid://dtapayamnuorq" path="res://Miscellanious Assets Dump/Image/fuzesi/bpurA0.png" id="5_yoj5l"]
-[ext_resource type="Texture2D" uid="uid://bej8jkljtaag2" path="res://Miscellanious Assets Dump/Image/fuzesi/bredA0.png" id="6_nalk2"]
-[ext_resource type="Texture2D" uid="uid://e60cca3mjjb8" path="res://Miscellanious Assets Dump/Image/fuzesi/byelA0.png" id="7_w6yuv"]
+[ext_resource type="PackedScene" uid="uid://btyiwsd0lk751" path="res://Actual Game Folder/scenes/fuzesi/prefabs/bokeh.tscn" id="1_ymqpk"]
 
 [sub_resource type="Environment" id="Environment_rm3p4"]
 background_mode = 1
@@ -14,49 +8,7 @@ background_color = Color(0.38253343, 0.49126393, 0.6004323, 1)
 
 [node name="Fuzesi\'sTestLevel" type="Node2D" unique_id=694995948]
 
-[node name="Bokeh" type="Node2D" parent="." unique_id=576392670]
-
-[node name="Bcy2a0" type="Sprite2D" parent="Bokeh" unique_id=1271160838]
-self_modulate = Color(1, 1, 1, 0.58431375)
-texture_filter = 2
-position = Vector2(489, 287)
-texture = ExtResource("1_jfctn")
-
-[node name="BcyaA0" type="Sprite2D" parent="Bokeh" unique_id=541994561]
-self_modulate = Color(1, 1, 1, 0.58431375)
-texture_filter = 2
-position = Vector2(896, 483)
-texture = ExtResource("2_f77c7")
-
-[node name="Bpi2a0" type="Sprite2D" parent="Bokeh" unique_id=25801837]
-self_modulate = Color(1, 1, 1, 0.58431375)
-texture_filter = 2
-position = Vector2(661, 127)
-texture = ExtResource("3_h65ds")
-
-[node name="BpinA0" type="Sprite2D" parent="Bokeh" unique_id=1211280860]
-self_modulate = Color(1, 1, 1, 0.58431375)
-texture_filter = 2
-position = Vector2(821, 291)
-texture = ExtResource("4_0c5an")
-
-[node name="BpurA0" type="Sprite2D" parent="Bokeh" unique_id=728848973]
-self_modulate = Color(1, 1, 1, 0.58431375)
-texture_filter = 2
-position = Vector2(547, 497)
-texture = ExtResource("5_yoj5l")
-
-[node name="BredA0" type="Sprite2D" parent="Bokeh" unique_id=1778134941]
-self_modulate = Color(1, 1, 1, 0.58431375)
-texture_filter = 2
-position = Vector2(213, 170)
-texture = ExtResource("6_nalk2")
-
-[node name="ByelA0" type="Sprite2D" parent="Bokeh" unique_id=699987867]
-self_modulate = Color(1, 1, 1, 0.58431375)
-texture_filter = 2
-position = Vector2(227, 486)
-texture = ExtResource("7_w6yuv")
+[node name="Bokeh" parent="." unique_id=1758084172 instance=ExtResource("1_ymqpk")]
 
 [node name="Settings" type="Node2D" parent="." unique_id=989340135]
 

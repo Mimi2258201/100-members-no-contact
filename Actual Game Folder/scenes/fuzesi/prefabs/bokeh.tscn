@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://btyiwsd0lk751"]
+
+[ext_resource type="Texture2D" uid="uid://vx3wyv4xot2r" path="res://Miscellanious Assets Dump/Image/fuzesi/bcy2A0.png" id="1_ajlpe"]
+[ext_resource type="Script" uid="uid://dydc5113yj8v8" path="res://Actual Game Folder/scenes/fuzesi/scripts/bokeh_movement.gd" id="2_wnwrh"]
+[ext_resource type="Texture2D" uid="uid://dtir154f1vhcl" path="res://Miscellanious Assets Dump/Image/fuzesi/bcyaA0.png" id="3_jt5yu"]
+[ext_resource type="Texture2D" uid="uid://bdj681vgo4704" path="res://Miscellanious Assets Dump/Image/fuzesi/bpi2A0.png" id="4_7t8wf"]
+[ext_resource type="Texture2D" uid="uid://ci00v7010tds" path="res://Miscellanious Assets Dump/Image/fuzesi/bpinA0.png" id="5_0r4em"]
+[ext_resource type="Texture2D" uid="uid://dtapayamnuorq" path="res://Miscellanious Assets Dump/Image/fuzesi/bpurA0.png" id="6_oh8m1"]
+[ext_resource type="Texture2D" uid="uid://bej8jkljtaag2" path="res://Miscellanious Assets Dump/Image/fuzesi/bredA0.png" id="7_y1un2"]
+[ext_resource type="Texture2D" uid="uid://e60cca3mjjb8" path="res://Miscellanious Assets Dump/Image/fuzesi/byelA0.png" id="8_x57ju"]
+
+[node name="Bokeh" type="Node2D" unique_id=1758084172]
+
+[node name="Bcy2a0" type="Sprite2D" parent="." unique_id=104785206]
+self_modulate = Color(1, 1, 1, 0.29411766)
+texture_filter = 2
+position = Vector2(489, 287)
+texture = ExtResource("1_ajlpe")
+script = ExtResource("2_wnwrh")
+
+[node name="BcyaA0" type="Sprite2D" parent="." unique_id=1391774209]
+self_modulate = Color(1, 1, 1, 0.29411766)
+texture_filter = 2
+position = Vector2(896, 483)
+texture = ExtResource("3_jt5yu")
+script = ExtResource("2_wnwrh")
+
+[node name="Bpi2a0" type="Sprite2D" parent="." unique_id=1021873175]
+self_modulate = Color(1, 1, 1, 0.29411766)
+texture_filter = 2
+position = Vector2(661, 127)
+texture = ExtResource("4_7t8wf")
+script = ExtResource("2_wnwrh")
+
+[node name="BpinA0" type="Sprite2D" parent="." unique_id=1669844670]
+self_modulate = Color(1, 1, 1, 0.29411766)
+texture_filter = 2
+position = Vector2(821, 291)
+texture = ExtResource("5_0r4em")
+script = ExtResource("2_wnwrh")
+
+[node name="BpurA0" type="Sprite2D" parent="." unique_id=1853522410]
+self_modulate = Color(1, 1, 1, 0.29411766)
+texture_filter = 2
+position = Vector2(547, 497)
+texture = ExtResource("6_oh8m1")
+script = ExtResource("2_wnwrh")
+
+[node name="BredA0" type="Sprite2D" parent="." unique_id=1669040169]
+self_modulate = Color(1, 1, 1, 0.29411766)
+texture_filter = 2
+position = Vector2(213, 170)
+texture = ExtResource("7_y1un2")
+script = ExtResource("2_wnwrh")
+
+[node name="ByelA0" type="Sprite2D" parent="." unique_id=861886944]
+self_modulate = Color(1, 1, 1, 0.29411766)
+texture_filter = 2
+position = Vector2(227, 486)
+texture = ExtResource("8_x57ju")
+script = ExtResource("2_wnwrh")
