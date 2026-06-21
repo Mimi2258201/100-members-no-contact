@@ -129,11 +129,6 @@ func finish_dialogue():
 	current_page = 0
 	
 	if near_enemy and "is_bad" in near_enemy and near_enemy.is_bad:
-		var next_scene = near_enemy.next_scene
-		
-		if next_scene != "":
-			print("We are entering the fight >:)))")
-			get_tree().change_scene_to_file(next_scene)
-		else:
-			print("Error: The enemy has no map assigned")
+		print("We are entering the fight >:)))")
+		SceneManager.enter_battle(near_enemy.get_combat_data())
 			

@@ -1,6 +1,7 @@
 extends Control
 
 @export var start_button : Button
+@export var story_button : Button
 @export var exit_button : Button
 @export var button_hover_stream : AudioStream
 @export var button_click_stream : AudioStream
@@ -10,6 +11,8 @@ extends Control
 func _ready() -> void:
 	start_button.pressed.connect(start)
 	start_button.mouse_entered.connect(hover)
+	story_button.pressed.connect(story)
+	story_button.mouse_entered.connect(hover)
 	exit_button.pressed.connect(exit)
 	exit_button.mouse_entered.connect(hover)
 	AudioManager.play_music_stream(music_stream)
@@ -19,7 +22,11 @@ func hover():
 
 func start():
 	AudioManager.play_sfx(button_click_stream,Vector2.ZERO)
-	SceneManager.change_screen(SceneManager.SceneKey.GAMEPLAY)
+	SceneManager.enter_battle()
+
+func story():
+	AudioManager.play_sfx(button_click_stream,Vector2.ZERO)
+	SceneManager.change_screen(SceneManager.SceneKey.EXPLORATION)
 
 func exit():
 	var sPlayer = AudioManager.get_sfx_player(button_click_stream,Vector2.ZERO)
