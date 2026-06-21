@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://e1d03bbv2uh"]
+[gd_scene load_steps=8 format=3 uid="uid://e1d03bbv2uh"]
 
-[ext_resource type="Script" uid="uid://bn5pltvin1n7e" path="res://Actual Game Folder/scripts/player.gd" id="1_7buym"]
+[ext_resource type="Script" path="res://Actual Game Folder/scripts/player.gd" id="1_7buym"]
 [ext_resource type="Texture2D" uid="uid://hs2box2ysjnk" path="res://Miscellanious Assets Dump/Image/beyblades/pixelart/Blade1.png" id="2_kmxop"]
 [ext_resource type="AudioStream" uid="uid://cg0753hy0g0aa" path="res://Miscellanious Assets Dump/Audio/sfx/collide.wav" id="3_4jqa0"]
 [ext_resource type="AudioStream" uid="uid://c055dhcymjmqp" path="res://Miscellanious Assets Dump/Audio/ripcord.mp3" id="3_kmxop"]
@@ -12,7 +12,7 @@ bounce = 0.5
 [sub_resource type="CircleShape2D" id="CircleShape2D_kmxop"]
 radius = 84.0
 
-[node name="Player" type="RigidBody2D" unique_id=1992090891 groups=["player"]]
+[node name="Player" type="RigidBody2D" groups=["player"]]
 mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_7buym")
 gravity_scale = 0.0
@@ -21,21 +21,21 @@ script = ExtResource("1_7buym")
 launch_sfx_stream = ExtResource("3_kmxop")
 collision_sfx_stream = ExtResource("3_4jqa0")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2048784928]
-position = Vector2(-3.8146973e-06, -3.8146973e-06)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-3.8147e-06, -3.8147e-06)
 texture = ExtResource("2_kmxop")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1556826632]
-position = Vector2(-3.8146973e-06, -3.8146973e-06)
-scale = Vector2(0.24899998, 0.24899998)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3.8147e-06, -3.8147e-06)
+scale = Vector2(0.249, 0.249)
 shape = SubResource("CircleShape2D_kmxop")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=739930474]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_kmxop")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=648291034]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="SpinBar" type="ProgressBar" parent="CanvasLayer" unique_id=847563921]
+[node name="SpinBar" type="ProgressBar" parent="CanvasLayer"]
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 216.0

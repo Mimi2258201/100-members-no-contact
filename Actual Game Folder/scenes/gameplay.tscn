@@ -1,33 +1,33 @@
-[gd_scene format=3 uid="uid://cfdefk30w2x3n"]
+[gd_scene load_steps=9 format=3 uid="uid://cfdefk30w2x3n"]
 
 [ext_resource type="PackedScene" uid="uid://e1d03bbv2uh" path="res://Actual Game Folder/scenes/components/player.tscn" id="1_ix2qu"]
 [ext_resource type="PackedScene" uid="uid://c5srio2figxlm" path="res://Actual Game Folder/scenes/levels/level1.tscn" id="2_p5wng"]
 [ext_resource type="PackedScene" uid="uid://bffbri46urpf1" path="res://Actual Game Folder/scenes/components/wings_energy_drink.tscn" id="3_6nv6i"]
-[ext_resource type="Script" uid="uid://pbx5c2p7gv2v" path="res://Actual Game Folder/scripts/follow_cam.gd" id="3_lksfj"]
-[ext_resource type="Script" uid="uid://vust36y4oh0x" path="res://Actual Game Folder/scripts/button/end_battle.gd" id="4_endb"]
-[ext_resource type="Script" uid="uid://tocbl38lyft2" path="res://Actual Game Folder/scripts/exploration/enemy_spawner.gd" id="5_spawn"]
+[ext_resource type="Script" path="res://Actual Game Folder/scripts/follow_cam.gd" id="3_lksfj"]
+[ext_resource type="Script" path="res://Actual Game Folder/scripts/button/end_battle.gd" id="4_endb"]
+[ext_resource type="Script" path="res://Actual Game Folder/scripts/exploration/enemy_spawner.gd" id="5_spawn"]
 [ext_resource type="PackedScene" uid="uid://b8h0rd3scene1" path="res://Actual Game Folder/scenes/components/exploration/horde_enemy.tscn" id="6_horde"]
-[ext_resource type="Script" uid="uid://camugoxes6n5f" path="res://Actual Game Folder/scripts/exploration/arena_obstacles.gd" id="7_obst"]
+[ext_resource type="Script" path="res://Actual Game Folder/scripts/exploration/arena_obstacles.gd" id="7_obst"]
 
-[node name="Gameplay" type="Node2D" unique_id=72458947]
+[node name="Gameplay" type="Node2D"]
 
-[node name="Player" parent="." unique_id=1516017166 instance=ExtResource("1_ix2qu")]
+[node name="Player" parent="." instance=ExtResource("1_ix2qu")]
 
-[node name="Levels" type="Node" parent="." unique_id=1993832825]
+[node name="Levels" type="Node" parent="."]
 
-[node name="Level1" parent="Levels" unique_id=1666082091 instance=ExtResource("2_p5wng")]
+[node name="Level1" parent="Levels" instance=ExtResource("2_p5wng")]
 
-[node name="Node2D" parent="Levels" unique_id=1829701078 node_paths=PackedStringArray("player") instance=ExtResource("3_6nv6i")]
+[node name="Node2D" parent="Levels" node_paths=PackedStringArray("player") instance=ExtResource("3_6nv6i")]
 position = Vector2(-431, -31)
 energy_amount = 20
 player = NodePath("../../Player")
 
-[node name="Node2D2" parent="Levels" unique_id=1663880578 node_paths=PackedStringArray("player") instance=ExtResource("3_6nv6i")]
+[node name="Node2D2" parent="Levels" node_paths=PackedStringArray("player") instance=ExtResource("3_6nv6i")]
 position = Vector2(-280, 91)
 energy_amount = 20
 player = NodePath("../../Player")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1524686198 node_paths=PackedStringArray("target")]
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
 zoom = Vector2(1.6, 1.6)
 limit_left = -736
 limit_top = -416
@@ -37,9 +37,9 @@ script = ExtResource("3_lksfj")
 target = NodePath("../Player")
 follow_magnitude = 4.0
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=556390758]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="EndBattle" type="Button" parent="CanvasLayer" unique_id=556390759]
+[node name="EndBattle" type="Button" parent="CanvasLayer"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -59,8 +59,6 @@ tilemap_path = NodePath("../Levels/Level1/TileMapLayer")
 script = ExtResource("5_spawn")
 enemy_scene = ExtResource("6_horde")
 target_path = NodePath("../Player")
-spawn_interval = 1.0
 max_enemies = 40
-base_batch = 2
 max_per_tick = 6
 ramp_seconds = 8.0

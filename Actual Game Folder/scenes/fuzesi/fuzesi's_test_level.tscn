@@ -1,19 +1,19 @@
-[gd_scene format=3 uid="uid://dysbju1sbyufy"]
+[gd_scene load_steps=3 format=3 uid="uid://dysbju1sbyufy"]
 
 [ext_resource type="PackedScene" uid="uid://btyiwsd0lk751" path="res://Actual Game Folder/scenes/fuzesi/prefabs/bokeh.tscn" id="1_ymqpk"]
 
 [sub_resource type="Environment" id="Environment_rm3p4"]
 background_mode = 1
-background_color = Color(0.38253343, 0.49126393, 0.6004323, 1)
+background_color = Color(0.382533, 0.491264, 0.600432, 1)
 
-[node name="Fuzesi\'sTestLevel" type="Node2D" unique_id=694995948]
+[node name="Fuzesi\'sTestLevel" type="Node2D"]
 
-[node name="Bokeh" parent="." unique_id=1758084172 instance=ExtResource("1_ymqpk")]
+[node name="Bokeh" parent="." instance=ExtResource("1_ymqpk")]
 
-[node name="Settings" type="Node2D" parent="." unique_id=989340135]
+[node name="Settings" type="Node2D" parent="."]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Settings" unique_id=2068293895]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Settings"]
 environment = SubResource("Environment_rm3p4")
 
-[node name="Camera2D" type="Camera2D" parent="Settings" unique_id=1712911527]
+[node name="Camera2D" type="Camera2D" parent="Settings"]
 position = Vector2(577, 324)

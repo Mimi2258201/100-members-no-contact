@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" format=3 uid="uid://tndguwt33lqb"]
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://tndguwt33lqb"]
 
 [ext_resource type="Texture2D" uid="uid://dg6s8x6e17l0u" path="res://Actual Game Folder/sprites/tilesets/sci-fi-platformer-tiles-32x32-extension.png" id="1_kd5m0"]
 
@@ -462,17 +462,17 @@ texture_region_size = Vector2i(32, 32)
 7:24/0 = 0
 7:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 8:24/0 = 0
-8:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, -1.7297096, -16, -1.0014114)
+8:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, -1.72971, -16, -1.00141)
 9:24/0 = 0
-9:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 16, 16, 16, 16, 1.7297096, -16, 1.0014114)
+9:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 16, 16, 16, 16, 1.72971, -16, 1.00141)
 10:24/0 = 0
-10:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, 16, 16, -16, 1.7297096, -16, 1.0014114, 16)
+10:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, 16, 16, -16, 1.72971, -16, 1.00141, 16)
 11:24/0 = 0
-11:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, -16, 16, -1.7297096, 16, -1.0014114, -16)
+11:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, -16, 16, -1.72971, 16, -1.00141, -16)
 12:24/0 = 0
-12:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(13.20042, 16, 12.836269, -16, -12.472118, -16, -11.561745, 16)
+12:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(13.2004, 16, 12.8363, -16, -12.4721, -16, -11.5617, 16)
 13:24/0 = 0
-13:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 13.20042, 16, 12.836269, 16, -12.472118, -16, -11.561745)
+13:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 13.2004, 16, 12.8363, 16, -12.4721, -16, -11.5617)
 14:24/0 = 0
 14:24/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 0:25/0 = 0

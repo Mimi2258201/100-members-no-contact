@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cu4pdsycljoly"]
 
-[node name="Sparks" type="CPUParticles2D" unique_id=1848342763]
+[node name="Sparks" type="CPUParticles2D"]
 position = Vector2(1, 0)
 amount = 100
 lifetime = 0.5

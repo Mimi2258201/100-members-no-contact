@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://vieumik3lhr0"]
+[gd_scene load_steps=10 format=3 uid="uid://vieumik3lhr0"]
 
-[ext_resource type="Script" uid="uid://b1h2f2iwtg0mn" path="res://Actual Game Folder/scripts/exploration/base_enemy.gd" id="1_dqcla"]
+[ext_resource type="Script" path="res://Actual Game Folder/scripts/exploration/base_enemy.gd" id="1_dqcla"]
 [ext_resource type="Texture2D" uid="uid://eyvahe76u8tt" path="res://Actual Game Folder/sprites/characters/Bird_32x32.png" id="1_ulhlx"]
 [ext_resource type="FontFile" uid="uid://dv0dl3euktrdp" path="res://Miscellanious Assets Dump/Fonts/COMIC-SANS.otf" id="3_r74aq"]
 
@@ -41,29 +41,29 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y7t0u"]
-size = Vector2(17.333334, 22)
+size = Vector2(17.3333, 22)
 
-[node name="Enemy" type="Node2D" unique_id=877257698]
+[node name="Enemy" type="Node2D"]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=112792622 groups=["interactable"]]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["interactable"]]
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_dqcla")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=1816504557]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
 sprite_frames = SubResource("SpriteFrames_yrocj")
 animation = &"idle_down"
-frame_progress = 0.61396635
+frame_progress = 0.613966
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=710863254]
-position = Vector2(4.7683716e-07, 1)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(4.76837e-07, 1)
 shape = SubResource("RectangleShape2D_y7t0u")
 
-[node name="Indicator" type="Label" parent="CharacterBody2D" unique_id=1651577831]
+[node name="Indicator" type="Label" parent="CharacterBody2D"]
 visible = false
-offset_left = -17.333332
-offset_top = -23.333332
-offset_right = 17.666668
-offset_bottom = -11.333332
+offset_left = -17.3333
+offset_top = -23.3333
+offset_right = 17.6667
+offset_bottom = -11.3333
 theme_override_fonts/font = ExtResource("3_r74aq")
 theme_override_font_sizes/font_size = 10
 text = "Press E"

@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+#Is the tileset made by us? if not we should credit it - Cube
+
+
 #movements
 @export var max_speed: float = 150.0
 @export var acceleration: float = 1200.0
@@ -168,7 +171,10 @@ func finish_dialogue():
 	dialogue_pages = []
 	current_page = 0
 	
+	#Added a check to see if it's a mechanic and if so teleport to garage
 	if near_enemy and "is_bad" in near_enemy and near_enemy.is_bad:
 		print("We are entering the fight >:)))")
 		SceneManager.enter_battle(near_enemy.get_combat_data())
-			
+	elif near_enemy and "is_mechanic":
+		print("It's a mechanic! :)")
+		SceneManager.change_screen(SceneManager.SceneKey.GARAGE)

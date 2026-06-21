@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://crxweoeu82b5b"]
+[gd_scene load_steps=6 format=3 uid="uid://crxweoeu82b5b"]
 
 [ext_resource type="FontFile" uid="uid://dv0dl3euktrdp" path="res://Miscellanious Assets Dump/Fonts/COMIC-SANS.otf" id="1_oyx10"]
 
 [sub_resource type="Gradient" id="Gradient_xi8lt"]
-offsets = PackedFloat32Array(0.50663716)
+offsets = PackedFloat32Array(0.506637)
 colors = PackedColorArray(0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_oyx10"]
@@ -12,24 +12,27 @@ width = 450
 height = 80
 
 [sub_resource type="Gradient" id="Gradient_qx3ms"]
-offsets = PackedFloat32Array(0.45353982)
-colors = PackedColorArray(0.2907537, 0.3145815, 0.3935563, 1)
+offsets = PackedFloat32Array(0.45354)
+colors = PackedColorArray(0.290754, 0.314582, 0.393556, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_31whx"]
 gradient = SubResource("Gradient_qx3ms")
 width = 440
 height = 70
 
-[node name="DialogueBox" type="Node2D" unique_id=941970375]
+[node name="DialogueBox" type="Node2D"]
 
-[node name="Background" type="Sprite2D" parent="." unique_id=2137386086]
+[node name="Background" type="Sprite2D" parent="."]
+z_index = 100
 texture = SubResource("GradientTexture2D_oyx10")
 
-[node name="Foreground" type="Sprite2D" parent="." unique_id=1053360217]
+[node name="Foreground" type="Sprite2D" parent="."]
+z_index = 101
 texture = SubResource("GradientTexture2D_31whx")
 
-[node name="DialogueBox" type="Panel" parent="." unique_id=1503575011]
+[node name="DialogueBox" type="Panel" parent="."]
 visible = false
+z_index = 102
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -42,7 +45,7 @@ offset_bottom = 27.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DialogueText" type="RichTextLabel" parent="DialogueBox" unique_id=1741728343]
+[node name="DialogueText" type="RichTextLabel" parent="DialogueBox"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -59,7 +62,7 @@ theme_override_fonts/normal_font = ExtResource("1_oyx10")
 bbcode_enabled = true
 text = "Hello [wave] Blader [/wave] Are you ready for the du- du- du- du- du- duel? (¬‿¬) "
 
-[node name="PromptText" type="Label" parent="DialogueBox" unique_id=404736802]
+[node name="PromptText" type="Label" parent="DialogueBox"]
 layout_mode = 0
 offset_left = 407.0
 offset_top = 32.0
