@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b5xyt6hpwoq1h"
+path="res://.godot/imported/button_press.wav-f551a3604dc237fa1dd23406553e57ec.sample"
+
+[deps]
+
+source_file="res://Miscellanious Assets Dump/Audio/sfx/button_press.wav"
+dest_files=["res://.godot/imported/button_press.wav-f551a3604dc237fa1dd23406553e57ec.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

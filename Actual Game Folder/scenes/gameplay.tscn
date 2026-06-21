@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://e1d03bbv2uh" path="res://Actual Game Folder/scenes/components/player.tscn" id="1_ix2qu"]
 [ext_resource type="PackedScene" uid="uid://c5srio2figxlm" path="res://Actual Game Folder/scenes/levels/level1.tscn" id="2_p5wng"]
+[ext_resource type="PackedScene" uid="uid://bffbri46urpf1" path="res://Actual Game Folder/scenes/components/wings_energy_drink.tscn" id="3_6nv6i"]
 [ext_resource type="Script" uid="uid://pbx5c2p7gv2v" path="res://Actual Game Folder/scripts/follow_cam.gd" id="3_lksfj"]
 
 [node name="Gameplay" type="Node2D" unique_id=72458947]
@@ -12,8 +13,20 @@
 
 [node name="Level1" parent="Levels" unique_id=1666082091 instance=ExtResource("2_p5wng")]
 
+[node name="Node2D" parent="Levels" unique_id=1829701078 node_paths=PackedStringArray("player") instance=ExtResource("3_6nv6i")]
+position = Vector2(-431, -31)
+energy_amount = 20
+player = NodePath("../../Player")
+
+[node name="Node2D2" parent="Levels" unique_id=1663880578 node_paths=PackedStringArray("player") instance=ExtResource("3_6nv6i")]
+position = Vector2(-280, 91)
+energy_amount = 20
+player = NodePath("../../Player")
+
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1524686198 node_paths=PackedStringArray("target")]
 zoom = Vector2(2, 2)
 script = ExtResource("3_lksfj")
 target = NodePath("../Player")
 follow_magnitude = 4.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=556390758]
