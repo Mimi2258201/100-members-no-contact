@@ -1,11 +1,9 @@
 [gd_scene format=3 uid="uid://lmqeo6epk8da"]
 
 [ext_resource type="Script" uid="uid://b0q7xum48q66b" path="res://Actual Game Folder/scripts/world.gd" id="1_ne8rj"]
-[ext_resource type="AudioStream" uid="uid://bnss0855gpofg" path="res://Miscellanious Assets Dump/Audio/music/beyblades-battle.mp3" id="2_6bh1v"]
 [ext_resource type="PackedScene" uid="uid://v7nekrafjjr1" path="res://Actual Game Folder/scenes/menu.tscn" id="2_qhasu"]
 
 [node name="World" type="Node2D" unique_id=373101808]
 script = ExtResource("1_ne8rj")
-menuMusic = ExtResource("2_6bh1v")
 
 [node name="Menu" parent="." unique_id=1552408488 instance=ExtResource("2_qhasu")]

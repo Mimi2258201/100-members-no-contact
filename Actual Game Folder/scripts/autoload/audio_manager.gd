@@ -5,10 +5,12 @@ var sfxPlayerPoolStartCount = 10
 var musicPlayer : AudioStreamPlayer
 var sfxBusName = "sfx"
 var musicBusName = "music"
+var volume = 0.25
 
 func _ready() -> void:
 	musicPlayer = AudioStreamPlayer.new()
 	musicPlayer.bus = musicBusName
+	musicPlayer.volume_db = linear_to_db(volume)
 	add_child(musicPlayer)
 
 	for i in range(sfxPlayerPoolStartCount):
