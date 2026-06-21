@@ -12,6 +12,7 @@ class_name Player
 # we can tweek these until the game feels fun
 const SPARKS_SCENE = preload("res://Actual Game Folder/scenes/components/sparks.tscn")
 const DRINK_SCENE = preload("res://Actual Game Folder/scenes/components/wings_energy_drink.tscn")
+const SPIN_BLUR_SHADER = preload("res://Actual Game Folder/shaders/spin_blur.gdshader")
 
 
 @export_category("Statistics")
@@ -50,6 +51,17 @@ const DRINK_SCENE = preload("res://Actual Game Folder/scenes/components/wings_en
 @export var dash_radius: float = 52.0
 @export var dash_boss_knockback: float = 260.0
 
+@export_category("Spin Blur")
+@export var spin_blur_strength: float = 1.0
+@export var spin_blur_max_angle: float = 0.9
+@export var spin_blur_min_spin: float = 14.0
+@export_range(2, 24) var spin_blur_samples: int = 12
+
+@export_category("Player Glow")
+@export var blade_glow_color: Color = Color(0.3, 0.7, 1.0)
+@export var blade_glow_strength: float = 0.9
+@export var blade_glow_width: float = 2.5
+
 @export_category("Boost FX")
 @export var afterimage_interval: float = 0.018
 @export var afterimage_fade: float = 0.3
@@ -78,6 +90,7 @@ var _dash_vel: float = 0.0
 var _dash_hits: Array = []
 var _fx_accum: float = 0.0
 var _spark_cd: float = 0.0
+var _blade_material: ShaderMaterial
 var _hp_bar: ProgressBar
 var _hp_val: Label
 var _spin_meter: ProgressBar
@@ -95,6 +108,7 @@ func _ready() -> void:
 
 	_health = max_health
 	spin_velocity = starting_spin_velocity
+	_setup_spin_blur()
 	_setup_hud()
 
 func _physics_process(delta: float) -> void:
@@ -104,6 +118,7 @@ func _physics_process(delta: float) -> void:
 	_update_boss_ui()
 
 	$Sprite2D.rotate(spin_velocity * delta)
+	_update_spin_blur(delta)
 
 	spin_velocity = clamp(spin_velocity - spin_velocity_drop_over_time * delta, spin_floor, spin_cap)
 
@@ -129,6 +144,38 @@ func _physics_process(delta: float) -> void:
 	apply_force(current_velocity * spin_velocity) #Just proprtional to spin velocity rn, some physics guy please make cleaner logic idk how beyblades work
 
 	_shred_horde(delta)
+
+func _setup_spin_blur() -> void:
+	var spr := $Sprite2D as Sprite2D
+	if spr == null:
+		return
+	_blade_material = ShaderMaterial.new()
+	_blade_material.shader = SPIN_BLUR_SHADER
+	_blade_material.set_shader_parameter("samples", spin_blur_samples)
+	_blade_material.set_shader_parameter("blur_angle", 0.0)
+	_blade_material.set_shader_parameter("glow_color", blade_glow_color)
+	_blade_material.set_shader_parameter("glow_strength", blade_glow_strength)
+	_blade_material.set_shader_parameter("glow_width", blade_glow_width)
+	spr.material = _blade_material
+
+func _update_spin_blur(delta: float) -> void:
+	if _blade_material == null:
+		return
+	var arc := 0.0
+	if spin_velocity > spin_blur_min_spin:
+		arc = minf((spin_velocity - spin_blur_min_spin) * delta * spin_blur_strength, spin_blur_max_angle)
+	_blade_material.set_shader_parameter("blur_angle", arc)
+
+# tex must be centered and full-frame (no atlas) or the blur pivots wrong
+func set_blade_texture(tex: Texture2D) -> void:
+	var spr := $Sprite2D as Sprite2D
+	if spr == null:
+		return
+	spr.texture = tex
+	if _blade_material == null:
+		_setup_spin_blur()
+	elif spr.material != _blade_material:
+		spr.material = _blade_material
 
 # radius shred (not physics contact, which was unreliable), scaled by spin and speed
 func _shred_horde(delta: float) -> void:
@@ -334,6 +381,8 @@ func _die() -> void:
 	player_died = true
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0.0
+	if _blade_material:
+		_blade_material.set_shader_parameter("blur_angle", 0.0)
 	_gameover_label.visible = true
 	_stop_spawners()
 
@@ -343,6 +392,8 @@ func _win() -> void:
 	_won = true
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0.0
+	if _blade_material:
+		_blade_material.set_shader_parameter("blur_angle", 0.0)
 	_objective_label.visible = false
 	_boss_bar.visible = false
 	_victory_label.visible = true

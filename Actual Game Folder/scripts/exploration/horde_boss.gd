@@ -3,7 +3,15 @@ class_name HordeBoss
 
 enum State { REPOSITION, WINDUP, LUNGE, STAGGER }
 
+const SPIN_BLUR_SHADER = preload("res://Actual Game Folder/shaders/spin_blur.gdshader")
+
 @export var spin_speed: float = 7.0
+
+@export_category("Spin Blur")
+@export var spin_blur_strength: float = 1.0
+@export var spin_blur_max_angle: float = 0.6
+@export var spin_blur_min_spin: float = 2.0
+@export_range(2, 24) var spin_blur_samples: int = 10
 
 @export_category("Aggression")
 @export var reposition_speed: float = 95.0
@@ -23,11 +31,26 @@ var _orbit_sign: float = 1.0
 var _lunge_dir: Vector2 = Vector2.RIGHT
 var _lunge_hit: bool = false
 var _wobble_t: float = 0.0
+var _blade_material: ShaderMaterial
+
+func _ready() -> void:
+	super()
+	if animator:
+		_blade_material = ShaderMaterial.new()
+		_blade_material.shader = SPIN_BLUR_SHADER
+		_blade_material.set_shader_parameter("samples", spin_blur_samples)
+		_blade_material.set_shader_parameter("blur_angle", 0.0)
+		animator.material = _blade_material
 
 func _physics_process(delta: float) -> void:
 	super(delta)
 	if animator:
 		animator.rotation += spin_speed * delta
+	if _blade_material:
+		var arc := 0.0
+		if spin_speed > spin_blur_min_spin:
+			arc = minf((spin_speed - spin_blur_min_spin) * delta * spin_blur_strength, spin_blur_max_angle)
+		_blade_material.set_shader_parameter("blur_angle", arc)
 
 func _move(delta: float) -> void:
 	if _player == null:
