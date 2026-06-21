@@ -259,7 +259,13 @@ def main():
     check_format_drift(files)
     check_committed_cache(files)
     emit()
-    if "--strict" in sys.argv and any(f["sev"] == ERROR for f in findings):
+    threshold = "warning" if "--strict" in sys.argv else "none"
+    for a in sys.argv:
+        if a.startswith("--fail-on="):
+            threshold = a.split("=", 1)[1]
+    fail_set = {"error": {ERROR}, "warning": {ERROR, WARN},
+                "notice": {ERROR, WARN, NOTICE}, "none": set()}.get(threshold, set())
+    if any(f["sev"] in fail_set for f in findings):
         return 1
     return 0
 
