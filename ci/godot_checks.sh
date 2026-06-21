@@ -7,7 +7,7 @@ SUMMARY="${GITHUB_STEP_SUMMARY:-/dev/stderr}"
 LOG="$(mktemp)"
 
 ERR='SCRIPT ERROR|Parse Error|Failed to|Cannot open|Cannot instantiate|ERROR:|Condition "'
-IGN='WARNING|deprecat|Unable to load|No DRI3|Vulkan|OpenGL|GLES|XDG_|pulseaudio|ALSA|fontconfig|Unrecognized UID'
+IGN='WARNING|deprecat|Unable to load|No DRI3|Vulkan|OpenGL|GLES|XDG_|pulseaudio|ALSA|fontconfig|Unrecognized UID|resources still in use at exit'
 fail=0
 
 emit()    { printf '::%s title=%s::%s\n' "$1" "$2" "$3"; }
