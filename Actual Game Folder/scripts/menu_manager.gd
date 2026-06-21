@@ -25,8 +25,3 @@ func exit():
 	var sPlayer = AudioManager.get_sfx_player(button_click_stream,Vector2.ZERO)
 	sPlayer.play()
 	sPlayer.finished.connect(get_tree().quit)
-	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
