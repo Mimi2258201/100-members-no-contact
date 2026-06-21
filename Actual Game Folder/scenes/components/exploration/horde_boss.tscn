@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://btof5wkmcbaaw"]
+
+[ext_resource type="Script" uid="uid://b0ssh0rdescrpt" path="res://Actual Game Folder/scripts/exploration/horde_boss.gd" id="1_boss"]
+[ext_resource type="Texture2D" uid="uid://bcuw14k02xgfh" path="res://Miscellanious Assets Dump/Image/beyblades/ugly/plane_evil_ass_beyblade_500x500.png" id="2_evil"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_boss"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_evil")
+}],
+"loop": true,
+"name": &"idle_down",
+"speed": 1.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_boss"]
+radius = 42.0
+
+[node name="HordeBoss" type="CharacterBody2D" groups=["horde_enemy", "boss"]]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_boss")
+contact_damage = 24.0
+contact_range = 64.0
+max_health = 220.0
+knockback_decay = 16.0
+spin_reward = 30.0
+spin_speed = 7.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_boss")
+animation = &"idle_down"
+autoplay = "idle_down"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_boss")
