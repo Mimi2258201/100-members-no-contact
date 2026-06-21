@@ -1,4 +1,4 @@
-name: health-check
+name: does it still bey
 
 on:
   pull_request:
@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: health-${{ github.ref }}
+  group: bey-${{ github.ref }}
   cancel-in-progress: true
 
 env:
@@ -17,7 +17,7 @@ env:
   GODOT_RELEASE: "stable"
 
 jobs:
-  health:
+  bey:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
