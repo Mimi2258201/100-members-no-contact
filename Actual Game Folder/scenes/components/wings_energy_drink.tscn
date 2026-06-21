@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://bffbri46urpf1"]
+
+[ext_resource type="Texture2D" uid="uid://ds5bw0r6fknon" path="res://Actual Game Folder/sprites/power_ups/wings_energy_drink_32x32.png" id="1_hscps"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jr2cw"]
+atlas = ExtResource("1_hscps")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f57rx"]
+atlas = ExtResource("1_hscps")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dbht7"]
+atlas = ExtResource("1_hscps")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0p8aj"]
+atlas = ExtResource("1_hscps")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xb68n"]
+atlas = ExtResource("1_hscps")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygvos"]
+atlas = ExtResource("1_hscps")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8fbmg"]
+atlas = ExtResource("1_hscps")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_toor0"]
+atlas = ExtResource("1_hscps")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_al5t6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jr2cw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f57rx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dbht7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0p8aj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xb68n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ygvos")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8fbmg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_toor0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D" unique_id=1829701078]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1161638840]
+sprite_frames = SubResource("SpriteFrames_al5t6")

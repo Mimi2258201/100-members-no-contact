@@ -9,6 +9,10 @@ We're making a Beyblade roguelike/metroidvania deckbuilder RPG (Or Beyblade buil
 
 * add files/credits here for assets you created in this project
 
+* wings energy drink sprite
+	* https://github.com/JMkitarian
+	* https://hennya.itch.io
+
 ## External Assets
 * add files/credits here for assets you downloaded and have rights to use (if you don't have the rights, don't use it)
 * sci-fi tileset
