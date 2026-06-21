@@ -17,6 +17,9 @@ We're making a Beyblade roguelike/metroidvania deckbuilder RPG (Or Beyblade buil
 
   * https://stanningthewaterman.itch.io/
 
+* goofanader's beyblades
+  * https://goofanader.itch.io or https://ko-fi.com/goofanader
+
 ## External Assets
 
 * add files/credits here for assets you downloaded and have rights to use (if you don't have the rights, don't use it)
@@ -32,4 +35,3 @@ We're making a Beyblade roguelike/metroidvania deckbuilder RPG (Or Beyblade buil
 
   * https://wavstock.com/sound/25072/
   * Royalty-Free License
-
