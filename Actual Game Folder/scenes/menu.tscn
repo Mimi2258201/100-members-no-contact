@@ -1,15 +1,23 @@
 [gd_scene format=3 uid="uid://v7nekrafjjr1"]
 
-[ext_resource type="Script" uid="uid://cifjv677mnvrn" path="res://Actual Game Folder/scripts/button/let_it_rip.gd" id="1_jgfn2"]
+[ext_resource type="Script" uid="uid://bobhxto3tu2p6" path="res://Actual Game Folder/scripts/menu_manager.gd" id="1_n3qwu"]
 [ext_resource type="Texture2D" uid="uid://bwucxqtoakuy6" path="res://Miscellanious Assets Dump/Image/backgrounds/background_blue_distortion_640x320.png" id="1_pvo6j"]
-[ext_resource type="Script" uid="uid://dq6eoqewgcgj3" path="res://Actual Game Folder/scripts/button/exit.gd" id="3_nccfl"]
+[ext_resource type="AudioStream" uid="uid://dvb67gdm65wid" path="res://Miscellanious Assets Dump/Audio/sfx/button_hover.wav" id="2_vnj0c"]
+[ext_resource type="AudioStream" uid="uid://b5xyt6hpwoq1h" path="res://Miscellanious Assets Dump/Audio/sfx/button_press.wav" id="3_08yys"]
+[ext_resource type="AudioStream" uid="uid://bnss0855gpofg" path="res://Miscellanious Assets Dump/Audio/music/beyblades-battle.mp3" id="4_o0cgn"]
 
-[node name="Menu" type="Control" unique_id=1552408488]
+[node name="Menu" type="Control" unique_id=1552408488 node_paths=PackedStringArray("start_button", "exit_button")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -1.0
 offset_right = 1151.0
 offset_bottom = 648.0
+script = ExtResource("1_n3qwu")
+start_button = NodePath("CenterContainer/VBoxContainer/HBoxContainer/LET IT RIP")
+exit_button = NodePath("CenterContainer/VBoxContainer/HBoxContainer/EXIT")
+button_hover_stream = ExtResource("2_vnj0c")
+button_click_stream = ExtResource("3_08yys")
+music_stream = ExtResource("4_o0cgn")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1581558929]
 layout_mode = 0
@@ -37,9 +45,7 @@ layout_mode = 2
 [node name="LET IT RIP" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=876020753]
 layout_mode = 2
 text = "LET IT RIP!"
-script = ExtResource("1_jgfn2")
 
 [node name="EXIT" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer" unique_id=1017300428]
 layout_mode = 2
 text = "EXIT"
-script = ExtResource("3_nccfl")
