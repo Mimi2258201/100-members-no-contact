@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-"""Static health checks for the Godot project. Warn-only: never exits non-zero
-unless --strict is passed. Emits GitHub annotations on stdout and a markdown
-report to $GITHUB_STEP_SUMMARY (and stderr for local runs)."""
 import collections
 import os
 import re

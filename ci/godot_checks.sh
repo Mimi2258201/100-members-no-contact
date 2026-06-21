@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# Godot-dependent health checks: import, script parse, boot smoke test.
-# Warn-only — always exits 0; signal is in annotations + the step summary.
 set -uo pipefail
 
 GODOT="${GODOT:-godot}"
@@ -8,7 +6,6 @@ FRAMES="${SMOKE_FRAMES:-300}"
 SUMMARY="${GITHUB_STEP_SUMMARY:-/dev/stderr}"
 LOG="$(mktemp)"
 
-# High-signal error lines; everything in IGN is benign headless/driver noise.
 ERR='SCRIPT ERROR|Parse Error|Failed to|Cannot open|Cannot instantiate|ERROR:|Condition "'
 IGN='WARNING|deprecat|Unable to load|No DRI3|Vulkan|OpenGL|GLES|XDG_|pulseaudio|ALSA|fontconfig'
 
@@ -32,8 +29,6 @@ else
 fi
 
 section "Script parse"
-# Parse in full project context (autoloads/class_name resolve) via the tool;
-# autoload scripts themselves are covered by the boot smoke test below.
 run_log "$GODOT" --headless --path . --script res://ci/parse_check.gd
 if grep -q 'PARSE_CHECK_DONE' "$LOG"; then
   pf="$(grep '^PARSE_FAIL ' "$LOG" | sed 's/^PARSE_FAIL //')"

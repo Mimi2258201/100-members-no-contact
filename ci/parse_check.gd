@@ -1,12 +1,5 @@
 extends SceneTree
 
-# Parse-checks every .gd in the project from within a running project, so
-# autoload singletons and class_name globals resolve (unlike --check-only).
-# Autoload scripts are skipped here — they're validated by the boot smoke test,
-# and reload()-ing a live singleton gives false positives.
-# Prints "PARSE_FAIL <path>" per failing script. Run:
-#   godot --headless --path . --script res://ci/parse_check.gd
-
 func _initialize() -> void:
 	var autoloads: Dictionary = _autoload_paths()
 	var failed: Array[String] = []

@@ -13,7 +13,6 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  # Switch to the *_mono build if the project later adds real C#.
   GODOT_VERSION: "4.6"
   GODOT_RELEASE: "stable"
 
