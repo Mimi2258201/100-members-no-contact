@@ -7,9 +7,15 @@ extends Camera2D
 
 var trauma : float = 0.0
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _ready() -> void:
+	if target:
+		global_position = target.global_position
+
 func _process(delta: float) -> void:
-	global_position = global_position.lerp(target.global_position,follow_magnitude * delta)
+	if target:
+		# clamp weight so a first-frame delta spike cant extrapolate past the target
+		var t := clampf(follow_magnitude * delta, 0.0, 1.0)
+		global_position = global_position.lerp(target.global_position, t)
 
 	if trauma > 0.0:
 		trauma = max(trauma - shake_decay * delta, 0.0)

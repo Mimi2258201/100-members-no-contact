@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://bffbri46urpf1" path="res://Actual Game Folder/scenes/components/wings_energy_drink.tscn" id="3_6nv6i"]
 [ext_resource type="Script" uid="uid://pbx5c2p7gv2v" path="res://Actual Game Folder/scripts/follow_cam.gd" id="3_lksfj"]
 [ext_resource type="Script" uid="uid://vust36y4oh0x" path="res://Actual Game Folder/scripts/button/end_battle.gd" id="4_endb"]
+[ext_resource type="Script" uid="uid://tocbl38lyft2" path="res://Actual Game Folder/scripts/exploration/enemy_spawner.gd" id="5_spawn"]
+[ext_resource type="PackedScene" uid="uid://b8h0rd3scene1" path="res://Actual Game Folder/scenes/components/exploration/horde_enemy.tscn" id="6_horde"]
 
 [node name="Gameplay" type="Node2D" unique_id=72458947]
 
@@ -25,7 +27,11 @@ energy_amount = 20
 player = NodePath("../../Player")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1524686198 node_paths=PackedStringArray("target")]
-zoom = Vector2(2, 2)
+zoom = Vector2(1.6, 1.6)
+limit_left = -736
+limit_top = -192
+limit_right = 224
+limit_bottom = 224
 script = ExtResource("3_lksfj")
 target = NodePath("../Player")
 follow_magnitude = 4.0
@@ -43,3 +49,13 @@ offset_bottom = 47.0
 grow_horizontal = 0
 text = "End Battle"
 script = ExtResource("4_endb")
+
+[node name="EnemySpawner" type="Node2D" parent="."]
+script = ExtResource("5_spawn")
+enemy_scene = ExtResource("6_horde")
+target_path = NodePath("../Player")
+spawn_interval = 1.0
+max_enemies = 40
+base_batch = 2
+max_per_tick = 6
+ramp_seconds = 8.0

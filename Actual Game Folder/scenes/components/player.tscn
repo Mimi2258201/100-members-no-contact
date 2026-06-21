@@ -12,7 +12,7 @@ bounce = 0.5
 [sub_resource type="CircleShape2D" id="CircleShape2D_kmxop"]
 radius = 84.0
 
-[node name="Player" type="RigidBody2D" unique_id=1992090891]
+[node name="Player" type="RigidBody2D" unique_id=1992090891 groups=["player"]]
 mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_7buym")
 gravity_scale = 0.0

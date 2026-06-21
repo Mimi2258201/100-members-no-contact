@@ -1,0 +1,79 @@
+extends Node2D
+
+@export var enemy_scene: PackedScene
+@export var enemy_scenes: Array[PackedScene] = [] # if set, mix randomly; else use enemy_scene
+@export var target_path: NodePath
+
+@export var spawn_interval: float = 1.0
+@export var max_enemies: int = 150
+# Difficulty ramp: batch grows by 1 every ramp_seconds, capped at max_per_tick.
+@export var base_batch: int = 2
+@export var max_per_tick: int = 12
+@export var ramp_seconds: float = 12.0
+# How far beyond the visible edge enemies appear, so they stream in unseen.
+@export var spawn_margin: float = 64.0
+
+const SPAWNED_GROUP := "spawned_enemy"
+const SPAWNER_GROUP := "enemy_spawner"
+
+var _target: Node2D
+var _elapsed: float = 0.0
+var _timer: Timer
+
+func _ready() -> void:
+	add_to_group(SPAWNER_GROUP)
+	_target = get_node_or_null(target_path) as Node2D
+
+	_timer = Timer.new()
+	_timer.wait_time = spawn_interval
+	_timer.timeout.connect(_on_spawn_tick)
+	add_child(_timer)
+	_timer.start()
+
+func stop() -> void:
+	if _timer:
+		_timer.stop()
+
+func _process(delta: float) -> void:
+	_elapsed += delta
+
+func _on_spawn_tick() -> void:
+	if _target == null:
+		return
+
+	var alive := get_tree().get_nodes_in_group(SPAWNED_GROUP).size()
+	var batch := mini(base_batch + int(_elapsed / ramp_seconds), max_per_tick)
+	for _i in batch:
+		if alive >= max_enemies:
+			break
+		var scene := _pick_enemy()
+		if scene == null:
+			break
+		var enemy := scene.instantiate()
+		enemy.add_to_group(SPAWNED_GROUP)
+		add_child(enemy)
+		enemy.global_position = _offscreen_position(_target.global_position)
+		alive += 1
+
+func _pick_enemy() -> PackedScene:
+	if not enemy_scenes.is_empty():
+		return enemy_scenes[randi() % enemy_scenes.size()]
+	return enemy_scene
+
+func _offscreen_position(center: Vector2) -> Vector2:
+	var half := _view_half_extents() + Vector2(spawn_margin, spawn_margin)
+	var offset := Vector2.ZERO
+	match randi() % 4:
+		0: offset = Vector2(randf_range(-half.x, half.x), -half.y) # top
+		1: offset = Vector2(randf_range(-half.x, half.x), half.y)  # bottom
+		2: offset = Vector2(-half.x, randf_range(-half.y, half.y)) # left
+		_: offset = Vector2(half.x, randf_range(-half.y, half.y))  # right
+	return center + offset
+
+func _view_half_extents() -> Vector2:
+	var size := get_viewport().get_visible_rect().size
+	var zoom := Vector2.ONE
+	var cam := _target.get_node_or_null("Camera2D")
+	if cam is Camera2D:
+		zoom = (cam as Camera2D).zoom
+	return (size / zoom) * 0.5
