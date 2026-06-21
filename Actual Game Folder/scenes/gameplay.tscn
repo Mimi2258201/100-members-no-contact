@@ -17,3 +17,5 @@ zoom = Vector2(2, 2)
 script = ExtResource("3_lksfj")
 target = NodePath("../Player")
 follow_magnitude = 4.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=556390758]

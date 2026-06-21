@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://hs2box2ysjnk" path="res://Miscellanious Assets Dump/Image/beyblades/pixelart/Blade1.png" id="2_kmxop"]
 [ext_resource type="AudioStream" uid="uid://cg0753hy0g0aa" path="res://Miscellanious Assets Dump/Audio/sfx/collide.wav" id="3_4jqa0"]
 [ext_resource type="AudioStream" uid="uid://c055dhcymjmqp" path="res://Miscellanious Assets Dump/Audio/ripcord.mp3" id="3_kmxop"]
+[ext_resource type="Theme" uid="uid://3nsa0g2rvkqq" path="res://Actual Game Folder/themes/main_theme.tres" id="5_myfok"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7buym"]
 bounce = 0.5
@@ -39,6 +40,7 @@ offset_left = 16.0
 offset_top = 16.0
 offset_right = 216.0
 offset_bottom = 36.0
+theme = ExtResource("5_myfok")
 value = 100.0
 show_percentage = false
 

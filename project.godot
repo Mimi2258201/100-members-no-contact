@@ -15,6 +15,10 @@ run/main_scene="uid://lmqeo6epk8da"
 config/features=PackedStringArray("4.6")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://djgtwyo1isqmg"
+
 [autoload]
 
 SceneManager="*uid://bwdblnajwfnkl"
@@ -27,6 +31,10 @@ project/assembly_name="100-members-no-contact"
 [global_group]
 
 interactable="Interactable objects"
+
+[gui]
+
+theme/custom_font="uid://cuayi4617a0w8"
 
 [input]
 
