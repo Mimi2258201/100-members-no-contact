@@ -29,13 +29,21 @@ var current_page: int = 0
 
 #sounds
 @onready var roll_sound: AudioStreamPlayer2D = $RollSound
+const LAUNCH_SFX := preload("res://Miscellanious Assets Dump/Audio/ripcord.mp3")
+
+var is_launching: bool = false
 
 func _ready():
 	# Signal Connections
 	detector.body_entered.connect(_on_interaction_detector_body_entered)
 	detector.body_exited.connect(_on_interaction_detector_body_exited)
+	add_to_group("overworld_player")
 
 func _physics_process(delta):
+	if is_launching:
+		velocity = Vector2.ZERO
+		return
+
 	if is_dialogue_active:
 		velocity = Vector2.ZERO
 		if Input.is_action_just_pressed("interact"):
@@ -174,7 +182,25 @@ func finish_dialogue():
 	#Added a check to see if it's a mechanic and if so teleport to garage
 	if near_enemy and "is_bad" in near_enemy and near_enemy.is_bad:
 		print("We are entering the fight >:)))")
-		SceneManager.enter_battle(near_enemy.get_combat_data())
+		_launch_into_battle(near_enemy.get_combat_data())
 	elif near_enemy and "is_mechanic":
 		print("It's a mechanic! :)")
 		SceneManager.change_screen(SceneManager.SceneKey.GARAGE)
+
+func _launch_into_battle(data: Dictionary) -> void:
+	is_launching = true
+	velocity = Vector2.ZERO
+	_play_launch_windup()
+	AudioManager.play_sfx(LAUNCH_SFX, global_position)
+	SceneManager.enter_battle(data)
+
+func _play_launch_windup() -> void:
+	var d := last_direction
+	if abs(d.x) > abs(d.y):
+		sprite.play("roll_right" if d.x > 0 else "roll_left")
+	else:
+		sprite.play("roll_down" if d.y > 0 else "roll_up")
+
+func _on_return_from_battle() -> void:
+	is_launching = false
+	update_animations(Vector2.ZERO)

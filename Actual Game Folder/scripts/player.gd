@@ -101,6 +101,7 @@ var _ricochet_t: float = 0.0
 var _health: float
 var _dead: bool = false
 var _won: bool = false
+var _launching: bool = true
 var _boss_seen: bool = false
 var _dash_t: float = 0.0
 var _recover_t: float = 0.0
@@ -128,14 +129,35 @@ func _ready() -> void:
 	# needed for inventory system integration, sets the reference for the player using a global function
 	Globals.player_reference(self)
 	SceneManager.player_beyblade = self
-	AudioManager.play_sfx(launch_sfx_stream,global_position)
 
 	max_contacts_reported = 16
 
 	_health = max_health
-	spin_velocity = starting_spin_velocity
 	_setup_spin_blur()
 	_setup_hud()
+	_play_spawn_intro()
+
+func _play_spawn_intro() -> void:
+	_launching = true
+	freeze = true
+	spin_velocity = 0.0
+	var base_scale := _sprite.scale
+	_sprite.scale = base_scale * 3.0
+	_sprite.modulate.a = 0.0
+	var tw := create_tween()
+	tw.set_parallel(true)
+	tw.tween_property(_sprite, "scale", base_scale, 0.45).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.tween_property(_sprite, "modulate:a", 1.0, 0.3)
+	tw.tween_method(_set_spin_velocity, 0.0, starting_spin_velocity, 0.6).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tw.chain().tween_callback(_on_spawn_intro_done)
+
+func _set_spin_velocity(v: float) -> void:
+	spin_velocity = v
+
+func _on_spawn_intro_done() -> void:
+	freeze = false
+	_launching = false
+	AudioManager.play_sfx(collision_sfx_stream, global_position)
 
 
 func _exit_tree() -> void:
@@ -146,10 +168,14 @@ func _physics_process(delta: float) -> void:
 	if _dead or _won:
 		return
 
-	_update_boss_ui()
-
 	_sprite.rotate(spin_velocity * delta)
 	_update_spin_blur(delta)
+
+	# during the spawn intro the blade spins up but takes no input or drain yet
+	if _launching:
+		return
+
+	_update_boss_ui()
 	_update_wobble(delta)
 
 	spin_velocity = clamp(spin_velocity - spin_velocity_drop_over_time * delta, spin_floor, spin_cap)

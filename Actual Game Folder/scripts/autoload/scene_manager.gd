@@ -68,27 +68,46 @@ func enter_battle(context: Dictionary = {}) -> void:
 	call_deferred("_enter_battle_now", context)
 
 func _enter_battle_now(context: Dictionary) -> void:
+	await Transition.cover()
+
 	battle_context = context
 	if current_scene:
 		_set_suspended(current_scene, true)
 		_suspended.push_back(current_scene)
-		
+
 		if current_scene.get_parent() == _WORLD_NODE:
 			_WORLD_NODE.remove_child(current_scene)
-			
+
 	current_scene = _mount(SceneKey.GAMEPLAY)
-	AudioManager.play_music_stream(preload("res://Miscellanious Assets Dump/Audio/music/beyblades-battle.mp3"))
+	AudioManager.crossfade_music(preload("res://Miscellanious Assets Dump/Audio/music/beyblades-battle.mp3"))
+
+	await Transition.reveal()
 
 func end_battle() -> void:
-	if current_scene:
-		current_scene.queue_free()
-	current_scene = _suspended.pop_back() if not _suspended.is_empty() else null
-	if current_scene:
+	await Transition.cover()
+
+	var returning = _suspended.pop_back() if not _suspended.is_empty() else null
+	if returning:
+		if current_scene:
+			current_scene.queue_free()
+		current_scene = returning
 		if current_scene.get_parent() == null:
 			_WORLD_NODE.add_child(current_scene)
-			
+
 		_set_suspended(current_scene, false)
-	AudioManager.stop_music()
+		get_tree().call_group("overworld_player", "_on_return_from_battle")
+		AudioManager.fade_out_music()
+	else:
+		# nothing was suspended to return to (battle entered outside the overworld)
+		_refresh_world_node()
+		if _WORLD_NODE != null:
+			for child in _WORLD_NODE.get_children():
+				if is_instance_valid(child):
+					_WORLD_NODE.remove_child(child)
+					child.queue_free()
+		current_scene = _mount(SceneKey.MENU)
+
+	await Transition.reveal()
 
 func _mount(scene_name: SceneKey) -> Node:
 	if _WORLD_NODE == null or not is_instance_valid(_WORLD_NODE):

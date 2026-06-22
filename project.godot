@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="100-members-no-contact"
 run/main_scene="res://Actual Game Folder/scenes/world.tscn"
-config/features=PackedStringArray("4.3")
+config/features=PackedStringArray("4.7")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -24,6 +24,7 @@ config/icon="res://icon.svg"
 Globals="*uid://byw85re6utohf"
 AudioManager="*res://Actual Game Folder/scripts/autoload/audio_manager.gd"
 SceneManager="*res://Actual Game Folder/scripts/autoload/scene_manager.gd"
+Transition="*res://Actual Game Folder/scripts/autoload/transition.gd"
 
 [display]
 

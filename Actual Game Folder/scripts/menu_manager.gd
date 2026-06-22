@@ -22,7 +22,7 @@ func hover():
 
 func start():
 	AudioManager.play_sfx(button_click_stream,Vector2.ZERO)
-	SceneManager.enter_battle()
+	SceneManager.change_screen(SceneManager.SceneKey.EXPLORATION)
 
 func story():
 	AudioManager.play_sfx(button_click_stream,Vector2.ZERO)
