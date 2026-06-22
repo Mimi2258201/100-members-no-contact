@@ -16,6 +16,9 @@ We're making a Beyblade roguelike/metroidvania deckbuilder RPG (Or Beyblade buil
 * Elemental themed tilesets (fire, ice, water, grass)
 
   * https://stanningthewaterman.itch.io/
+* assorted beyblades by goofanader
+
+  * https://goofanader.itch.io or https://ko-fi.com/goofanader
 
 ## External Assets
 
