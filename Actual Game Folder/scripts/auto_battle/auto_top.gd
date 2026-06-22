@@ -11,21 +11,46 @@ signal horde_killed
 signal player_won
 signal player_lost
 
-@export var defensive_spin_ratio: float = 0.28 # below this, kite instead of charge
+@export var defensive_spin_ratio: float = 0.28 # below this, orbit wide instead of closing in
 @export var cluster_count: int = 3             # enemies in dash range worth a dash
 @export var coin_value: int = 1
+
+@export_category("Beyblade Feel")
+@export var engage_distance: float = 180.0  # within this it circles; beyond it closes in
+@export var wander_amount: float = 0.28      # organic drift mixed into steering
+@export var wander_speed: float = 1.7
+@export var orbit_flip_interval: float = 2.6 # how often the circling direction reverses
+@export var precession_amount: float = 0.4   # curve added to driving (player.gd's drift knob)
 
 var _battle_paused: bool = false
 var _move_want: Vector2 = Vector2.ZERO
 var _aim_want: Vector2 = Vector2.RIGHT
 var _dash_want: bool = false
+var _orbit_sign: float = 1.0
+var _drift_phase: float = 0.0
+var _orbit_t: float = 0.0
+
+func _ready() -> void:
+	super()
+	_orbit_sign = 1.0 if randf() < 0.5 else -1.0
+	# turn on the blade's natural drift so driving curves instead of tracking straight
+	precession = precession_amount
+	precession_sign = _orbit_sign
+	idle_wander = 0.0
 
 func _physics_process(delta: float) -> void:
 	if not _battle_paused:
+		_drift_phase += delta * wander_speed
+		_orbit_t += delta
+		if _orbit_t >= orbit_flip_interval:
+			_orbit_t = 0.0
+			_orbit_sign = -_orbit_sign
+			precession_sign = _orbit_sign
 		_think()
 	super._physics_process(delta)
 
-# the whole AI: pick a target, decide charge-vs-kite, decide whether to dash
+# the AI: spiral toward a target and glance off it like a spinning top, rather
+# than tracking it down in a straight line. The committed dash still strikes in.
 func _think() -> void:
 	if _dead or _won or _launching:
 		_move_want = Vector2.ZERO
@@ -42,20 +67,26 @@ func _think() -> void:
 		return
 
 	var to_target := target.global_position - global_position
-	if to_target.length() > 0.01:
-		_aim_want = to_target.normalized()
+	var dist := maxf(to_target.length(), 0.01)
+	var dir := to_target / dist
+	_aim_want = dir
 
-	# spin nearly spent and no boss to commit to: peel away from the nearest
-	# threat so a stray ram doesn't bleed the last of our stamina
+	# blend "close in" (radial) with "circle around" (tangential): far away it
+	# mostly approaches, up close it mostly orbits, so it spirals into contact
+	var tangent := Vector2(-dir.y, dir.x) * _orbit_sign
+	var closeness := clampf(dist / engage_distance, 0.0, 1.0)
+	var radial_w := lerpf(0.3, 1.0, closeness)
+	var tangent_w := lerpf(1.0, 0.35, closeness)
+
+	# low on spin with no boss to commit to: widen the orbit so a hard ram
+	# doesn't bleed the last of our stamina
 	if boss == null and _spin_ratio() < defensive_spin_ratio:
-		var threat := _nearest(enemies)
-		if threat:
-			var away := global_position - threat.global_position
-			_move_want = away.normalized() if away.length() > 0.01 else _aim_want
-		else:
-			_move_want = Vector2.ZERO
-	else:
-		_move_want = _aim_want
+		radial_w *= 0.2
+		tangent_w = 1.0
+
+	var steer := dir * radial_w + tangent * tangent_w
+	steer += Vector2.from_angle(_drift_phase) * wander_amount
+	_move_want = steer.normalized() if steer.length() > 0.01 else dir
 
 	_dash_want = _good_dash(boss, enemies)
 
