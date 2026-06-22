@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=3 uid="uid://cau0battle1veroz"]
+
+[ext_resource type="PackedScene" uid="uid://e1d03bbv2uh" path="res://Actual Game Folder/scenes/components/player.tscn" id="1_top"]
+[ext_resource type="Script" path="res://Actual Game Folder/scripts/auto_battle/auto_top.gd" id="2_topai"]
+[ext_resource type="PackedScene" uid="uid://c5srio2figxlm" path="res://Actual Game Folder/scenes/levels/level1.tscn" id="3_lvl"]
+[ext_resource type="Script" uid="uid://pbx5c2p7gv2v" path="res://Actual Game Folder/scripts/follow_cam.gd" id="4_cam"]
+[ext_resource type="Script" path="res://Actual Game Folder/scripts/auto_battle/auto_battle.gd" id="5_mgr"]
+[ext_resource type="Script" path="res://Actual Game Folder/scripts/exploration/arena_obstacles.gd" id="6_obst"]
+[ext_resource type="Script" uid="uid://b55dupd82fq53" path="res://Actual Game Folder/scripts/exploration/bullet_container.gd" id="7_bul"]
+
+[node name="AutoBattle" type="Node2D" groups=["auto_battle"]]
+script = ExtResource("5_mgr")
+
+[node name="AutoTop" parent="." instance=ExtResource("1_top")]
+script = ExtResource("2_topai")
+
+[node name="Levels" type="Node" parent="."]
+
+[node name="Level1" parent="Levels" instance=ExtResource("3_lvl")]
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+zoom = Vector2(1.6, 1.6)
+limit_left = -736
+limit_top = -416
+limit_right = 736
+limit_bottom = 416
+script = ExtResource("4_cam")
+target = NodePath("../AutoTop")
+follow_magnitude = 4.0
+
+[node name="ArenaObstacles" type="Node" parent="."]
+script = ExtResource("6_obst")
+tilemap_path = NodePath("../Levels/Level1/TileMapLayer")
+
+[node name="BulletContainer" type="Node2D" parent="."]
+script = ExtResource("7_bul")

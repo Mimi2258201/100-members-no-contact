@@ -56,7 +56,7 @@ size_flags_horizontal = 4
 [node name="STORY" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "STORY"
+text = "AUTO-BATTLE"
 
 [node name="LET IT RIP" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2

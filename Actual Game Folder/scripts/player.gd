@@ -193,11 +193,18 @@ func _physics_process(delta: float) -> void:
 func _spin_ratio() -> float:
 	return clampf((spin_velocity - spin_floor) / maxf(spin_cap - spin_floor, 0.001), 0.0, 1.0)
 
-func _drive(delta: float) -> void:
-	var input_dir := Vector2(
+# input hooks: AI-driven tops override these to steer without a keyboard
+func _read_move_input() -> Vector2:
+	return Vector2(
 		Input.get_action_strength("right") - Input.get_action_strength("left"),
 		Input.get_action_strength("down") - Input.get_action_strength("up")
 	)
+
+func _wants_dash() -> bool:
+	return Input.is_action_just_pressed("dash")
+
+func _drive(delta: float) -> void:
+	var input_dir := _read_move_input()
 	if input_dir.length() > 1.0:
 		input_dir = input_dir.normalized()
 
@@ -301,7 +308,7 @@ func _update_dash(delta: float) -> bool:
 		_shred_horde(delta)
 		return true
 
-	if Input.is_action_just_pressed("dash") and _dash_cd <= 0.0 and spin_velocity >= dash_spin_cost:
+	if _wants_dash() and _dash_cd <= 0.0 and spin_velocity >= dash_spin_cost:
 		_start_dash()
 		_dash_active_step(delta)
 		return true

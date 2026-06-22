@@ -26,7 +26,7 @@ func start():
 
 func story():
 	AudioManager.play_sfx(button_click_stream,Vector2.ZERO)
-	SceneManager.change_screen(SceneManager.SceneKey.EXPLORATION)
+	SceneManager.change_screen(SceneManager.SceneKey.AUTO_BATTLE)
 
 func exit():
 	var sPlayer = AudioManager.get_sfx_player(button_click_stream,Vector2.ZERO)
