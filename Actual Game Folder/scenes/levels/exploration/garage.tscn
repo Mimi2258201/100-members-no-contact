@@ -1,43 +1,62 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2ygffu0kux0d"]
+[gd_scene format=3 uid="uid://d2ygffu0kux0d"]
 
-[ext_resource type="Script" path="res://Actual Game Folder/scripts/garage.gd" id="1_iklw1"]
+[ext_resource type="Script" uid="uid://doeonm4dxeywl" path="res://Actual Game Folder/scripts/garage.gd" id="1_iklw1"]
 [ext_resource type="Texture2D" uid="uid://bwucxqtoakuy6" path="res://Miscellanious Assets Dump/Image/backgrounds/background_blue_distortion_640x320.png" id="1_kdvrh"]
-[ext_resource type="Texture2D" uid="uid://bsqd3l13o2j6w" path="res://Miscellanious Assets Dump/Image/characters/Mechanic.png" id="5_8ekgg"]
+[ext_resource type="Texture2D" uid="uid://1gf506xxyn0" path="res://Miscellanious Assets Dump/Image/characters/beyblade shopkeep by sonicjb08.png" id="3_8euyk"]
+[ext_resource type="Texture2D" uid="uid://dv6xg86x1ixnl" path="res://Miscellanious Assets Dump/Image/characters/beyblade shopkeep mouth open.png" id="4_cerq8"]
+[ext_resource type="Texture2D" uid="uid://dhejmu517mt8j" path="res://Miscellanious Assets Dump/Image/characters/beyblade shopkeep smiling.png" id="5_frl1q"]
 
-[node name="Garage" type="Node2D"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_36oea"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_8euyk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_cerq8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_frl1q")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Garage" type="Node2D" unique_id=1310810599]
 script = ExtResource("1_iklw1")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1331485894]
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=198863723]
 offset_right = 1157.0
 offset_bottom = 651.0
 texture = ExtResource("1_kdvrh")
 
-[node name="TextureRect2" type="Sprite2D" parent="CanvasLayer/TextureRect"]
-position = Vector2(600, 198)
-scale = Vector2(13.8438, 13.8438)
-texture = ExtResource("5_8ekgg")
+[node name="mechanic animiated sprite2d" type="AnimatedSprite2D" parent="CanvasLayer/TextureRect" unique_id=1890366642]
+position = Vector2(577.42365, 412.0729)
+scale = Vector2(1.1693382, 1.1693382)
+sprite_frames = SubResource("SpriteFrames_36oea")
 
-[node name="CardsContainer" type="VBoxContainer" parent="CanvasLayer"]
+[node name="CardsContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=857282374]
 offset_left = 19.0
 offset_top = 404.0
 offset_right = 1134.0
 offset_bottom = 631.0
 
-[node name="Button" type="Button" parent="CanvasLayer/CardsContainer"]
+[node name="Button" type="Button" parent="CanvasLayer/CardsContainer" unique_id=1587715627]
 layout_mode = 2
 text = "Card 1"
 
-[node name="Button2" type="Button" parent="CanvasLayer/CardsContainer"]
+[node name="Button2" type="Button" parent="CanvasLayer/CardsContainer" unique_id=1636835151]
 layout_mode = 2
 text = "Card 2"
 
-[node name="Button3" type="Button" parent="CanvasLayer/CardsContainer"]
+[node name="Button3" type="Button" parent="CanvasLayer/CardsContainer" unique_id=606158556]
 layout_mode = 2
 text = "Card 3"
 
-[node name="Leave" type="Button" parent="CanvasLayer"]
+[node name="Leave" type="Button" parent="CanvasLayer" unique_id=1640902872]
 offset_left = 958.0
 offset_top = 12.0
 offset_right = 1143.0
