@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://e1d03bbv2uh" path="res://Actual Game Folder/scenes/components/player.tscn" id="1_ix2qu"]
 [ext_resource type="PackedScene" uid="uid://c5srio2figxlm" path="res://Actual Game Folder/scenes/levels/level1.tscn" id="2_p5wng"]
-[ext_resource type="PackedScene" uid="uid://bffbri46urpf1" path="res://Actual Game Folder/scenes/components/wings_energy_drink.tscn" id="3_6nv6i"]
+[ext_resource type="PackedScene" path="res://Actual Game Folder/scenes/components/wings_energy_drink.tscn" id="3_6nv6i"]
 [ext_resource type="Script" uid="uid://pbx5c2p7gv2v" path="res://Actual Game Folder/scripts/follow_cam.gd" id="3_lksfj"]
 [ext_resource type="Script" uid="uid://vust36y4oh0x" path="res://Actual Game Folder/scripts/button/end_battle.gd" id="4_endb"]
 [ext_resource type="Script" uid="uid://tocbl38lyft2" path="res://Actual Game Folder/scripts/exploration/enemy_spawner.gd" id="5_spawn"]

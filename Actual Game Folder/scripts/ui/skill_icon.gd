@@ -56,12 +56,13 @@ func _draw() -> void:
 	if not _locked and _fill >= 1.0:
 		draw_rect(Rect2(Vector2.ZERO, sz), Color(accent.r, accent.g, accent.b, 0.2), true)
 	_draw_glyph(sz, _icon_color())
-	if _fill < 1.0:
+	# clamp below a full turn so the fan's first and last points never coincide (degenerate polygon)
+	var remaining := minf((1.0 - _fill) * TAU, TAU - 0.01)
+	if remaining > 0.05 and sz.x > 0.0 and sz.y > 0.0:
 		var center := sz * 0.5
 		var radius := sz.length()
-		var remaining := (1.0 - _fill) * TAU
+		var steps := maxi(2, int(remaining / TAU * 36.0))
 		var pts := PackedVector2Array([center])
-		var steps := 36
 		for i in steps + 1:
 			var a := -PI / 2.0 + remaining * (float(i) / float(steps))
 			pts.append(center + Vector2(cos(a), sin(a)) * radius)

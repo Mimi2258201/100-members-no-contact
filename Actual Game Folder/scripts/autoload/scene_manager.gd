@@ -42,7 +42,11 @@ func _ready() -> void:
 	await get_tree().process_frame
 	_refresh_world_node()
 
-func change_screen(scene_name: SceneKey):
+func change_screen(scene_name: SceneKey) -> void:
+	# tree edits are illegal mid physics callback (door body_entered), so defer
+	call_deferred("_change_screen_now", scene_name)
+
+func _change_screen_now(scene_name: SceneKey) -> void:
 	for s in _suspended:
 		if is_instance_valid(s):
 			s.queue_free()
@@ -61,6 +65,9 @@ func change_screen(scene_name: SceneKey):
 	current_scene = _mount(scene_name)
 
 func enter_battle(context: Dictionary = {}) -> void:
+	call_deferred("_enter_battle_now", context)
+
+func _enter_battle_now(context: Dictionary) -> void:
 	battle_context = context
 	if current_scene:
 		_set_suspended(current_scene, true)
