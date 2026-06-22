@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://1gf506xxyn0" path="res://Miscellanious Assets Dump/Image/characters/beyblade shopkeep by sonicjb08.png" id="3_8euyk"]
 [ext_resource type="Texture2D" uid="uid://dv6xg86x1ixnl" path="res://Miscellanious Assets Dump/Image/characters/beyblade shopkeep mouth open.png" id="4_cerq8"]
 [ext_resource type="Texture2D" uid="uid://dhejmu517mt8j" path="res://Miscellanious Assets Dump/Image/characters/beyblade shopkeep smiling.png" id="5_frl1q"]
+[ext_resource type="PackedScene" uid="uid://3kgqfmuodmbv" path="res://Actual Game Folder/scenes/components/shop_item_preview.tscn" id="6_t6erf"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_36oea"]
 animations = [{
@@ -32,29 +33,13 @@ script = ExtResource("1_iklw1")
 offset_right = 1157.0
 offset_bottom = 651.0
 texture = ExtResource("1_kdvrh")
+metadata/_edit_lock_ = true
 
 [node name="mechanic animiated sprite2d" type="AnimatedSprite2D" parent="CanvasLayer/TextureRect" unique_id=1890366642]
 position = Vector2(577.42365, 412.0729)
 scale = Vector2(1.1693382, 1.1693382)
 sprite_frames = SubResource("SpriteFrames_36oea")
-
-[node name="CardsContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=857282374]
-offset_left = 19.0
-offset_top = 404.0
-offset_right = 1134.0
-offset_bottom = 631.0
-
-[node name="Button" type="Button" parent="CanvasLayer/CardsContainer" unique_id=1587715627]
-layout_mode = 2
-text = "Card 1"
-
-[node name="Button2" type="Button" parent="CanvasLayer/CardsContainer" unique_id=1636835151]
-layout_mode = 2
-text = "Card 2"
-
-[node name="Button3" type="Button" parent="CanvasLayer/CardsContainer" unique_id=606158556]
-layout_mode = 2
-text = "Card 3"
+metadata/_edit_lock_ = true
 
 [node name="Leave" type="Button" parent="CanvasLayer" unique_id=1640902872]
 offset_left = 958.0
@@ -63,4 +48,29 @@ offset_right = 1143.0
 offset_bottom = 63.0
 text = "Leave"
 
+[node name="purchaseable item selection" type="CanvasLayer" parent="." unique_id=605198807]
+
+[node name="shopItemPreview" parent="purchaseable item selection" unique_id=1979294433 instance=ExtResource("6_t6erf")]
+offset_left = 299.0
+offset_top = 321.0
+offset_right = 299.0
+offset_bottom = 321.0
+
+[node name="shopItemPreview2" parent="purchaseable item selection" unique_id=1600125929 instance=ExtResource("6_t6erf")]
+offset_left = 507.0
+offset_top = 309.0
+offset_right = 507.0
+offset_bottom = 309.0
+
+[node name="shopItemPreview3" parent="purchaseable item selection" unique_id=1253877266 instance=ExtResource("6_t6erf")]
+offset_left = 701.0
+offset_top = 320.0
+offset_right = 701.0
+offset_bottom = 320.0
+
+[node name="after purchase smile timer" type="Timer" parent="." unique_id=1514447176]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="pressed" from="CanvasLayer/Leave" to="." method="_on_leave_pressed"]
+[connection signal="timeout" from="after purchase smile timer" to="." method="_on_after_purchase_smile_timer_timeout"]

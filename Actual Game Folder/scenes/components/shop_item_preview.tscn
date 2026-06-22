@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://3kgqfmuodmbv"]
+
+[ext_resource type="PackedScene" uid="uid://cce2fbfh6tc64" path="res://Actual Game Folder/scenes/items.tscn" id="1_2knxh"]
+[ext_resource type="Script" uid="uid://bdwlkj50onpn6" path="res://Actual Game Folder/scripts/ui/shop_item_preview.gd" id="1_kfwnh"]
+[ext_resource type="Texture2D" uid="uid://dwmuxqubqjmje" path="res://Miscellanious Assets Dump/Image/sample_beyblade.png" id="2_kfwnh"]
+[ext_resource type="Texture2D" uid="uid://do8u8vjmjis3f" path="res://Actual Game Folder/sprites/items/beyblade garage wrapper.png" id="2_wnu06"]
+[ext_resource type="FontFile" uid="uid://dv0dl3euktrdp" path="res://Miscellanious Assets Dump/Fonts/COMIC-SANS.otf" id="3_kfwnh"]
+
+[sub_resource type="Gradient" id="Gradient_3vljr"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5jftl"]
+gradient = SubResource("Gradient_3vljr")
+height = 21
+
+[node name="shopItemPreview" type="Control" unique_id=1979294433]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_kfwnh")
+metadata/_edit_use_anchors_ = true
+
+[node name="ItemContainer" type="CenterContainer" parent="." unique_id=424313044]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 105.0
+offset_bottom = 100.0
+
+[node name="item" parent="ItemContainer" unique_id=730989761 instance=ExtResource("1_2knxh")]
+position = Vector2(49.999996, 48)
+scale = Vector2(0.32, 0.32)
+item_texture = ExtResource("2_kfwnh")
+
+[node name="wrapper" type="TextureRect" parent="." unique_id=1924794381]
+layout_mode = 0
+offset_left = -31.0
+offset_top = -44.0
+offset_right = 993.0
+offset_bottom = 980.0
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("2_wnu06")
+stretch_mode = 3
+
+[node name="price tag" type="TextureRect" parent="." unique_id=1897490238]
+layout_mode = 0
+offset_left = 64.0
+offset_top = -21.611938
+offset_right = 133.80307
+offset_bottom = 12.531284
+rotation = -0.39392912
+scale = Vector2(0.61168236, 0.61168236)
+texture = SubResource("GradientTexture2D_5jftl")
+
+[node name="price label" type="Label" parent="." unique_id=1362500695]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 66.0
+offset_top = -20.611938
+offset_right = 133.0
+offset_bottom = 9.388062
+rotation = -0.39203277
+scale = Vector2(0.61168236, 0.61168236)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_kfwnh")
+theme_override_font_sizes/font_size = 24
+text = "$0"
+horizontal_alignment = 2
+
+[node name="buy button" type="Button" parent="." unique_id=1853455107]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -9.0
+offset_top = 127.0
+offset_right = 113.0
+offset_bottom = 156.0
+theme_override_fonts/font = ExtResource("3_kfwnh")
+text = "buy"
