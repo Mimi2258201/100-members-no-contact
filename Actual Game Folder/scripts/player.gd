@@ -16,13 +16,32 @@ const SPIN_BLUR_SHADER = preload("res://Actual Game Folder/shaders/spin_blur.gds
 
 
 @export_category("Statistics")
-@export var starting_spin_velocity:float = 40
-@export var default_velocity: float = 20
+@export var starting_spin_velocity:float = 80 # full stamina == spin_cap, then it winds down
 @export var spin_velocity_drop_on_collision: float = 1
 @export var spin_velocity_drop_over_time: float = 1.5
 @export var collision_shake_trauma: float = 0.3
 @export var spin_floor: float = 12.0
 @export var spin_cap: float = 80.0
+
+@export_category("Handling")
+@export var drive_force: float = 2400.0      # lower = heavier wind-up
+@export var low_spin_control: float = 0.65   # steering authority at spin_floor (0..1)
+@export var grip: float = 3.5                # lower = wider, driftier corners
+@export var min_top_speed: float = 600.0     # speed ceiling at spin_floor
+@export var max_top_speed: float = 1000.0    # speed ceiling at spin_cap
+@export var wobble_amplitude: float = 3.5
+@export var wobble_speed: float = 26.0
+
+@export_category("Wall Bounce")
+@export var ricochet_boost: float = 1.4
+@export var ricochet_min_speed: float = 120.0 # below this it's a soft tap, no boost
+@export var ricochet_max_speed: float = 1500.0 # hard cap so corner-pinging can't run away
+@export var ricochet_lockout: float = 0.18     # how long the bounce rides free of cap and grip
+# precession/idle_wander fight your input, so they default off; nonzero for beyblade-y drift
+@export var precession: float = 0.0
+@export var precession_sign: float = 1.0     # +1 / -1 to match the blade's spin direction
+@export var idle_wander: float = 0.0
+@export var idle_wander_speed: float = 1.4
 
 @export_category("Resources")
 @export var launch_sfx_stream : AudioStream
@@ -40,7 +59,7 @@ const SPIN_BLUR_SHADER = preload("res://Actual Game Folder/shaders/spin_blur.gds
 @export var drink_drop_chance: float = 0.08
 
 @export_category("Dash Strike")
-@export var dash_speed: float = 560.0
+@export var dash_speed: float = 1500.0
 @export var dash_boost_mult: float = 1.5
 @export var dash_duration: float = 0.16
 @export var dash_recovery: float = 0.26
@@ -74,9 +93,11 @@ const SPARK_INTERVAL := 0.08
 const SPIN_FULL_COLOR := Color(0.2, 0.7, 1.0)
 const SPIN_LOW_COLOR := Color(0.85, 0.4, 0.2)
 
-var current_velocity: Vector2 = Vector2(0, 0)
 var spin_velocity: float = 0.0
 var player_died: bool = false
+var _wander_phase: float = 0.0
+var _wobble_phase: float = 0.0
+var _ricochet_t: float = 0.0
 
 var _health: float
 var _dead: bool = false
@@ -91,6 +112,7 @@ var _dash_hits: Array = []
 var _fx_accum: float = 0.0
 var _spark_cd: float = 0.0
 var _blade_material: ShaderMaterial
+@onready var _sprite: Sprite2D = $Sprite2D
 var _hp_bar: ProgressBar
 var _hp_val: Label
 var _spin_meter: ProgressBar
@@ -123,33 +145,61 @@ func _physics_process(delta: float) -> void:
 
 	_update_boss_ui()
 
-	$Sprite2D.rotate(spin_velocity * delta)
+	_sprite.rotate(spin_velocity * delta)
 	_update_spin_blur(delta)
+	_update_wobble(delta)
 
 	spin_velocity = clamp(spin_velocity - spin_velocity_drop_over_time * delta, spin_floor, spin_cap)
+	_ricochet_t = maxf(_ricochet_t - delta, 0.0)
 
 	_update_status_hud()
 
 	if _update_dash(delta):
 		return
 
-	current_velocity = Vector2(0, 0);
-
-	if Input.is_action_pressed("left"):
-		current_velocity[0] -= default_velocity;
-
-	if Input.is_action_pressed("right"):
-		current_velocity[0] += default_velocity;
-
-	if Input.is_action_pressed("up"):
-		current_velocity[1] -= default_velocity;
-
-	if Input.is_action_pressed("down"):
-		current_velocity[1] += default_velocity;
-
-	apply_force(current_velocity * spin_velocity) #Just proprtional to spin velocity rn, some physics guy please make cleaner logic idk how beyblades work
+	_drive(delta)
 
 	_shred_horde(delta)
+
+func _spin_ratio() -> float:
+	return clampf((spin_velocity - spin_floor) / maxf(spin_cap - spin_floor, 0.001), 0.0, 1.0)
+
+func _drive(delta: float) -> void:
+	var input_dir := Vector2(
+		Input.get_action_strength("right") - Input.get_action_strength("left"),
+		Input.get_action_strength("down") - Input.get_action_strength("up")
+	)
+	if input_dir.length() > 1.0:
+		input_dir = input_dir.normalized()
+
+	var spin_ratio := _spin_ratio()
+	var control := lerpf(low_spin_control, 1.0, spin_ratio)
+	var bouncing := _ricochet_t > 0.0
+
+	if input_dir != Vector2.ZERO:
+		var perp := Vector2(-input_dir.y, input_dir.x) * precession_sign
+		var steer := (input_dir + perp * precession * spin_ratio).normalized()
+		apply_central_force(steer * drive_force * lerpf(0.7, 1.0, spin_ratio) * control)
+
+		# bleed sideways slide so it turns onto your heading; skip while bouncing so the bounce shows
+		if not bouncing:
+			var slide := linear_velocity - steer * linear_velocity.dot(steer)
+			apply_central_force(-slide * grip * lerpf(0.55, 1.0, spin_ratio))
+	elif idle_wander > 0.0:
+		_wander_phase += delta * idle_wander_speed
+		apply_central_force(Vector2.from_angle(_wander_phase) * idle_wander * spin_ratio)
+
+	# a fresh wall bounce skips the cap so it can fly off faster for a moment
+	if not bouncing:
+		var top_speed := lerpf(min_top_speed, max_top_speed, spin_ratio)
+		if linear_velocity.length() > top_speed:
+			linear_velocity = linear_velocity.limit_length(top_speed)
+
+# wobble grows as spin drains, so "about to die" reads without watching the meter
+func _update_wobble(delta: float) -> void:
+	_wobble_phase += delta * wobble_speed
+	var wob := 1.0 - _spin_ratio()
+	_sprite.position = Vector2.from_angle(_wobble_phase) * wobble_amplitude * wob
 
 func _setup_spin_blur() -> void:
 	var spr := $Sprite2D as Sprite2D
@@ -345,9 +395,10 @@ func _on_body_entered(body: Node) -> void:
 
 	spin_velocity -= spin_velocity_drop_on_collision
 
+	var impact := clampf(linear_velocity.length() / max_top_speed, 0.35, 1.4)
 	var camera := get_viewport().get_camera_2d()
 	if camera and camera.has_method("add_trauma"):
-		camera.add_trauma(collision_shake_trauma)
+		camera.add_trauma(collision_shake_trauma * impact)
 
 	if(body is Node2D):
 		var body2D = body as Node2D
@@ -356,13 +407,34 @@ func _on_body_entered(body: Node) -> void:
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	_spark_cd = maxf(_spark_cd - state.step, 0.0)
-	if _spark_cd > 0.0 or get_contact_count() <= 0:
+	var contacts := state.get_contact_count()
+	if contacts <= 0:
 		return
-	_spark_cd = SPARK_INTERVAL
-	var sparks = SPARKS_SCENE.instantiate()
-	sparks.global_position = state.get_contact_local_position(0)
-	get_parent().add_child(sparks)
-	get_tree().create_timer(0.1).timeout.connect(sparks.queue_free)
+
+	# only walls/obstacles ricochet; the horde gets plowed, not bounced off of
+	var wall_contact := -1
+	for i in contacts:
+		var col := state.get_contact_collider_object(i)
+		if col is Node and (col as Node).is_in_group(HORDE_GROUP):
+			continue
+		wall_contact = i
+		break
+	if wall_contact < 0:
+		return
+
+	if _spark_cd <= 0.0:
+		_spark_cd = SPARK_INTERVAL
+		var sparks = SPARKS_SCENE.instantiate()
+		sparks.global_position = state.get_contact_local_position(wall_contact)
+		get_parent().add_child(sparks)
+		get_tree().create_timer(0.1).timeout.connect(sparks.queue_free)
+
+	# bounce=1.0 reflects the speed; we scale that speed up so the wall hit adds a kick.
+	# scaling the length (not flipping the direction ourselves) works pre- or post-bounce.
+	var spd := state.linear_velocity.length()
+	if spd >= ricochet_min_speed:
+		state.linear_velocity = state.linear_velocity / spd * minf(spd * ricochet_boost, ricochet_max_speed)
+		_ricochet_t = ricochet_lockout
 
 # this is used to give the player a buff
 # feel free to use it as much as you want in other scripts
