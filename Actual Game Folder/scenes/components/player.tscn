@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://c055dhcymjmqp" path="res://Miscellanious Assets Dump/Audio/ripcord.mp3" id="3_kmxop"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7buym"]
-bounce = 0.5
+bounce = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kmxop"]
 radius = 84.0
