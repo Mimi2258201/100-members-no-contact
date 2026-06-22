@@ -25,6 +25,7 @@ Globals="*uid://byw85re6utohf"
 AudioManager="*res://Actual Game Folder/scripts/autoload/audio_manager.gd"
 SceneManager="*res://Actual Game Folder/scripts/autoload/scene_manager.gd"
 Transition="*res://Actual Game Folder/scripts/autoload/transition.gd"
+Progress="*res://Actual Game Folder/scripts/autoload/progress.gd"
 
 [display]
 

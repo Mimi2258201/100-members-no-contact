@@ -2,8 +2,9 @@ extends Node2D
 
 # Auto-battler director. The AI top (AutoTop) fights on its own; the player only
 # sweeps the mouse to bank the coins the horde drops. Flow: escalating horde
-# waves, a shop between each, then a final boss. Killing the boss wins the run
-# (handled by Player._win); the top dying loses it (Player._die).
+# waves with a short breather between each, then a final boss. Killing the boss
+# wins the run (Player._win); the top dying loses it (Player._die). Coins bank to
+# the persistent Progress store and are spent on permanent upgrades in the garage.
 
 const HORDE_SCENE = preload("res://Actual Game Folder/scenes/components/exploration/horde_enemy.tscn")
 const BOSS_SCENE = preload("res://Actual Game Folder/scenes/components/exploration/horde_boss.tscn")
@@ -20,14 +21,6 @@ const ENEMY_GROUP := "horde_enemy"
 @export var spawn_margin: float = 80.0
 @export var final_boss_health: float = 240.0
 
-const UPGRADES := [
-	{"id": "flywheel", "name": "Heavier Flywheel", "desc": "+10 max spin", "cost": 6},
-	{"id": "motor", "name": "Faster Motor", "desc": "+60 top speed", "cost": 6},
-	{"id": "blade", "name": "Sharper Blade", "desc": "+0.3 dmg, +12 dash", "cost": 8},
-	{"id": "frame", "name": "Reinforced Frame", "desc": "+25 max HP, heal 25", "cost": 8},
-	{"id": "repair", "name": "Field Repair", "desc": "Heal to full", "cost": 5},
-]
-
 @onready var _top: AutoTop = $AutoTop
 
 var _wave: int = 0
@@ -36,16 +29,15 @@ var _kills_needed: int = 0
 var _alive_cap: int = 0
 var _batch: int = 0
 var _spawning: bool = false
-var _coins: int = 0
-var _bought: Dictionary = {}
+var _wave_coins: int = 0
 var _spawn_timer: Timer
 
 var _coin_label: Label
 var _wave_label: Label
 var _banner: Label
-var _shop: Control
-var _shop_balance: Label
-var _shop_rows: Array = []
+var _interlude: Control
+var _interlude_title: Label
+var _interlude_sub: Label
 
 func _ready() -> void:
 	add_to_group("auto_battle")
@@ -67,6 +59,7 @@ func _ready() -> void:
 func _start_wave(n: int) -> void:
 	_wave = n
 	_kills = 0
+	_wave_coins = 0
 	_top.set_battle_paused(false)
 	_top.relaunch(wave_heal_fraction)
 
@@ -106,7 +99,7 @@ func _end_wave() -> void:
 	_clear_horde()
 	_bank_remaining_coins()
 	_top.set_battle_paused(true)
-	_open_shop()
+	_show_interlude()
 
 func _on_spawn_tick() -> void:
 	if not _spawning:
@@ -138,58 +131,38 @@ func _on_player_lost() -> void:
 	_spawning = false
 	_spawn_timer.stop()
 	_clear_horde()
-	get_tree().create_timer(2.5).timeout.connect(_to_menu)
+	# back to the garage to spend what you earned and try again
+	get_tree().create_timer(2.5).timeout.connect(_to_garage)
 
-func _to_menu() -> void:
-	SceneManager.change_screen(SceneManager.SceneKey.MENU)
+func _to_garage() -> void:
+	SceneManager.change_screen(SceneManager.SceneKey.GARAGE)
 
 # --- coins (called by coin.gd via the "auto_battle" group) ---
 
 func add_coins(amount: int) -> void:
-	_coins += amount
-	_coin_label.text = "COINS  %d" % _coins
-	if _shop and _shop.visible:
-		_refresh_shop()
+	Progress.add_coins(amount)
+	_wave_coins += amount
+	_refresh_coin_label()
 
-# --- shop ---
+func _refresh_coin_label() -> void:
+	_coin_label.text = "COINS  %d" % Progress.coins
 
-func _cost_of(up: Dictionary) -> int:
-	return int(up.cost) * (1 + int(_bought.get(up.id, 0)))
+# --- between-wave breather ---
 
-func _open_shop() -> void:
-	_refresh_shop()
-	_shop.visible = true
+func _show_interlude() -> void:
+	if _wave >= horde_waves:
+		_interlude_title.text = "WAVES CLEARED"
+		_interlude_sub.text = "+%d coins this wave   —   FINAL BOSS NEXT" % _wave_coins
+	else:
+		_interlude_title.text = "WAVE %d CLEARED" % _wave
+		_interlude_sub.text = "+%d coins   (banked: %d)" % [_wave_coins, Progress.coins]
+	_interlude.visible = true
 
-func _buy(up: Dictionary) -> void:
-	var cost := _cost_of(up)
-	if _coins < cost:
-		return
-	_coins -= cost
-	_bought[up.id] = int(_bought.get(up.id, 0)) + 1
-	match up.id:
-		"flywheel": _top.spin_cap += 10.0
-		"motor": _top.max_top_speed += 60.0
-		"blade":
-			_top.enemy_damage_factor += 0.3
-			_top.dash_damage += 12.0
-		"frame":
-			_top.max_health += 25.0
-			_top.heal(25.0)
-		"repair": _top.heal(_top.max_health)
-	add_coins(0)
-
-func _fight() -> void:
-	_shop.visible = false
+func _continue() -> void:
+	_interlude.visible = false
 	_start_wave(_wave + 1)
 
-func _refresh_shop() -> void:
-	_shop_balance.text = "COINS  %d" % _coins
-	for row in _shop_rows:
-		var cost := _cost_of(row.up)
-		row.button.text = "%s   (%d)" % [row.up.name, cost]
-		row.button.disabled = _coins < cost
-
-# --- HUD construction ---
+# --- HUD ---
 
 func _build_hud() -> void:
 	var layer := CanvasLayer.new()
@@ -199,7 +172,7 @@ func _build_hud() -> void:
 	var stats := VBoxContainer.new()
 	stats.set_anchors_preset(Control.PRESET_TOP_RIGHT)
 	stats.grow_horizontal = Control.GROW_DIRECTION_BEGIN
-	stats.offset_left = -200.0
+	stats.offset_left = -220.0
 	stats.offset_top = 12.0
 	stats.offset_right = -16.0
 	stats.alignment = BoxContainer.ALIGNMENT_END
@@ -210,6 +183,7 @@ func _build_hud() -> void:
 	stats.add_child(_coin_label)
 	_wave_label = _make_label("", 14, HORIZONTAL_ALIGNMENT_RIGHT)
 	stats.add_child(_wave_label)
+	_refresh_coin_label()
 
 	_banner = _make_label("", 44, HORIZONTAL_ALIGNMENT_CENTER)
 	_banner.set_anchors_preset(Control.PRESET_CENTER_TOP)
@@ -218,45 +192,38 @@ func _build_hud() -> void:
 	_banner.modulate.a = 0.0
 	layer.add_child(_banner)
 
-	_build_shop(layer)
+	_build_interlude(layer)
 
-func _build_shop(layer: CanvasLayer) -> void:
-	_shop = Control.new()
-	_shop.set_anchors_preset(Control.PRESET_FULL_RECT)
-	_shop.visible = false
-	layer.add_child(_shop)
+func _build_interlude(layer: CanvasLayer) -> void:
+	_interlude = Control.new()
+	_interlude.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_interlude.visible = false
+	layer.add_child(_interlude)
 
 	var dim := ColorRect.new()
-	dim.color = Color(0, 0, 0, 0.55)
+	dim.color = Color(0, 0, 0, 0.5)
 	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
-	_shop.add_child(dim)
+	_interlude.add_child(dim)
 
 	var center := CenterContainer.new()
 	center.set_anchors_preset(Control.PRESET_FULL_RECT)
-	_shop.add_child(center)
-
-	var panel := PanelContainer.new()
-	center.add_child(panel)
+	_interlude.add_child(center)
 
 	var box := VBoxContainer.new()
-	box.add_theme_constant_override("separation", 8)
-	box.custom_minimum_size = Vector2(320, 0)
-	panel.add_child(box)
+	box.alignment = BoxContainer.ALIGNMENT_CENTER
+	box.add_theme_constant_override("separation", 10)
+	center.add_child(box)
 
-	box.add_child(_make_label("UPGRADE YOUR TOP", 26, HORIZONTAL_ALIGNMENT_CENTER))
-	_shop_balance = _make_label("COINS  0", 18, HORIZONTAL_ALIGNMENT_CENTER)
-	box.add_child(_shop_balance)
+	_interlude_title = _make_label("", 30, HORIZONTAL_ALIGNMENT_CENTER)
+	box.add_child(_interlude_title)
+	_interlude_sub = _make_label("", 16, HORIZONTAL_ALIGNMENT_CENTER)
+	box.add_child(_interlude_sub)
 
-	for up in UPGRADES:
-		var btn := Button.new()
-		btn.pressed.connect(_buy.bind(up))
-		box.add_child(btn)
-		_shop_rows.append({"up": up, "button": btn})
-
-	var fight := Button.new()
-	fight.text = "FIGHT  >"
-	fight.pressed.connect(_fight)
-	box.add_child(fight)
+	var cont := Button.new()
+	cont.text = "CONTINUE  >"
+	cont.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	cont.pressed.connect(_continue)
+	box.add_child(cont)
 
 func _make_label(text: String, size: int, align: int) -> Label:
 	var lbl := Label.new()
@@ -280,7 +247,7 @@ func _show_banner(text: String) -> void:
 func _update_wave_label() -> void:
 	_wave_label.text = "WAVE %d / %d   —   %d / %d" % [_wave, horde_waves, _kills, _kills_needed]
 
-# --- spawn placement (mirror of enemy_spawner: just offscreen, around the top) ---
+# --- spawn placement (just offscreen, around the top) ---
 
 func _offscreen_pos() -> Vector2:
 	var center := _top.global_position

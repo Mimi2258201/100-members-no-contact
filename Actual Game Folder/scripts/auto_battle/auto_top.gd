@@ -31,6 +31,7 @@ var _drift_phase: float = 0.0
 var _orbit_t: float = 0.0
 
 func _ready() -> void:
+	Progress.apply(self) # permanent garage upgrades, before base _ready sets _health
 	super()
 	_orbit_sign = 1.0 if randf() < 0.5 else -1.0
 	# turn on the blade's natural drift so driving curves instead of tracking straight
