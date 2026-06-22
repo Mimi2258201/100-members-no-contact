@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dv6xg86x1ixnl"
-path="res://.godot/imported/beyblade shopkeep mouth open.png-21ad4677922b9cf5841992f19b1d3043.ctex"
+uid="uid://bnyti4wu82l4"
+path="res://.godot/imported/Test.png-ccda0d483f2a63a580336ac143b55999.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Miscellanious Assets Dump/Image/characters/beyblade shopkeep mouth open.png"
-dest_files=["res://.godot/imported/beyblade shopkeep mouth open.png-21ad4677922b9cf5841992f19b1d3043.ctex"]
+source_file="res://Actual Game Folder/sprites/tilesets/Test.png"
+dest_files=["res://.godot/imported/Test.png-ccda0d483f2a63a580336ac143b55999.ctex"]
 
 [params]
 

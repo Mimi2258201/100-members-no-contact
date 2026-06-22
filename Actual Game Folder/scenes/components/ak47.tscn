@@ -1,17 +1,17 @@
-[gd_scene format=3 uid="uid://6yq53qok5tp7"]
+[gd_scene load_steps=4 format=3 uid="uid://6yq53qok5tp7"]
 
 [ext_resource type="Texture2D" uid="uid://rb0acr762peu" path="res://Actual Game Folder/sprites/weapons/ak47.png" id="1_e5xil"]
-[ext_resource type="Script" uid="uid://xerfaea2s3ay" path="res://Actual Game Folder/scripts/weapons/ak47.gd" id="2_5jbx1"]
+[ext_resource type="Script" path="res://Actual Game Folder/scripts/weapons/ak47.gd" id="2_5jbx1"]
 [ext_resource type="AudioStream" uid="uid://cg0753hy0g0aa" path="res://Miscellanious Assets Dump/Audio/sfx/collide.wav" id="3_bpl1q"]
 
-[node name="ak47" type="Sprite2D" unique_id=1742752380]
+[node name="ak47" type="Sprite2D"]
 texture = ExtResource("1_e5xil")
-offset = Vector2(2.667, -0.3333335)
+offset = Vector2(2.667, -0.333333)
 region_enabled = true
 region_rect = Rect2(0, 0, 18, 7)
 script = ExtResource("2_5jbx1")
 
-[node name="flash1" type="Sprite2D" parent="." unique_id=1918488687]
+[node name="flash1" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(12, -1.283)
 texture = ExtResource("1_e5xil")
@@ -19,26 +19,26 @@ offset = Vector2(4, 0)
 region_enabled = true
 region_rect = Rect2(3, 12, 8, 5)
 
-[node name="flash2" type="Sprite2D" parent="." unique_id=1907144641]
+[node name="flash2" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(12, -1.3333337)
+position = Vector2(12, -1.33333)
 texture = ExtResource("1_e5xil")
 offset = Vector2(6, 0)
 region_enabled = true
 region_rect = Rect2(3, 18, 12, 5)
 
-[node name="flash3" type="Sprite2D" parent="." unique_id=310442026]
+[node name="flash3" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(12, -1.3333337)
+position = Vector2(12, -1.33333)
 texture = ExtResource("1_e5xil")
-offset = Vector2(4.666667, 0)
+offset = Vector2(4.66667, 0)
 region_enabled = true
 region_rect = Rect2(3, 24, 10, 5)
 
-[node name="bullet_spawn" type="Marker2D" parent="." unique_id=518705453]
+[node name="bullet_spawn" type="Marker2D" parent="."]
 visible = false
-position = Vector2(20, -1.3333334)
+position = Vector2(20, -1.33333)
 
-[node name="sfx" type="AudioStreamPlayer2D" parent="." unique_id=1114910596]
+[node name="sfx" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_bpl1q")
 bus = &"sfx"
