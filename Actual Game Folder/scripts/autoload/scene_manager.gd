@@ -28,7 +28,7 @@ const _SCENES_MAP: Dictionary = {
 	SceneKey.FUTURE_PLACE: "res://Actual Game Folder/scenes/levels/exploration/future_place.tscn",
 	SceneKey.DUNGEON: "res://Actual Game Folder/scenes/levels/exploration/dungeon.tscn",
 	SceneKey.GAMEPLAY: "res://Actual Game Folder/scenes/gameplay.tscn",
-	SceneKey.GARAGE: "res://Actual Game Folder/scenes/garage.tscn",
+	SceneKey.GARAGE: "res://Actual Game Folder/scenes/levels/exploration/garage.tscn",
 }
 
 var current_scene
