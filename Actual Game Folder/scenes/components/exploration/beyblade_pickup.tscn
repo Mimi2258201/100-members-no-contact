@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cb7yp1ck2dxle"]
+
+[ext_resource type="Script" path="res://Actual Game Folder/scripts/exploration/beyblade_pickup.gd" id="1_pkup0"]
+[ext_resource type="Texture2D" uid="uid://hs2box2ysjnk" path="res://Miscellanious Assets Dump/Image/beyblades/pixelart/Blade1.png" id="2_pkup1"]
+[ext_resource type="FontFile" uid="uid://dv0dl3euktrdp" path="res://Miscellanious Assets Dump/Fonts/COMIC-SANS.otf" id="3_pkup2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pkup3"]
+size = Vector2(26, 26)
+
+[node name="BeybladePickup" type="Node2D" groups=["interactable"]]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["interactable"]]
+script = ExtResource("1_pkup0")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("2_pkup1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_pkup3")
+
+[node name="Indicator" type="Label" parent="CharacterBody2D"]
+visible = false
+offset_left = -17.3333
+offset_top = -25.3333
+offset_right = 17.6667
+offset_bottom = -13.3333
+theme_override_fonts/font = ExtResource("3_pkup2")
+theme_override_font_sizes/font_size = 10
+text = "Press E"

@@ -33,7 +33,7 @@ const SPIN_BLUR_SHADER = preload("res://Actual Game Folder/shaders/spin_blur.gds
 @export var wobble_speed: float = 26.0
 
 # to control item interaction ui visibility
-@onready var interact_UI = $"../UI/item interaction ui/ColorRect"
+@onready var interact_UI = get_node_or_null("../UI/item interaction ui/ColorRect")
 @export_category("Wall Bounce")
 @export var ricochet_boost: float = 1.4
 @export var ricochet_min_speed: float = 120.0 # below this it's a soft tap, no boost
@@ -193,11 +193,18 @@ func _physics_process(delta: float) -> void:
 func _spin_ratio() -> float:
 	return clampf((spin_velocity - spin_floor) / maxf(spin_cap - spin_floor, 0.001), 0.0, 1.0)
 
-func _drive(delta: float) -> void:
-	var input_dir := Vector2(
+# input hooks: AI-driven tops override these to steer without a keyboard
+func _read_move_input() -> Vector2:
+	return Vector2(
 		Input.get_action_strength("right") - Input.get_action_strength("left"),
 		Input.get_action_strength("down") - Input.get_action_strength("up")
 	)
+
+func _wants_dash() -> bool:
+	return Input.is_action_just_pressed("dash")
+
+func _drive(delta: float) -> void:
+	var input_dir := _read_move_input()
 	if input_dir.length() > 1.0:
 		input_dir = input_dir.normalized()
 
@@ -301,7 +308,7 @@ func _update_dash(delta: float) -> bool:
 		_shred_horde(delta)
 		return true
 
-	if Input.is_action_just_pressed("dash") and _dash_cd <= 0.0 and spin_velocity >= dash_spin_cost:
+	if _wants_dash() and _dash_cd <= 0.0 and spin_velocity >= dash_spin_cost:
 		_start_dash()
 		_dash_active_step(delta)
 		return true

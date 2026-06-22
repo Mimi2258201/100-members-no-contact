@@ -1110,5 +1110,9 @@ position = Vector2(370, 575)
 scale = Vector2(1.28399, 1.67528)
 destination = 6
 
+[node name="HouseDoor" parent="." instance=ExtResource("5_6egli")]
+position = Vector2(248, 22)
+mode = 2
+
 [editable path="PlayerEx"]
 [editable path="PlayerEx/CharacterBody2D/Camera2D/DialogueBox"]

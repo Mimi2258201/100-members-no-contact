@@ -2,6 +2,8 @@ extends Node
 
 var current_screen: String = "menu"
 
+var has_beyblade: bool = false
+
 ## inventory system framework by sonicjb08 
 var inventory_general : Array = []
 signal inventory_updated

@@ -9,11 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://b8h0rd3scene1" path="res://Actual Game Folder/scenes/components/exploration/horde_enemy.tscn" id="6_horde"]
 [ext_resource type="Script" path="res://Actual Game Folder/scripts/exploration/arena_obstacles.gd" id="7_obst"]
 [ext_resource type="PackedScene" uid="uid://btof5wkmcbaaw" path="res://Actual Game Folder/scenes/components/exploration/horde_boss.tscn" id="8_boss"]
-[ext_resource type="Script" path="res://Actual Game Folder/scripts/exploration/bullet_container.gd" id="9_ft1gc"]
+[ext_resource type="Script" path="res://Actual Game Folder/scripts/battle/battle_top.gd" id="10_btop"]
 
 [node name="Gameplay" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource("1_ix2qu")]
+[node name="Player" parent="." unique_id=1247971636 instance=ExtResource("1_ix2qu")]
+script = ExtResource("10_btop")
 
 [node name="Levels" type="Node" parent="."]
 

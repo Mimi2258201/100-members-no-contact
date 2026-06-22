@@ -22,10 +22,12 @@ func hover():
 
 func start():
 	AudioManager.play_sfx(button_click_stream,Vector2.ZERO)
+	AudioManager.fade_out_music()
 	SceneManager.change_screen(SceneManager.SceneKey.EXPLORATION)
 
 func story():
 	AudioManager.play_sfx(button_click_stream,Vector2.ZERO)
+	AudioManager.fade_out_music()
 	SceneManager.change_screen(SceneManager.SceneKey.EXPLORATION)
 
 func exit():

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c42vj6tndoutg" path="res://Actual Game Folder/sprites/tilesets/TX Tileset Grass.png" id="1_h8c3x"]
 [ext_resource type="PackedScene" uid="uid://b1227f3u8ele1" path="res://Actual Game Folder/scenes/components/exploration/player_ex.tscn" id="3_ac8e4"]
 [ext_resource type="PackedScene" uid="uid://xv8it6luhbrs" path="res://Actual Game Folder/scenes/levels/exploration/door.tscn" id="4_mk0ui"]
+[ext_resource type="PackedScene" uid="uid://cb7yp1ck2dxle" path="res://Actual Game Folder/scenes/components/exploration/beyblade_pickup.tscn" id="5_pkup0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ac8e4"]
 texture = ExtResource("1_h4sms")
@@ -648,3 +649,8 @@ position = Vector2(209, 40)
 
 [node name="Door" parent="." instance=ExtResource("4_mk0ui")]
 position = Vector2(184, 369)
+mode = 1
+requires_beyblade = true
+
+[node name="BeybladePickup" parent="." instance=ExtResource("5_pkup0")]
+position = Vector2(200, 210)

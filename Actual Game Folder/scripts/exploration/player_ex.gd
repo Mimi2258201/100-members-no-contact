@@ -183,9 +183,17 @@ func finish_dialogue():
 	if near_enemy and "is_bad" in near_enemy and near_enemy.is_bad:
 		print("We are entering the fight >:)))")
 		_launch_into_battle(near_enemy.get_combat_data())
-	elif near_enemy and "is_mechanic":
+	elif near_enemy and "is_pickup" in near_enemy and near_enemy.is_pickup:
+		_collect_pickup(near_enemy)
+	elif near_enemy and "is_mechanic" in near_enemy and near_enemy.is_mechanic:
 		print("It's a mechanic! :)")
-		SceneManager.change_screen(SceneManager.SceneKey.GARAGE)
+		SceneManager.push_scene(SceneManager.SceneKey.GARAGE)
+
+func _collect_pickup(item: Node) -> void:
+	Globals.has_beyblade = true
+	if item == near_enemy:
+		near_enemy = null
+	item.queue_free()
 
 func _launch_into_battle(data: Dictionary) -> void:
 	is_launching = true
