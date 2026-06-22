@@ -11,8 +11,7 @@ class_name wings_energy_power_up
 # after picking this up
 
 @export var spin_speed: float
-@export var energy_amount: int
-@export var player: RigidBody2D
+@export var heal_amount: int
 
 func _physics_process(delta: float) -> void:
 	rotation += spin_speed * delta
@@ -21,6 +20,6 @@ func _physics_process(delta: float) -> void:
 # can be used to stop objects from taking the energy meant for the player
 # it would be cool to see enemies taking this energy powerup as well 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.has_method("gain_energy"):
-		body.gain_energy(energy_amount)
+	if body.has_method("heal"):
+		body.heal(heal_amount)
 	queue_free()

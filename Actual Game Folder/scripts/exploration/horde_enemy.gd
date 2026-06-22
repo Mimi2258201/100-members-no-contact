@@ -14,7 +14,6 @@ class_name HordeEnemy
 
 @export_category("Bounty")
 @export var spin_reward: float = 5.0
-@export var heal_reward: float = 4.0
 
 @export_category("Hit Flash")
 @export var flash_time: float = 0.12
@@ -44,6 +43,13 @@ func _ready() -> void:
 	if animator:
 		animator.play("idle_down")
 
+	# Hee hee
+	if randi() % 9 == 0:
+		var lead_dispenser = preload("res://Actual Game Folder/scenes/components/ak47.tscn").instantiate()
+		lead_dispenser.position.y = 5.5
+		add_child(lead_dispenser)
+
+
 func _physics_process(delta: float) -> void:
 	_update_flash(delta)
 	_update_damage_numbers(delta)
@@ -71,6 +77,11 @@ func _apply_contact_damage(delta: float) -> void:
 	# Distance based: we clip through the player, so no physics contact to read.
 	if global_position.distance_to(_player.global_position) <= contact_range and _player.has_method("take_damage"):
 		_player.take_damage(contact_damage * delta)
+
+func health_fraction() -> float:
+	if max_health <= 0.0:
+		return 0.0
+	return clampf(_health / max_health, 0.0, 1.0)
 
 # returns true if this hit killed us
 func take_damage(amount: float) -> bool:

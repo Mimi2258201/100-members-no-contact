@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cce2fbfh6tc64"]
+
+[ext_resource type="Script" uid="uid://c6rwrjud6idc3" path="res://Actual Game Folder/scripts/inventory_system.gd" id="1_qiyib"]
+[ext_resource type="Texture2D" uid="uid://cme662o0ufeay" path="res://icon.svg" id="2_qj41j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vbk5b"]
+resource_local_to_scene = true
+size = Vector2(168, 162)
+
+[node name="item" type="Area2D" unique_id=730989761 groups=["items", "player"]]
+script = ExtResource("1_qiyib")
+
+[node name="item collision" type="CollisionShape2D" parent="." unique_id=196697269]
+position = Vector2(-1, 1)
+shape = SubResource("RectangleShape2D_vbk5b")
+
+[node name="item sprite" type="Sprite2D" parent="." unique_id=287206997]
+position = Vector2(0, 0.99999994)
+scale = Vector2(0.60937494, 0.609375)
+texture = ExtResource("2_qj41j")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

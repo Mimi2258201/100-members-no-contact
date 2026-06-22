@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://tndguwt33lqb"]
+[gd_resource type="TileSet" format=3 uid="uid://tndguwt33lqb"]
 
 [ext_resource type="Texture2D" uid="uid://dg6s8x6e17l0u" path="res://Actual Game Folder/sprites/tilesets/sci-fi-platformer-tiles-32x32-extension.png" id="1_kd5m0"]
 

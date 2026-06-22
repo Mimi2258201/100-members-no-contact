@@ -35,6 +35,8 @@ func get_sfx_player(stream : AudioStream, position : Vector2) -> AudioStreamPlay
 			sPlayer.stream = stream
 			return sPlayer
 	var sPlayer = AudioStreamPlayer2D.new()
+	sPlayer.bus = sfxBusName
+	add_child(sPlayer)
 	sfxPlayerPool.push_back(sPlayer)
 	return sPlayer
 

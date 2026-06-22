@@ -3,41 +3,71 @@ extends Node
 @onready var _WORLD_NODE = get_node("/root/World")
 
 enum SceneKey {
+	#--- Menus
 	MENU,
+	OPTIONS, # doesn't exist yet
+	GAME_OVER, # doesnt exist yet
+	
+	#--- Exploration
 	EXPLORATION,
-	GAMEPLAY,
+	GREEN_FIELD,
+	FUTURE_PLACE,
+	DUNGEON,
 	GARAGE,
+	
+	#--- Gameplay
+	GAMEPLAY,
+	
+	# --- More
+	IDK
 }
 const _SCENES_MAP: Dictionary = {
 	SceneKey.MENU: "res://Actual Game Folder/scenes/menu.tscn",
-	SceneKey.EXPLORATION: "res://Actual Game Folder/scenes/levels/exploration/green_field.tscn",
+	SceneKey.EXPLORATION: "res://Actual Game Folder/scenes/levels/exploration/house.tscn",
+	SceneKey.GREEN_FIELD: "res://Actual Game Folder/scenes/levels/exploration/green_field.tscn",
+	SceneKey.FUTURE_PLACE: "res://Actual Game Folder/scenes/levels/exploration/future_place.tscn",
+	SceneKey.DUNGEON: "res://Actual Game Folder/scenes/levels/exploration/dungeon.tscn",
 	SceneKey.GAMEPLAY: "res://Actual Game Folder/scenes/gameplay.tscn",
-	SceneKey.GARAGE: "res://Actual Game Folder/scenes/garage.tscn",
+	SceneKey.GARAGE: "res://Actual Game Folder/scenes/levels/exploration/garage.tscn",
 }
 
 var current_scene
 var battle_context: Dictionary = {}
+var player_beyblade: Node2D = null
+var bullet_container: Node2D = null
 
 var _suspended: Array = []
 
-func change_screen(scene_name: SceneKey):
+func _ready() -> void:
+	await get_tree().process_frame
+	_refresh_world_node()
+
+func change_screen(scene_name: SceneKey) -> void:
+	# tree edits are illegal mid physics callback (door body_entered), so defer
+	call_deferred("_change_screen_now", scene_name)
+
+func _change_screen_now(scene_name: SceneKey) -> void:
 	for s in _suspended:
 		if is_instance_valid(s):
 			s.queue_free()
 	_suspended.clear()
 
-	if current_scene:
-		current_scene.queue_free();
-	else:
-		_WORLD_NODE = get_node_or_null("/root/World")
-		if _WORLD_NODE != null:
-			for child in _WORLD_NODE.get_children():
-				if is_instance_valid(child):
-					child.queue_free()
-
+	_refresh_world_node()
+	
+	if _WORLD_NODE != null:
+		for child in _WORLD_NODE.get_children():
+			if is_instance_valid(child):
+				_WORLD_NODE.remove_child(child) # Lo saca del motor de colisiones y físicas YA
+				child.queue_free() # Lo borra de la memoria al final del frame
+	
+	current_scene = null
+	
 	current_scene = _mount(scene_name)
 
 func enter_battle(context: Dictionary = {}) -> void:
+	call_deferred("_enter_battle_now", context)
+
+func _enter_battle_now(context: Dictionary) -> void:
 	battle_context = context
 	if current_scene:
 		_set_suspended(current_scene, true)
@@ -61,13 +91,8 @@ func end_battle() -> void:
 	AudioManager.stop_music()
 
 func _mount(scene_name: SceneKey) -> Node:
-	_WORLD_NODE = get_node_or_null("/root/World")
-	if _WORLD_NODE == null:
-		var root = get_tree().root
-		if root.has_node("World"):
-			_WORLD_NODE = root.get_node("World")
-		else:
-			_WORLD_NODE = root
+	if _WORLD_NODE == null or not is_instance_valid(_WORLD_NODE):
+		_refresh_world_node()
 			
 	var node: Node = load(_SCENES_MAP[scene_name]).instantiate()
 	
@@ -76,7 +101,19 @@ func _mount(scene_name: SceneKey) -> Node:
 		_activate_camera(node)
 	else:
 		push_error("There's no valid node to mount the scene")
+		
 	return node
+	
+func _refresh_world_node() -> void:
+	_WORLD_NODE = get_node_or_null("/root/World")
+	
+	if _WORLD_NODE == null:
+		var tree = get_tree()
+		if tree != null and tree.root != null:
+			if tree.root.has_node("World"):
+				_WORLD_NODE = tree.root.get_node("World")
+			else:
+				_WORLD_NODE = tree.root
 
 func _set_suspended(node: Node, suspended: bool) -> void:
 	if node is CanvasItem:

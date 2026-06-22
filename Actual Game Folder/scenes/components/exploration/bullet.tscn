@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://b5vawu1hphegh"]
+
+[ext_resource type="Texture2D" uid="uid://rb0acr762peu" path="res://Actual Game Folder/sprites/weapons/ak47.png" id="1_twcl8"]
+[ext_resource type="Script" uid="uid://2ywnx3o0aul6" path="res://Actual Game Folder/scripts/weapons/bullet.gd" id="2_fkcn0"]
+
+[node name="bullet" type="Sprite2D" unique_id=1111112411]
+texture = ExtResource("1_twcl8")
+offset = Vector2(-1, 0)
+region_enabled = true
+region_rect = Rect2(4, 33, 6, 3)
+script = ExtResource("2_fkcn0")

@@ -13,12 +13,19 @@ extends Node2D
 # How far beyond the visible edge enemies appear, so they stream in unseen.
 @export var spawn_margin: float = 64.0
 
+@export_category("Boss")
+@export var boss_scene: PackedScene
+@export var boss_kill_threshold: int = 20 # horde kills before the boss shows up
+
 const SPAWNED_GROUP := "spawned_enemy"
 const SPAWNER_GROUP := "enemy_spawner"
 
 var _target: Node2D
 var _elapsed: float = 0.0
 var _timer: Timer
+var _stopped: bool = false
+var _boss_spawned: bool = false
+var _kills: int = 0
 
 func _ready() -> void:
 	add_to_group(SPAWNER_GROUP)
@@ -31,11 +38,28 @@ func _ready() -> void:
 	_timer.start()
 
 func stop() -> void:
+	_stopped = true
 	if _timer:
 		_timer.stop()
 
 func _process(delta: float) -> void:
 	_elapsed += delta
+
+func register_kill() -> void:
+	if _stopped or _boss_spawned:
+		return
+	_kills += 1
+	if _kills >= boss_kill_threshold:
+		_spawn_boss()
+
+func _spawn_boss() -> void:
+	if _boss_spawned or boss_scene == null or _target == null:
+		return
+	_boss_spawned = true
+	var boss := boss_scene.instantiate()
+	boss.add_to_group(SPAWNED_GROUP)
+	add_child(boss)
+	boss.global_position = _offscreen_position(_target.global_position)
 
 func _on_spawn_tick() -> void:
 	if _target == null:
@@ -73,7 +97,7 @@ func _offscreen_position(center: Vector2) -> Vector2:
 func _view_half_extents() -> Vector2:
 	var size := get_viewport().get_visible_rect().size
 	var zoom := Vector2.ONE
-	var cam := _target.get_node_or_null("Camera2D")
-	if cam is Camera2D:
-		zoom = (cam as Camera2D).zoom
+	var cam := get_viewport().get_camera_2d()
+	if cam:
+		zoom = cam.zoom
 	return (size / zoom) * 0.5
