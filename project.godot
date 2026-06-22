@@ -16,12 +16,8 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="100-members-no-contact"
 run/main_scene="res://Actual Game Folder/scenes/world.tscn"
-config/features=PackedStringArray("4.6")
+config/features=PackedStringArray("4.3")
 config/icon="res://icon.svg"
-
-[audio]
-
-buses/default_bus_layout="res://default_bus_layout.tres"
 
 [autoload]
 
@@ -41,9 +37,7 @@ project/assembly_name="100-members-no-contact"
 
 items=""
 player=""
-
 interactable="Interactable objects"
-player=""
 
 [gui]
 
