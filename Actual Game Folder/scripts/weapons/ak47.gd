@@ -3,12 +3,14 @@ extends Sprite2D
 
 var target_node = null
 var target_poll_timer = 0.0
-var fire_wait = 0.11
+var fire_wait = 0.35
 var flash_duration = 0.05
 var fire_timer = 0.0
 var flash_timer = 0.0
 var last_flash = 0
 var dadi: Node2D = null
+
+const FIRE_RANGE = 400.0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -61,14 +63,17 @@ func _process(delta: float) -> void:
 	fire_timer -= delta
 
 	# Target too far?
-	if target_vec.length() >= 400.0:
+	if target_vec.length() >= FIRE_RANGE:
 		return
 
 	# Weapon ready?
 	if fire_timer > 0.0:
 		return
 
-	# Weapon ready, target not too far, FIREEEE!!
+	_fire(target_vec)
+
+
+func _fire(target_vec: Vector2) -> void:
 	fire_timer = fire_wait
 	var bullet = preload("res://Actual Game Folder/scenes/components/exploration/bullet.tscn").instantiate()
 	var tn := target_vec.normalized()

@@ -27,8 +27,8 @@ const SPIN_BLUR_SHADER = preload("res://Actual Game Folder/shaders/spin_blur.gds
 @export var drive_force: float = 2400.0      # lower = heavier wind-up
 @export var low_spin_control: float = 0.65   # steering authority at spin_floor (0..1)
 @export var grip: float = 3.5                # lower = wider, driftier corners
-@export var min_top_speed: float = 600.0     # speed ceiling at spin_floor
-@export var max_top_speed: float = 1000.0    # speed ceiling at spin_cap
+@export var min_top_speed: float = 520.0     # speed ceiling at spin_floor
+@export var max_top_speed: float = 850.0     # speed ceiling at spin_cap
 @export var wobble_amplitude: float = 3.5
 @export var wobble_speed: float = 26.0
 
@@ -63,9 +63,9 @@ const SPIN_BLUR_SHADER = preload("res://Actual Game Folder/shaders/spin_blur.gds
 @export var dash_boost_mult: float = 1.5
 @export var dash_duration: float = 0.16
 @export var dash_recovery: float = 0.26
-@export var dash_cooldown: float = 0.35
+@export var dash_cooldown: float = 0.20
 @export var dash_recovery_drag: float = 9.0
-@export var dash_spin_cost: float = 14.0
+@export var dash_spin_cost: float = 10.0
 @export var dash_damage: float = 55.0
 @export var dash_radius: float = 52.0
 @export var dash_boss_knockback: float = 260.0
@@ -75,11 +75,8 @@ const SPIN_BLUR_SHADER = preload("res://Actual Game Folder/shaders/spin_blur.gds
 @export var spin_blur_max_angle: float = 0.9
 @export var spin_blur_min_spin: float = 14.0
 @export_range(2, 24) var spin_blur_samples: int = 12
-
-@export_category("Player Glow")
-@export var blade_glow_color: Color = Color(0.3, 0.7, 1.0)
-@export var blade_glow_strength: float = 0.9
-@export var blade_glow_width: float = 2.5
+# brightens the player blade so it reads lighter than the enemy blades
+@export_range(0.0, 1.0) var blade_lighten: float = 0.6
 
 @export_category("Boost FX")
 @export var afterimage_interval: float = 0.018
@@ -209,9 +206,7 @@ func _setup_spin_blur() -> void:
 	_blade_material.shader = SPIN_BLUR_SHADER
 	_blade_material.set_shader_parameter("samples", spin_blur_samples)
 	_blade_material.set_shader_parameter("blur_angle", 0.0)
-	_blade_material.set_shader_parameter("glow_color", blade_glow_color)
-	_blade_material.set_shader_parameter("glow_strength", blade_glow_strength)
-	_blade_material.set_shader_parameter("glow_width", blade_glow_width)
+	_blade_material.set_shader_parameter("lighten", blade_lighten)
 	spr.material = _blade_material
 
 func _update_spin_blur(delta: float) -> void:

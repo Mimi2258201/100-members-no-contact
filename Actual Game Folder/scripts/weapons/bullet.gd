@@ -1,7 +1,7 @@
 extends Sprite2D
 
 var direction: Vector2 = Vector2(1.0, 0.0)
-var velocity = 450.0
+var velocity = 240.0
 var lifetime = 2.0
 var lifetime_timer = 0.0
 var damage = 4.0
