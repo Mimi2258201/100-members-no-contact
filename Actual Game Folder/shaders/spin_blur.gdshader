@@ -8,11 +8,11 @@ uniform vec4 glow_color : source_color = vec4(0.0);
 uniform float glow_strength = 0.0;
 uniform float glow_width = 2.0;
 
-float tex_a(vec2 uv) {
+float tex_a(vec2 uv, sampler2D txture) {
 	if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) {
 		return 0.0;
 	}
-	return texture(TEXTURE, uv).a;
+	return texture(txture, uv).a;
 }
 
 void fragment() {
@@ -56,10 +56,10 @@ void fragment() {
 	if (glow_strength > 0.0) {
 		vec2 px = TEXTURE_PIXEL_SIZE * glow_width;
 		vec2 d = px * 0.7071;
-		float ring = max(max(max(tex_a(UV + vec2(px.x, 0.0)), tex_a(UV - vec2(px.x, 0.0))),
-			max(tex_a(UV + vec2(0.0, px.y)), tex_a(UV - vec2(0.0, px.y)))),
-			max(max(tex_a(UV + d), tex_a(UV - d)),
-			max(tex_a(UV + vec2(d.x, -d.y)), tex_a(UV - vec2(d.x, -d.y)))));
+		float ring = max(max(max(tex_a(UV + vec2(px.x, 0.0), TEXTURE), tex_a(UV - vec2(px.x, 0.0), TEXTURE)),
+			max(tex_a(UV + vec2(0.0, px.y), TEXTURE), tex_a(UV - vec2(0.0, px.y), TEXTURE))),
+			max(max(tex_a(UV + d, TEXTURE), tex_a(UV - d, TEXTURE)),
+			max(tex_a(UV + vec2(d.x, -d.y), TEXTURE), tex_a(UV - vec2(d.x, -d.y), TEXTURE))));
 		float edge = clamp(ring - COLOR.a, 0.0, 1.0) * glow_strength;
 		COLOR.rgb = mix(COLOR.rgb, glow_color.rgb, edge);
 		COLOR.a = max(COLOR.a, edge);
