@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rox7vko7cfj6"
-path="res://.godot/imported/Rip.png-d027ab4060249f408a53bd64bb6ac5b2.ctex"
+uid="uid://b4cbp0u35e566"
+path="res://.godot/imported/Grabber_beyblade.png-4e9fff8a63d284299e1fe2f86ae8944e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Miscellanious Assets Dump/Image/Title screen/Rip.png"
-dest_files=["res://.godot/imported/Rip.png-d027ab4060249f408a53bd64bb6ac5b2.ctex"]
+source_file="res://Miscellanious Assets Dump/Image/Title screen/Grabber_beyblade.png"
+dest_files=["res://.godot/imported/Grabber_beyblade.png-4e9fff8a63d284299e1fe2f86ae8944e.ctex"]
 
 [params]
 

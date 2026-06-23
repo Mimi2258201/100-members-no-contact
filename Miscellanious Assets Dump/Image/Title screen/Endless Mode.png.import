@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rox7vko7cfj6"
-path="res://.godot/imported/Rip.png-d027ab4060249f408a53bd64bb6ac5b2.ctex"
+uid="uid://te8s0xvm3gvg"
+path="res://.godot/imported/Endless Mode.png-4ffb1028a5b72d58cbee4c2dcdbe0399.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Miscellanious Assets Dump/Image/Title screen/Rip.png"
-dest_files=["res://.godot/imported/Rip.png-d027ab4060249f408a53bd64bb6ac5b2.ctex"]
+source_file="res://Miscellanious Assets Dump/Image/Title screen/Endless Mode.png"
+dest_files=["res://.godot/imported/Endless Mode.png-4ffb1028a5b72d58cbee4c2dcdbe0399.ctex"]
 
 [params]
 

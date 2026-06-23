@@ -7,9 +7,11 @@
 [ext_resource type="AudioStream" uid="uid://bnss0855gpofg" path="res://Miscellanious Assets Dump/Audio/music/beyblades-battle.mp3" id="4_o0cgn"]
 [ext_resource type="FontFile" uid="uid://c8jqgftylm0j0" path="res://Miscellanious Assets Dump/Fonts/FasterOne-Regular.ttf" id="7_4m5qw"]
 [ext_resource type="Texture2D" uid="uid://bjal04fa8iuvq" path="res://Miscellanious Assets Dump/Image/Title screen/TITLE SCREEN.png" id="7_wg53l"]
-[ext_resource type="Texture2D" uid="uid://085rgu2jq1pl" path="res://Miscellanious Assets Dump/Image/Title screen/Story.png" id="8_4m5qw"]
-[ext_resource type="Texture2D" uid="uid://d2rrr2td5sn5m" path="res://Miscellanious Assets Dump/Image/Title screen/Rip.png" id="9_mpbnu"]
-[ext_resource type="Texture2D" uid="uid://dsr1iic0w0bki" path="res://Miscellanious Assets Dump/Image/Title screen/Quit.png" id="10_qqymo"]
+[ext_resource type="Texture2D" uid="uid://te8s0xvm3gvg" path="res://Miscellanious Assets Dump/Image/Title screen/Endless Mode.png" id="8_tdn6d"]
+[ext_resource type="Texture2D" uid="uid://cej1hx2kl6ct6" path="res://Miscellanious Assets Dump/Image/Title screen/Settings icon.png" id="9_bkt1e"]
+[ext_resource type="Texture2D" uid="uid://rox7vko7cfj6" path="res://Miscellanious Assets Dump/Image/Title screen/Rip.png" id="9_mpbnu"]
+[ext_resource type="Texture2D" uid="uid://b4cbp0u35e566" path="res://Miscellanious Assets Dump/Image/Title screen/Grabber_beyblade.png" id="10_4m5qw"]
+[ext_resource type="Texture2D" uid="uid://hs2box2ysjnk" path="res://Miscellanious Assets Dump/Image/beyblades/pixelart/Blade1.png" id="10_wg53l"]
 
 [sub_resource type="Gradient" id="Gradient_mpbnu"]
 offsets = PackedFloat32Array(0)
@@ -36,6 +38,52 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qqymo"]
 bg_color = Color(0.47058824, 0.7294118, 0.9254902, 0.5686275)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bkt1e"]
+load_path = "res://.godot/imported/Quit.png-875c259704bbad5723bbfe0e99cdd8eb.ctex"
+
+[sub_resource type="FontFile" id="FontFile_bkt1e"]
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/17/0/ascent = 0.0
+cache/0/17/0/descent = 0.0
+cache/0/17/0/underline_position = 0.0
+cache/0/17/0/underline_thickness = 0.0
+cache/0/17/0/scale = 1.0
+cache/0/18/0/ascent = 0.0
+cache/0/18/0/descent = 0.0
+cache/0/18/0/underline_position = 0.0
+cache/0/18/0/underline_thickness = 0.0
+cache/0/18/0/scale = 1.0
+cache/0/19/0/ascent = 0.0
+cache/0/19/0/descent = 0.0
+cache/0/19/0/underline_position = 0.0
+cache/0/19/0/underline_thickness = 0.0
+cache/0/19/0/scale = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bkt1e"]
+bg_color = Color(0.00011382803, 0.00011382803, 0.00011382803, 0.8627451)
+border_width_top = 2
+border_width_bottom = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wf03y"]
+bg_color = Color(0.9999997, 0.13183689, 0.2229467, 1)
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qga3b"]
+bg_color = Color(1, 0.13333334, 0.22352941, 1)
+
 [node name="Menu" type="Control" unique_id=360561653 node_paths=PackedStringArray("start_button", "endless_button", "exit_button")]
 layout_mode = 3
 anchors_preset = 0
@@ -49,6 +97,7 @@ exit_button = NodePath("EXIT")
 button_hover_stream = ExtResource("2_vnj0c")
 button_click_stream = ExtResource("3_08yys")
 music_stream = ExtResource("4_o0cgn")
+Audio_bus_name = "music"
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1549200194]
 layout_mode = 0
@@ -105,10 +154,10 @@ text = "SPIN"
 
 [node name="LET IT RIP" type="Button" parent="." unique_id=787360440]
 layout_mode = 0
-offset_left = 48.0
-offset_top = 462.0
-offset_right = 173.0
-offset_bottom = 508.0
+offset_left = 50.0
+offset_top = 453.0
+offset_right = 273.0
+offset_bottom = 499.0
 size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_wg53l")
 theme_override_styles/hover = SubResource("StyleBoxFlat_s6ehw")
@@ -117,43 +166,91 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_s6ehw")
 layout_mode = 0
 offset_left = 49.0
 offset_top = 520.0
-offset_right = 167.0
+offset_right = 249.0
 offset_bottom = 553.0
 size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_4m5qw")
 theme_override_styles/hover = SubResource("StyleBoxFlat_0xjja")
-text = "ENDLESS MODE"
 
 [node name="EXIT" type="Button" parent="." unique_id=1224249848]
 layout_mode = 0
-offset_left = 49.0
-offset_top = 568.0
-offset_right = 115.0
-offset_bottom = 599.0
+offset_left = 48.0
+offset_top = 576.0
+offset_right = 114.0
+offset_bottom = 607.0
 theme_override_font_sizes/font_size = 11
 theme_override_styles/normal = SubResource("StyleBoxFlat_mpbnu")
 theme_override_styles/hover = SubResource("StyleBoxFlat_qqymo")
 
-[node name="CenterContainer" type="CenterContainer" parent="." unique_id=82504784]
+[node name="SETTINGS" type="Button" parent="." unique_id=2097706810]
 layout_mode = 0
-offset_left = -161.0
-offset_top = 11.0
-offset_right = 837.0
-offset_bottom = 655.0
-mouse_filter = 2
+offset_left = 1062.0
+offset_top = 18.0
+offset_right = 1126.0
+offset_bottom = 82.0
 
-[node name="Story" type="Sprite2D" parent="CenterContainer" unique_id=1432909295]
-visible = false
-position = Vector2(267.719, 523.513)
-scale = Vector2(0.206, 0.206)
-texture = ExtResource("8_4m5qw")
+[node name="Quit" type="Sprite2D" parent="." unique_id=546445882]
+position = Vector2(94.000015, 596)
+scale = Vector2(0.3, 0.3)
+texture = SubResource("CompressedTexture2D_bkt1e")
 
-[node name="Rip" type="Sprite2D" parent="CenterContainer" unique_id=2112322566]
-position = Vector2(326.919, 477.144)
-scale = Vector2(0.444, 0.444)
+[node name="EndlessMode" type="Sprite2D" parent="." unique_id=1754867177]
+position = Vector2(207, 565)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("8_tdn6d")
+
+[node name="SettingsIcon" type="Sprite2D" parent="." unique_id=557528416]
+position = Vector2(1093, 52.000008)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("9_bkt1e")
+
+[node name="Rip" type="Sprite2D" parent="." unique_id=1875013898]
+position = Vector2(284, 522)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("9_mpbnu")
 
-[node name="Quit" type="Sprite2D" parent="CenterContainer" unique_id=546445882]
-position = Vector2(255, 578)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("10_qqymo")
+[node name="Settings" type="Panel" parent="." unique_id=1076750093]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 822.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Settings" unique_id=364379985]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 182.0
+offset_right = 82.0
+offset_bottom = 202.0
+text = "Music"
+
+[node name="Close_options" type="Button" parent="Settings" unique_id=1288473908]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 553.0
+offset_right = 143.0
+offset_bottom = 603.0
+theme_override_fonts/font = SubResource("FontFile_bkt1e")
+theme_override_font_sizes/font_size = 19
+text = "Close"
+
+[node name="Music" type="HSlider" parent="Settings" unique_id=1109252983]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 160.0
+offset_right = 256.0
+offset_bottom = 224.0
+theme_override_icons/grabber = ExtResource("10_4m5qw")
+theme_override_icons/grabber_highlight = ExtResource("10_wg53l")
+theme_override_styles/slider = SubResource("StyleBoxFlat_bkt1e")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_wf03y")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_qga3b")
+max_value = 1.0
+step = 0.005
+value = 1.0
+
+[connection signal="pressed" from="SETTINGS" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Settings/Close_options" to="." method="_on_close_options_pressed"]
+[connection signal="value_changed" from="Settings/Music" to="." method="_on_music_value_changed"]
