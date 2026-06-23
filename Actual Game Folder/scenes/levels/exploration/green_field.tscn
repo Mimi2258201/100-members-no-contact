@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://vieumik3lhr0" path="res://Actual Game Folder/scenes/components/exploration/enemy.tscn" id="3_ef6mn"]
 [ext_resource type="PackedScene" uid="uid://d30cngbg0dh4v" path="res://Actual Game Folder/scenes/components/exploration/mechanic.tscn" id="4_2cuhp"]
 [ext_resource type="PackedScene" uid="uid://xv8it6luhbrs" path="res://Actual Game Folder/scenes/levels/exploration/door.tscn" id="5_6egli"]
+[ext_resource type="PackedScene" uid="uid://c8kf07hua6n5i" path="res://Actual Game Folder/scenes/components/exploration/cracked_wall.tscn" id="6_crwall"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ao2ok"]
 texture = ExtResource("1_smi17")
@@ -999,6 +1000,12 @@ limit_top = 0
 [node name="Enemy" parent="." unique_id=2127467193 instance=ExtResource("3_ef6mn")]
 position = Vector2(265, 377)
 
+[node name="CharacterBody2D" parent="Enemy" index="0"]
+dialogue = Array[String](["Ope! Where ya think yer headed, bud?", "Beat me and I'll show ya the SPIN-DASH, don'tcha know.", "Won't be nothin' keepin' ya penned in this field after that, eh.", "C'mon then — let 'er rip!"])
+reward = "spin_dash"
+enemy_id = "gf_bird"
+post_defeat_dialogue = Array[String](["Uff da, beat by a raccoon with a little top. Figures.", "Garage's open now, ya know. Go bug the mechanic, then.", "...and quit showin' off that spin-dash, wouldja."])
+
 [node name="Mechanic" parent="." unique_id=609309516 instance=ExtResource("4_2cuhp")]
 position = Vector2(788, 262)
 
@@ -1007,9 +1014,22 @@ position = Vector2(1140, 858)
 scale = Vector2(1.2839894, 1.6752784)
 destination = 6
 
+[node name="GarageWall1" parent="." instance=ExtResource("6_crwall")]
+position = Vector2(600, 325)
+wall_id = "gf_garage_1"
+
+[node name="GarageWall2" parent="." instance=ExtResource("6_crwall")]
+position = Vector2(600, 385)
+wall_id = "gf_garage_2"
+
+[node name="GarageWall3" parent="." instance=ExtResource("6_crwall")]
+position = Vector2(600, 445)
+wall_id = "gf_garage_3"
+
 [node name="HouseDoor" parent="." instance=ExtResource("5_6egli")]
 position = Vector2(248, 22)
 mode = 2
 
 [editable path="PlayerEx"]
 [editable path="PlayerEx/CharacterBody2D/Camera2D/DialogueBox"]
+[editable path="Enemy"]

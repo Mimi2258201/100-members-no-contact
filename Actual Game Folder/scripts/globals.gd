@@ -4,6 +4,23 @@ var current_screen: String = "menu"
 
 var has_beyblade: bool = false
 
+var spin_dash: bool = false
+var broken_walls: Dictionary = {}
+
+func mark_wall_broken(id: String) -> void:
+	broken_walls[id] = true
+
+func is_wall_broken(id: String) -> bool:
+	return broken_walls.has(id)
+
+var defeated_enemies: Dictionary = {}
+
+func mark_enemy_defeated(id: String) -> void:
+	defeated_enemies[id] = true
+
+func is_enemy_defeated(id: String) -> bool:
+	return defeated_enemies.has(id)
+
 ## inventory system framework by sonicjb08 
 var inventory_general : Array = []
 signal inventory_updated
