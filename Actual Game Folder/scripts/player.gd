@@ -16,7 +16,7 @@ const SPIN_BLUR_SHADER = preload("res://Actual Game Folder/shaders/spin_blur.gds
 
 
 @export_category("Statistics")
-@export var starting_spin_velocity:float = 80 # full stamina == spin_cap, then it winds down
+@export var starting_spin_velocity: float = 80 # full stamina == spin_cap, then it winds down
 @export var spin_velocity_drop_on_collision: float = 1
 @export var spin_velocity_drop_over_time: float = 1.5
 @export var collision_shake_trauma: float = 0.3
@@ -24,11 +24,11 @@ const SPIN_BLUR_SHADER = preload("res://Actual Game Folder/shaders/spin_blur.gds
 @export var spin_cap: float = 80.0
 
 @export_category("Handling")
-@export var drive_force: float = 2400.0      # lower = heavier wind-up
-@export var low_spin_control: float = 0.65   # steering authority at spin_floor (0..1)
-@export var grip: float = 3.5                # lower = wider, driftier corners
-@export var min_top_speed: float = 520.0     # speed ceiling at spin_floor
-@export var max_top_speed: float = 850.0     # speed ceiling at spin_cap
+@export var drive_force: float = 2400.0 # lower = heavier wind-up
+@export var low_spin_control: float = 0.65 # steering authority at spin_floor (0..1)
+@export var grip: float = 3.5 # lower = wider, driftier corners
+@export var min_top_speed: float = 520.0 # speed ceiling at spin_floor
+@export var max_top_speed: float = 850.0 # speed ceiling at spin_cap
 @export var wobble_amplitude: float = 3.5
 @export var wobble_speed: float = 26.0
 
@@ -38,16 +38,16 @@ const SPIN_BLUR_SHADER = preload("res://Actual Game Folder/shaders/spin_blur.gds
 @export var ricochet_boost: float = 1.4
 @export var ricochet_min_speed: float = 120.0 # below this it's a soft tap, no boost
 @export var ricochet_max_speed: float = 1500.0 # hard cap so corner-pinging can't run away
-@export var ricochet_lockout: float = 0.18     # how long the bounce rides free of cap and grip
+@export var ricochet_lockout: float = 0.18 # how long the bounce rides free of cap and grip
 # precession/idle_wander fight your input, so they default off; nonzero for beyblade-y drift
 @export var precession: float = 0.0
-@export var precession_sign: float = 1.0     # +1 / -1 to match the blade's spin direction
+@export var precession_sign: float = 1.0 # +1 / -1 to match the blade's spin direction
 @export var idle_wander: float = 0.0
 @export var idle_wander_speed: float = 1.4
 
 @export_category("Resources")
-@export var launch_sfx_stream : AudioStream
-@export var collision_sfx_stream : AudioStream
+@export var launch_sfx_stream: AudioStream
+@export var collision_sfx_stream: AudioStream
 
 @export_category("Survival")
 @export var max_health: float = 100.0
@@ -438,7 +438,7 @@ func _on_body_entered(body: Node) -> void:
 	if camera and camera.has_method("add_trauma"):
 		camera.add_trauma(collision_shake_trauma * impact)
 
-	if(body is Node2D):
+	if (body is Node2D):
 		var body2D = body as Node2D
 		AudioManager.play_sfx(collision_sfx_stream, body2D.global_position)
 	pass
@@ -568,7 +568,7 @@ func _setup_hud() -> void:
 	skill_area.add_child(_spin_meter)
 
 	_objective_label = Label.new()
-	_objective_label.text = "DEFEAT THE EVIL BEYBLADE"
+	_objective_label.text = "DEFEAT THE EVIL SPINBLADE"
 	_objective_label.set_anchors_preset(Control.PRESET_TOP_WIDE)
 	_objective_label.offset_top = 8.0
 	_objective_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

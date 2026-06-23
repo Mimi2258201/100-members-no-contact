@@ -5,14 +5,14 @@ extends CharacterBody2D
 
 #Soon!
 @export_multiline var dialogue: Array[String] = [
-	"Welcome to the Garage™", 
-	"Here on the Garage™ you can upgrade your beyblade to become stronger", 
-	"Lets get to it!" 
+	"Welcome to the Garage™",
+	"Here on the Garage™ you can upgrade your Spinblade to become stronger",
+	"Lets get to it!"
 	]
 	
 @export var is_bad: bool = false
 @export var is_mechanic: bool = true
-@export_file("*.tscn") var next_scene : String = "res://Actual Game Folder/scenes/garage.tscn"
+@export_file("*.tscn") var next_scene: String = "res://Actual Game Folder/scenes/garage.tscn"
 
 @export var enemy_name: String = "Mechanic"
 @export var enemy_level: int = 1
@@ -28,7 +28,7 @@ func hide_indicator():
 		
 func get_combat_data() -> Dictionary:
 	return {
-		"name" : enemy_name,
-		"level" : enemy_level,
+		"name": enemy_name,
+		"level": enemy_level,
 		"enemy_position": global_position
 	}
