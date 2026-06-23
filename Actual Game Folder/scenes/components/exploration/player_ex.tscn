@@ -435,7 +435,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bir22"]
-size = Vector2(16, 21)
+size = Vector2(16, 20)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tnv23"]
 radius = 22.3557
@@ -451,7 +451,7 @@ sprite_frames = SubResource("SpriteFrames_ro5rq")
 animation = &"idle_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=639723940]
-position = Vector2(0, 1.5)
+position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_bir22")
 
 [node name="InteractionDetector" type="Area2D" parent="CharacterBody2D" unique_id=779113692]

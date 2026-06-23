@@ -1,25 +1,24 @@
 [gd_scene format=3 uid="uid://cb7yp1ck2dxle"]
 
-[ext_resource type="Script" path="res://Actual Game Folder/scripts/exploration/beyblade_pickup.gd" id="1_pkup0"]
+[ext_resource type="Script" uid="uid://cbaq2xtjuf0hv" path="res://Actual Game Folder/scripts/exploration/beyblade_pickup.gd" id="1_pkup0"]
 [ext_resource type="Texture2D" uid="uid://hs2box2ysjnk" path="res://Miscellanious Assets Dump/Image/beyblades/pixelart/Blade1.png" id="2_pkup1"]
 [ext_resource type="FontFile" uid="uid://dv0dl3euktrdp" path="res://Miscellanious Assets Dump/Fonts/COMIC-SANS.otf" id="3_pkup2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pkup3"]
-size = Vector2(26, 26)
 
-[node name="BeybladePickup" type="Node2D" groups=["interactable"]]
+[node name="BeybladePickup" type="Node2D" unique_id=73181950 groups=["interactable"]]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["interactable"]]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1635425412 groups=["interactable"]]
 script = ExtResource("1_pkup0")
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=2015438983]
 scale = Vector2(0.45, 0.45)
 texture = ExtResource("2_pkup1")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=543609755]
 shape = SubResource("RectangleShape2D_pkup3")
 
-[node name="Indicator" type="Label" parent="CharacterBody2D"]
+[node name="Indicator" type="Label" parent="CharacterBody2D" unique_id=474475645]
 visible = false
 offset_left = -17.3333
 offset_top = -25.3333
