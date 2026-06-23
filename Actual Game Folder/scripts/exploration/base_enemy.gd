@@ -16,12 +16,21 @@ extends CharacterBody2D
 
 @export var enemy_name: String = "Bird Defaultson"
 @export var enemy_level: int = 1
+@export var reward: String = ""
 # 0 = auto (derive a distinct pitch from the name); >0 overrides the dialog voice
 @export var voice_pitch: float = 0.0
+
+@export_multiline var post_defeat_dialogue: Array[String] = [
+	"You already beat me. Leave me alone."
+]
+@export var enemy_id: String = ""
+var defeated: bool = false
 
 func _ready():
 	if animator:
 		animator.play("idle_down")
+	if enemy_id != "" and Globals.is_enemy_defeated(enemy_id):
+		defeated = true
 	
 func show_indicator():
 	if indicator:
@@ -35,5 +44,6 @@ func get_combat_data() -> Dictionary:
 	return {
 		"name" : enemy_name,
 		"level" : enemy_level,
-		"enemy_position": global_position
+		"enemy_position": global_position,
+		"reward": reward
 	}

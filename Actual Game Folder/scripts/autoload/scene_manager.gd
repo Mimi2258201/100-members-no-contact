@@ -34,6 +34,7 @@ const _SCENES_MAP: Dictionary = {
 var current_scene
 var battle_context: Dictionary = {}
 var _battle_active: bool = false
+var pending_reward_dialogue: Array[String] = []
 var player_beyblade: Node2D = null
 var bullet_container: Node2D = null
 
@@ -115,6 +116,23 @@ func end_battle() -> void:
 		current_scene = _mount(SceneKey.MENU)
 
 	await Transition.reveal()
+
+func report_battle_won() -> void:
+	var reward := str(battle_context.get("reward", ""))
+	match reward:
+		"spin_dash":
+			Globals.spin_dash = true
+			pending_reward_dialogue = [
+				"Uff da... ya really beat me, eh.",
+				"A deal's a deal. Here ya go — the SPIN-DASH, like I promised, you betcha.",
+				"Press Space while yer movin' to bust clean through a wall.",
+				"Head east — there's a stack of Minnesotas wallin' off the garage. Crack 'em open and go bug the mechanic, bud."
+			]
+
+func take_reward_dialogue() -> Array[String]:
+	var lines := pending_reward_dialogue
+	pending_reward_dialogue = []
+	return lines
 
 func push_scene(scene_name: SceneKey) -> void:
 	# tree edits are illegal mid physics callback (mechanic body_entered), so defer
