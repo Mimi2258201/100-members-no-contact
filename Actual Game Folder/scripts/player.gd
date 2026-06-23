@@ -506,6 +506,7 @@ func _win() -> void:
 	if _won or _dead:
 		return
 	_won = true
+	SceneManager.report_battle_won()
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0.0
 	if _blade_material:
