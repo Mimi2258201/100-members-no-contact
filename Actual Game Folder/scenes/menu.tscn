@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://dvb67gdm65wid" path="res://Miscellanious Assets Dump/Audio/sfx/button_hover.wav" id="2_vnj0c"]
 [ext_resource type="AudioStream" uid="uid://b5xyt6hpwoq1h" path="res://Miscellanious Assets Dump/Audio/sfx/button_press.wav" id="3_08yys"]
 [ext_resource type="AudioStream" uid="uid://bnss0855gpofg" path="res://Miscellanious Assets Dump/Audio/music/beyblades-battle.mp3" id="4_o0cgn"]
-[ext_resource type="Texture2D" uid="uid://drkncgrbjd0w5" path="res://Miscellanious Assets Dump/Image/Title screen/Title screen.png" id="6_4m5qw"]
+[ext_resource type="Texture2D" uid="uid://bichtqne14t1u" path="res://Miscellanious Assets Dump/Image/Title screen/Title screen.png" id="6_4m5qw"]
 [ext_resource type="Texture2D" uid="uid://te8s0xvm3gvg" path="res://Miscellanious Assets Dump/Image/Title screen/Endless Mode.png" id="8_tdn6d"]
 [ext_resource type="Texture2D" uid="uid://cej1hx2kl6ct6" path="res://Miscellanious Assets Dump/Image/Title screen/Settings icon.png" id="9_bkt1e"]
 [ext_resource type="Texture2D" uid="uid://rox7vko7cfj6" path="res://Miscellanious Assets Dump/Image/Title screen/Rip.png" id="9_mpbnu"]
@@ -102,9 +102,9 @@ offset_bottom = 360.0
 scale = Vector2(1.7996, 1.79831)
 texture = ExtResource("1_pvo6j")
 
-[node name="TitleScreen" type="Sprite2D" parent="." unique_id=1026842841]
-position = Vector2(454.00003, 139)
-scale = Vector2(0.68, 0.68)
+[node name="TitleScreen" type="Sprite2D" parent="." unique_id=647501128]
+position = Vector2(409, 264.00003)
+scale = Vector2(0.77, 0.77)
 texture = ExtResource("6_4m5qw")
 
 [node name="LET IT RIP" type="Button" parent="." unique_id=787360440]
