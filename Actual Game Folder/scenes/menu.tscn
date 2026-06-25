@@ -5,20 +5,12 @@
 [ext_resource type="AudioStream" uid="uid://dvb67gdm65wid" path="res://Miscellanious Assets Dump/Audio/sfx/button_hover.wav" id="2_vnj0c"]
 [ext_resource type="AudioStream" uid="uid://b5xyt6hpwoq1h" path="res://Miscellanious Assets Dump/Audio/sfx/button_press.wav" id="3_08yys"]
 [ext_resource type="AudioStream" uid="uid://bnss0855gpofg" path="res://Miscellanious Assets Dump/Audio/music/beyblades-battle.mp3" id="4_o0cgn"]
-[ext_resource type="FontFile" uid="uid://c8jqgftylm0j0" path="res://Miscellanious Assets Dump/Fonts/FasterOne-Regular.ttf" id="7_4m5qw"]
-[ext_resource type="Texture2D" uid="uid://bjal04fa8iuvq" path="res://Miscellanious Assets Dump/Image/Title screen/TITLE SCREEN.png" id="7_wg53l"]
+[ext_resource type="Texture2D" uid="uid://drkncgrbjd0w5" path="res://Miscellanious Assets Dump/Image/Title screen/Title screen.png" id="6_4m5qw"]
 [ext_resource type="Texture2D" uid="uid://te8s0xvm3gvg" path="res://Miscellanious Assets Dump/Image/Title screen/Endless Mode.png" id="8_tdn6d"]
 [ext_resource type="Texture2D" uid="uid://cej1hx2kl6ct6" path="res://Miscellanious Assets Dump/Image/Title screen/Settings icon.png" id="9_bkt1e"]
 [ext_resource type="Texture2D" uid="uid://rox7vko7cfj6" path="res://Miscellanious Assets Dump/Image/Title screen/Rip.png" id="9_mpbnu"]
 [ext_resource type="Texture2D" uid="uid://b4cbp0u35e566" path="res://Miscellanious Assets Dump/Image/Title screen/Grabber_beyblade.png" id="10_4m5qw"]
 [ext_resource type="Texture2D" uid="uid://hs2box2ysjnk" path="res://Miscellanious Assets Dump/Image/beyblades/pixelart/Blade1.png" id="10_wg53l"]
-
-[sub_resource type="Gradient" id="Gradient_mpbnu"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.13725491, 0.16470589, 0.34117648, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_qqymo"]
-gradient = SubResource("Gradient_mpbnu")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wg53l"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -42,6 +34,9 @@ bg_color = Color(0.47058824, 0.7294118, 0.9254902, 0.5686275)
 load_path = "res://.godot/imported/Quit.png-875c259704bbad5723bbfe0e99cdd8eb.ctex"
 
 [sub_resource type="FontFile" id="FontFile_bkt1e"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
 cache/0/variation_coordinates = {}
 cache/0/face_index = 0
 cache/0/embolden = 0.0
@@ -107,50 +102,10 @@ offset_bottom = 360.0
 scale = Vector2(1.7996, 1.79831)
 texture = ExtResource("1_pvo6j")
 
-[node name="TitleScreen" type="Sprite2D" parent="." unique_id=208032660]
-position = Vector2(425, 239.99998)
-scale = Vector2(0.705, 0.705)
-texture = ExtResource("7_wg53l")
-
-[node name="Censorship" type="MarginContainer" parent="." unique_id=1077999811]
-layout_mode = 0
-offset_left = 48.0
-offset_top = 162.0
-offset_right = 88.0
-offset_bottom = 202.0
-scale = Vector2(7.35341, 2.4868755)
-theme_override_constants/margin_left = 1
-theme_override_constants/margin_top = 1
-theme_override_constants/margin_right = 1
-theme_override_constants/margin_bottom = 1
-
-[node name="TextureRect2" type="TextureRect" parent="Censorship" unique_id=1217942055]
-layout_mode = 2
-texture = SubResource("GradientTexture2D_qqymo")
-expand_mode = 1
-
-[node name="Label" type="Label" parent="." unique_id=1686865195]
-layout_mode = 0
-offset_left = 352.00003
-offset_top = 267.0
-offset_right = 572.0
-offset_bottom = 287.0
-scale = Vector2(1.0074733, 1)
-text = "(We don't want to be sued)"
-
-[node name="SPIN" type="Label" parent="." unique_id=1728975951]
-layout_mode = 0
-offset_left = 82.0
-offset_top = 113.0
-offset_right = 666.0
-offset_bottom = 542.0
-scale = Vector2(0.43679997, 0.8)
-theme_override_colors/font_color = Color(1, 0.16862746, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 21
-theme_override_fonts/font = ExtResource("7_4m5qw")
-theme_override_font_sizes/font_size = 200
-text = "SPIN"
+[node name="TitleScreen" type="Sprite2D" parent="." unique_id=1026842841]
+position = Vector2(454.00003, 139)
+scale = Vector2(0.68, 0.68)
+texture = ExtResource("6_4m5qw")
 
 [node name="LET IT RIP" type="Button" parent="." unique_id=787360440]
 layout_mode = 0
@@ -214,7 +169,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 822.0
+offset_left = 837.0
 grow_horizontal = 2
 grow_vertical = 2
 
