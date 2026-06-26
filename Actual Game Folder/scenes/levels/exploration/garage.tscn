@@ -24,6 +24,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="LabelSettings" id="LabelSettings_t6erf"]
+font_size = 32
+
 [node name="Garage" type="Node2D" unique_id=1310810599]
 script = ExtResource("1_iklw1")
 
@@ -39,6 +42,7 @@ metadata/_edit_lock_ = true
 position = Vector2(577.42365, 412.0729)
 scale = Vector2(1.1693382, 1.1693382)
 sprite_frames = SubResource("SpriteFrames_36oea")
+frame_progress = 0.17875184
 metadata/_edit_lock_ = true
 
 [node name="Leave" type="Button" parent="CanvasLayer" unique_id=1640902872]
@@ -67,6 +71,23 @@ offset_left = 701.0
 offset_top = 320.0
 offset_right = 701.0
 offset_bottom = 320.0
+
+[node name="Label" type="Label" parent="purchaseable item selection" unique_id=673771040]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -564.0
+offset_top = -123.0
+offset_right = 564.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Coming Soon! (Maybe)
+...
+It's an open source game you can add it if you want (Link in description)"
+label_settings = SubResource("LabelSettings_t6erf")
+horizontal_alignment = 1
 
 [node name="after purchase smile timer" type="Timer" parent="." unique_id=1514447176]
 wait_time = 3.0
