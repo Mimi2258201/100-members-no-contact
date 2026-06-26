@@ -1,0 +1,21 @@
+"Actual Game Folder/scenes/components/wings_energy_drink.tscn"
+  s_832bcc7159e922::t_8e2629991a8219 76
+"Actual Game Folder/scripts/player.gd"
+  s_832bcc7159e922::t_560151a14f3ad3 61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "e63c119f0f1ba3eee9536942686f9e6c6312e006",
+  "prompts": {},
+  "sessions": {
+    "s_832bcc7159e922": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b07f5f01-81fc-4850-bb8a-3e1d73a2aed9",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Andy Aragon <hi@andymai.com>"
+    }
+  }
+}
