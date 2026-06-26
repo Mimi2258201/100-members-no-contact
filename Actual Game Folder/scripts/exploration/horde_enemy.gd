@@ -38,7 +38,10 @@ var _popup_t: float = 0.0
 var _knock: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
+	max_health *= SceneManager.enemy_health_mult()
+	contact_damage *= SceneManager.enemy_damage_mult()
 	_health = max_health
+	move_speed *= randf_range(0.85, 1.15) # spread pacing so the swarm doesn't move as one mass
 	add_to_group(ENEMY_GROUP)
 	if animator:
 		animator.play("idle_down")
@@ -107,6 +110,7 @@ func _die() -> void:
 	if _dmg_accum >= 1.0:
 		_spawn_damage_number(_dmg_accum)
 		_dmg_accum = 0.0
+	_burst()
 	_on_death()
 	queue_free()
 
@@ -134,6 +138,10 @@ func _spawn_damage_number(value: float) -> void:
 	tw.tween_callback(lbl.queue_free)
 
 func poof() -> void:
+	_burst()
+	queue_free()
+
+func _burst() -> void:
 	var p := CPUParticles2D.new()
 	p.emitting = true
 	p.one_shot = true
@@ -149,7 +157,6 @@ func poof() -> void:
 	get_parent().add_child(p)
 	p.global_position = global_position
 	p.finished.connect(p.queue_free)
-	queue_free()
 
 func _start_blink() -> void:
 	_flash = flash_time

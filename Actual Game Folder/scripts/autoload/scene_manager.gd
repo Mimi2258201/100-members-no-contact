@@ -35,6 +35,7 @@ const _SCENES_MAP: Dictionary = {
 
 var current_scene
 var battle_context: Dictionary = {}
+var battle_number: int = 0 # 1 on the first fight; drives the spawner's enemy-type progression
 var _battle_active: bool = false
 var pending_reward_dialogue: Array[String] = []
 var player_beyblade: Node2D = null
@@ -145,6 +146,13 @@ func take_reward_dialogue() -> Array[String]:
 	pending_reward_dialogue = []
 	return lines
 
+# Difficulty curve: enemies hit harder and soak more each battle. Battle 1 is the baseline (x1).
+func enemy_damage_mult() -> float:
+	return 1.0 + (maxi(battle_number, 1) - 1) * 0.35
+
+func enemy_health_mult() -> float:
+	return 1.0 + (maxi(battle_number, 1) - 1) * 0.25
+
 func push_scene(scene_name: SceneKey) -> void:
 	# tree edits are illegal mid physics callback (mechanic body_entered), so defer
 	call_deferred("_push_scene_now", scene_name)
@@ -180,6 +188,13 @@ func _mount(scene_name: SceneKey) -> Node:
 	if _WORLD_NODE == null or not is_instance_valid(_WORLD_NODE):
 		_refresh_world_node()
 			
+	# count battles before the scene mounts, so the spawner reads the new number in _ready
+	match scene_name:
+		SceneKey.GAMEPLAY:
+			battle_number += 1
+		SceneKey.MENU:
+			battle_number = 0
+
 	var node: Node = load(_SCENES_MAP[scene_name]).instantiate()
 	
 	if _WORLD_NODE != null:

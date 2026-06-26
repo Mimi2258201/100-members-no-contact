@@ -58,7 +58,7 @@ const SPIN_BLUR_SHADER = preload("res://Actual Game Folder/shaders/spin_blur.gds
 @export var min_ram_mult: float = 0.1
 @export var plow_resistance: float = 1.2 # drag force per enemy plowed
 @export var knockback_factor: float = 0.6 # enemy shove = our speed x this
-@export var drink_drop_chance: float = 0.08
+@export var drink_drop_chance: float = 0.0
 
 @export_category("Dash Strike")
 @export var dash_speed: float = 1500.0

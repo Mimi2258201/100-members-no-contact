@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b8h0rd3scene1" path="res://Actual Game Folder/scenes/components/exploration/horde_enemy.tscn" id="6_horde"]
 [ext_resource type="Script" uid="uid://camugoxes6n5f" path="res://Actual Game Folder/scripts/exploration/arena_obstacles.gd" id="7_obst"]
 [ext_resource type="PackedScene" uid="uid://btof5wkmcbaaw" path="res://Actual Game Folder/scenes/components/exploration/horde_boss.tscn" id="8_boss"]
+[ext_resource type="PackedScene" uid="uid://b5p1nbl4d3scn" path="res://Actual Game Folder/scenes/components/exploration/spin_enemy.tscn" id="11_spin"]
 [ext_resource type="Script" uid="uid://b55dupd82fq53" path="res://Actual Game Folder/scripts/exploration/bullet_container.gd" id="9_ft1gc"]
 [ext_resource type="Script" uid="uid://drvfmqwmg5tgy" path="res://Actual Game Folder/scripts/battle/battle_top.gd" id="10_btop"]
 
@@ -65,10 +66,13 @@ tilemap_path = NodePath("../Levels/Level1/TileMapLayer")
 [node name="EnemySpawner" type="Node2D" parent="." unique_id=1382300607]
 script = ExtResource("5_spawn")
 enemy_scene = ExtResource("6_horde")
+enemy_unlock_order = Array[PackedScene]([ExtResource("6_horde"), ExtResource("11_spin")])
 target_path = NodePath("../Player")
-max_enemies = 40
-max_per_tick = 6
-ramp_seconds = 8.0
+spawn_interval = 0.6
+max_enemies = 100
+base_batch = 3
+max_per_tick = 12
+ramp_seconds = 5.0
 boss_scene = ExtResource("8_boss")
 
 [node name="BulletContainer" type="Node2D" parent="." unique_id=1163798686]

@@ -2,6 +2,9 @@ extends Node2D
 
 @export var enemy_scene: PackedScene
 @export var enemy_scenes: Array[PackedScene] = [] # if set, mix randomly; else use enemy_scene
+# Progression: entry N unlocks on battle N, so each new battle adds one more type to the mix.
+# Takes priority over enemy_scenes when set.
+@export var enemy_unlock_order: Array[PackedScene] = []
 @export var target_path: NodePath
 
 @export var spawn_interval: float = 1.0
@@ -26,10 +29,12 @@ var _timer: Timer
 var _stopped: bool = false
 var _boss_spawned: bool = false
 var _kills: int = 0
+var _pool: Array[PackedScene] = []
 
 func _ready() -> void:
 	add_to_group(SPAWNER_GROUP)
 	_target = get_node_or_null(target_path) as Node2D
+	_build_pool()
 
 	_timer = Timer.new()
 	_timer.wait_time = spawn_interval
@@ -79,10 +84,19 @@ func _on_spawn_tick() -> void:
 		enemy.global_position = _offscreen_position(_target.global_position)
 		alive += 1
 
+func _build_pool() -> void:
+	if not enemy_unlock_order.is_empty():
+		var unlocked := clampi(SceneManager.battle_number, 1, enemy_unlock_order.size())
+		_pool = enemy_unlock_order.slice(0, unlocked)
+	elif not enemy_scenes.is_empty():
+		_pool = enemy_scenes
+	elif enemy_scene != null:
+		_pool = [enemy_scene]
+
 func _pick_enemy() -> PackedScene:
-	if not enemy_scenes.is_empty():
-		return enemy_scenes[randi() % enemy_scenes.size()]
-	return enemy_scene
+	if _pool.is_empty():
+		return null
+	return _pool[randi() % _pool.size()]
 
 func _offscreen_position(center: Vector2) -> Vector2:
 	var half := _view_half_extents() + Vector2(spawn_margin, spawn_margin)
