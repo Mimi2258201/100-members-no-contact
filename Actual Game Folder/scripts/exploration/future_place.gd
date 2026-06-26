@@ -9,9 +9,10 @@ extends Node2D
 func _ready() -> void:
 	var signfall = create_tween()
 	area_sign.visible = true
-	green_fields.visible = true
+	green_fields.visible = false
 	dungeon.visible = false
-	space_ship.visible = false
+	space_ship.visible = true
+	
 	signfall.tween_property(area_sign, "position", Vector2(56.667, -86.667), 1.0)
 	await signfall.finished
 	await get_tree().create_timer(4.0).timeout

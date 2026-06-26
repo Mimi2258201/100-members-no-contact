@@ -1,11 +1,13 @@
 [gd_scene format=4 uid="uid://d3ig8f1ef15tv"]
 
 [ext_resource type="Texture2D" uid="uid://bt5i20wnlksjq" path="res://Actual Game Folder/sprites/tilesets/tileset.png" id="1_i7qht"]
+[ext_resource type="Script" uid="uid://d0fk80ggutcq1" path="res://Actual Game Folder/scripts/exploration/future_place.gd" id="1_j2d2k"]
 [ext_resource type="Texture2D" uid="uid://cjca1w2rw504l" path="res://Actual Game Folder/sprites/tilesets/pixel-cyberpunk-interior.png" id="2_1djfm"]
 [ext_resource type="Texture2D" uid="uid://bepswkj6s3ucl" path="res://Actual Game Folder/sprites/tilesets/tileset_complet.png" id="2_u24gp"]
 [ext_resource type="PackedScene" uid="uid://xv8it6luhbrs" path="res://Actual Game Folder/scenes/levels/exploration/door.tscn" id="3_cl05c"]
 [ext_resource type="PackedScene" uid="uid://b1227f3u8ele1" path="res://Actual Game Folder/scenes/components/exploration/player_ex.tscn" id="4_r44ma"]
 [ext_resource type="PackedScene" uid="uid://vieumik3lhr0" path="res://Actual Game Folder/scenes/components/exploration/enemy.tscn" id="6_u24gp"]
+[ext_resource type="AudioStream" uid="uid://khh0tk6f1fle" path="res://Miscellanious Assets Dump/Audio/music/SpaceshipSong.mp3" id="8_lvykk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j2d2k"]
 texture = ExtResource("1_i7qht")
@@ -690,6 +692,7 @@ sources/0 = SubResource("TileSetAtlasSource_j2d2k")
 sources/1 = SubResource("TileSetAtlasSource_lvykk")
 
 [node name="FutureScene" type="Node2D" unique_id=815008077]
+script = ExtResource("1_j2d2k")
 
 [node name="Tiles" type="Node2D" parent="." unique_id=43896113]
 
@@ -729,5 +732,10 @@ dialogue = Array[String](["Muahahaha I'm the final boss", "what was that?", "tha
 reward = "none"
 post_defeat_dialogue = Array[String](["You are too good", "Go ahead, finish the game. And don't ask any more questions >:(	"])
 enemy_id = "gf_bird_final"
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=502567193]
+stream = ExtResource("8_lvykk")
+volume_db = -4.562
+autoplay = true
 
 [editable path="Enemy"]

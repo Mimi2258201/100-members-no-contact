@@ -463,7 +463,6 @@ position = Vector2(-0.333334, 1)
 shape = SubResource("CircleShape2D_tnv23")
 
 [node name="AreaSign" type="TextureRect" parent="CharacterBody2D" unique_id=886307369]
-visible = false
 z_index = 100
 offset_left = 56.667004
 offset_top = -155.757
@@ -471,7 +470,8 @@ offset_right = 153.66705
 offset_bottom = -88.757
 texture = ExtResource("5_1k1vv")
 
-[node name="AreaName" type="Label" parent="CharacterBody2D/AreaSign" unique_id=1651689717]
+[node name="GreenFields" type="Label" parent="CharacterBody2D/AreaSign" unique_id=1651689717]
+visible = false
 layout_mode = 0
 offset_left = 3.333334
 offset_top = 28.666666
@@ -481,6 +481,34 @@ theme_override_colors/font_color = Color(0.36665484, 0.21005744, 0.13558593, 1)
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("6_pkh13")
 text = "Green fields"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Dungeon" type="Label" parent="CharacterBody2D/AreaSign" unique_id=453888436]
+visible = false
+layout_mode = 0
+offset_left = 2.6663322
+offset_top = 36.423668
+offset_right = 94.666336
+offset_bottom = 55.090332
+theme_override_colors/font_color = Color(0.36665484, 0.21005744, 0.13558593, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("6_pkh13")
+text = "Dungeon"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="SpaceShip" type="Label" parent="CharacterBody2D/AreaSign" unique_id=1423791909]
+visible = false
+layout_mode = 0
+offset_left = 2.6663296
+offset_top = 35.756996
+offset_right = 94.66633
+offset_bottom = 54.42366
+theme_override_colors/font_color = Color(0.36665484, 0.21005744, 0.13558593, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("6_pkh13")
+text = "Spaceship"
 horizontal_alignment = 1
 autowrap_mode = 2
 

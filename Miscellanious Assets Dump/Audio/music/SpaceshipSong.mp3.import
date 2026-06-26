@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://khh0tk6f1fle"
+path="res://.godot/imported/SpaceshipSong.mp3-481d7b441bb1626ec8fb197b2579e442.mp3str"
+
+[deps]
+
+source_file="res://Miscellanious Assets Dump/Audio/music/SpaceshipSong.mp3"
+dest_files=["res://.godot/imported/SpaceshipSong.mp3-481d7b441bb1626ec8fb197b2579e442.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4
