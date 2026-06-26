@@ -1,0 +1,19 @@
+"Actual Game Folder/scripts/player.gd"
+  s_832bcc7159e922::t_ef93b5e988edad 61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.3",
+  "base_commit_sha": "e5803bcbb1f5bb20d74bc88d6e84e7b5e63bd7a1",
+  "prompts": {},
+  "sessions": {
+    "s_832bcc7159e922": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b07f5f01-81fc-4850-bb8a-3e1d73a2aed9",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": null
+    }
+  }
+}
