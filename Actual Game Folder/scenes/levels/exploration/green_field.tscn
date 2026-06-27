@@ -1159,7 +1159,7 @@ scale = Vector2(0.51, 0.51)
 [node name="CharacterBody2D" type="CharacterBody2D" parent="SailorFüzesi" unique_id=328575819 groups=["interactable"]]
 scale = Vector2(0.904, 1.708)
 script = ExtResource("15_bqdsr")
-dialogue = Array[String](["Hiya! I'm Sailor Füzesi! ^^", "I added the bokeh (colorful balls floating) to the game :3", "Cool isn't it? :d"])
+dialogue = Array[String](["Hiya! I'm Sailor Fuzesi! ^^", "I added the bokeh (colorful balls floating) to the game :3", "Cool isn't it? :d"])
 is_bad = false
 enemy_name = "Sailor Füzesi"
 voice_pitch = 0.65
