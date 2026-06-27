@@ -47,6 +47,11 @@ func stop() -> void:
 	if _timer:
 		_timer.stop()
 
+func restart() -> void:
+	_stopped = false
+	if _timer:
+		_timer.start()
+
 func _process(delta: float) -> void:
 	_elapsed += delta
 
@@ -65,6 +70,12 @@ func _spawn_boss() -> void:
 	boss.add_to_group(SPAWNED_GROUP)
 	add_child(boss)
 	boss.global_position = _offscreen_position(_target.global_position)
+
+#toggle boss to not spawned, double the number of kills to respawn it
+func _endless_boss_reset() -> void:
+	boss_kill_threshold += boss_kill_threshold
+	restart()
+	_boss_spawned = false
 
 func _on_spawn_tick() -> void:
 	if _target == null:

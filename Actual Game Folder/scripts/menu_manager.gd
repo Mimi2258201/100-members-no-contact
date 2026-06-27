@@ -42,7 +42,7 @@ func start():
 func endless():
 	AudioManager.play_sfx(button_click_stream,Vector2.ZERO)
 	AudioManager.fade_out_music()
-	SceneManager.change_screen(SceneManager.SceneKey.GAMEPLAY) # NO ENDLESS MODE EXISTS YET
+	SceneManager.change_screen(SceneManager.SceneKey.ENDLESS)
 
 func exit():
 	var sPlayer = AudioManager.get_sfx_player(button_click_stream,Vector2.ZERO)
