@@ -123,6 +123,15 @@ var _boss_bar: ProgressBar
 var _gameover_label: Label
 var _victory_label: Label
 
+signal endless_boss
+@export var _endless_mode: bool = false
+
+#checks to see if we're in endless mode by means of parent node's name containing the word "Endless"
+func _endless_check() -> void:
+	var mode_check = str(get_parent())
+	if "Endless" in mode_check:
+		_endless_mode = true
+
 func _ready() -> void:
 	# this is necessary for _on_body_entered, 1 is technically enough for just the player but with multiple bayblades we might need to increase this value.
 	max_contacts_reported = 5
@@ -136,6 +145,8 @@ func _ready() -> void:
 	_setup_spin_blur()
 	_setup_hud()
 	_play_spawn_intro()
+	#check to see if we're in endless mode.
+	_endless_check()
 
 func _play_spawn_intro() -> void:
 	_launching = true
@@ -406,7 +417,13 @@ func _on_enemy_killed(enemy: Node) -> void:
 	if enemy is HordeEnemy:
 		spin_reward = enemy.spin_reward
 	spin_velocity = clampf(spin_velocity + spin_reward, spin_floor, spin_cap)
+	
 	if enemy is HordeBoss:
+		#if in endless mode, increase the boss spawner kill counter.
+		if _endless_mode == true:
+			endless_boss.emit()
+			return
+		#if not in endless mode, win.	
 		_win()
 		return
 	for s in get_tree().get_nodes_in_group("enemy_spawner"):

@@ -18,6 +18,7 @@ enum SceneKey {
 	#--- Gameplay
 	GAMEPLAY,
 	SEAGULL_BATTLE,
+	ENDLESS,
 	
 	# --- More
 	IDK
@@ -29,6 +30,7 @@ const _SCENES_MAP: Dictionary = {
 	SceneKey.FUTURE_PLACE: "res://Actual Game Folder/scenes/levels/exploration/future_place.tscn",
 	SceneKey.DUNGEON: "res://Actual Game Folder/scenes/levels/exploration/dungeon.tscn",
 	SceneKey.GAMEPLAY: "res://Actual Game Folder/scenes/gameplay.tscn",
+	SceneKey.ENDLESS: "res://Actual Game Folder/scenes/endless.tscn",
 	SceneKey.SEAGULL_BATTLE: "res://Actual Game Folder/scenes/battles/seagull_battle.tscn",
 	SceneKey.GARAGE: "res://Actual Game Folder/scenes/levels/exploration/garage.tscn",
 }

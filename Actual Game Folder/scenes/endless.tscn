@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://ddao2rk41eokw"]
+
+[ext_resource type="PackedScene" uid="uid://e1d03bbv2uh" path="res://Actual Game Folder/scenes/components/player.tscn" id="1_8kysh"]
+[ext_resource type="Script" uid="uid://drvfmqwmg5tgy" path="res://Actual Game Folder/scripts/battle/battle_top.gd" id="2_5dji5"]
+[ext_resource type="PackedScene" uid="uid://bgn7en0ell003" path="res://Actual Game Folder/scenes/levels/endless_level.tscn" id="3_8kysh"]
+[ext_resource type="PackedScene" uid="uid://bffbri46urpf1" path="res://Actual Game Folder/scenes/components/wings_energy_drink.tscn" id="4_arl7v"]
+[ext_resource type="Script" uid="uid://pbx5c2p7gv2v" path="res://Actual Game Folder/scripts/follow_cam.gd" id="5_6m1e5"]
+[ext_resource type="Script" uid="uid://vust36y4oh0x" path="res://Actual Game Folder/scripts/button/end_battle.gd" id="6_l5i64"]
+[ext_resource type="Script" uid="uid://camugoxes6n5f" path="res://Actual Game Folder/scripts/exploration/arena_obstacles.gd" id="7_dkg3t"]
+[ext_resource type="Script" uid="uid://tocbl38lyft2" path="res://Actual Game Folder/scripts/exploration/enemy_spawner.gd" id="8_r6a50"]
+[ext_resource type="PackedScene" uid="uid://b8h0rd3scene1" path="res://Actual Game Folder/scenes/components/exploration/horde_enemy.tscn" id="9_domhb"]
+[ext_resource type="PackedScene" uid="uid://b5p1nbl4d3scn" path="res://Actual Game Folder/scenes/components/exploration/spin_enemy.tscn" id="10_j40ho"]
+[ext_resource type="PackedScene" uid="uid://btof5wkmcbaaw" path="res://Actual Game Folder/scenes/components/exploration/horde_boss.tscn" id="11_3ow0m"]
+[ext_resource type="Script" uid="uid://b55dupd82fq53" path="res://Actual Game Folder/scripts/exploration/bullet_container.gd" id="12_fvcfa"]
+
+[node name="Endless" type="Node2D" unique_id=1772695783]
+
+[node name="Player" parent="." unique_id=1247971636 instance=ExtResource("1_8kysh")]
+script = ExtResource("2_5dji5")
+follow_deadzone = 14.0
+follow_ramp = 130.0
+mouse_button_dash = true
+precession_amount = 0.3
+coin_value = 1
+
+[node name="Levels" type="Node" parent="." unique_id=2009388232]
+
+[node name="Endless_Level" parent="Levels" unique_id=1140587966 instance=ExtResource("3_8kysh")]
+
+[node name="Node2D" parent="Levels" unique_id=522778152 instance=ExtResource("4_arl7v")]
+position = Vector2(-431, -31)
+heal_amount = 20
+
+[node name="Node2D2" parent="Levels" unique_id=769508030 instance=ExtResource("4_arl7v")]
+position = Vector2(-280, 91)
+heal_amount = 20
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=742781010 node_paths=PackedStringArray("target")]
+zoom = Vector2(1.6, 1.6)
+limit_left = -736
+limit_top = -416
+limit_right = 736
+limit_bottom = 416
+script = ExtResource("5_6m1e5")
+target = NodePath("../Player")
+follow_magnitude = 4.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1085625203]
+
+[node name="EndBattle" type="Button" parent="CanvasLayer" unique_id=234451463]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -148.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 47.0
+grow_horizontal = 0
+text = "End Battle"
+script = ExtResource("6_l5i64")
+
+[node name="ArenaObstacles" type="Node" parent="." unique_id=1478708990]
+script = ExtResource("7_dkg3t")
+tilemap_path = NodePath("../Levels/Endless_Level/TileMapLayer")
+
+[node name="EnemySpawner" type="Node2D" parent="." unique_id=1382300607]
+script = ExtResource("8_r6a50")
+enemy_scene = ExtResource("9_domhb")
+enemy_unlock_order = Array[PackedScene]([ExtResource("9_domhb"), ExtResource("10_j40ho")])
+target_path = NodePath("../Player")
+spawn_interval = 0.6
+max_enemies = 100
+base_batch = 3
+ramp_seconds = 5.0
+boss_scene = ExtResource("11_3ow0m")
+
+[node name="BulletContainer" type="Node2D" parent="." unique_id=1163798686]
+script = ExtResource("12_fvcfa")
+
+[connection signal="endless_boss" from="Player" to="EnemySpawner" method="_endless_boss_reset"]
