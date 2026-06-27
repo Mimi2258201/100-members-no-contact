@@ -2,8 +2,13 @@
 
 [ext_resource type="Texture2D" uid="uid://cnwwgap1vcp2k" path="res://Actual Game Folder/scenes/battle_arena_natural/angry_seagull.png" id="1_f185h"]
 [ext_resource type="Script" uid="uid://qn1mqysjj5q8" path="res://Actual Game Folder/scenes/battle_arena_natural/angry_seagull.gd" id="2_q0s7a"]
+[ext_resource type="AudioStream" uid="uid://d2dep8y2ct3kn" path="res://Actual Game Folder/scenes/battle_arena_natural/seagull.wav" id="3_f36av"]
 
 [node name="AngrySeagull" type="Sprite2D" unique_id=534347574]
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_f185h")
 script = ExtResource("2_q0s7a")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=755813360]
+stream = ExtResource("3_f36av")
+autoplay = true
